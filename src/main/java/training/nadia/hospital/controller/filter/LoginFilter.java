@@ -1,6 +1,9 @@
 package training.nadia.hospital.controller.filter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginFilter implements Filter {
@@ -15,7 +18,7 @@ public class LoginFilter implements Filter {
 
         String activeParameter = filterConfig.getInitParameter("active");
 
-        if(activeParameter != null){
+        if (activeParameter != null) {
             active = activeParameter.toUpperCase().equals("TRUE");
         }
     }
@@ -23,11 +26,20 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        if(active){
-            //код
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
+
+        HttpSession session = req.getSession(false);
+
+        if (active) {
+
+            if (session == null || session.getAttribute("user") == null) {
+                res.sendRedirect("/login");
+                return;
+            }
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(req, servletResponse);
 
     }
 

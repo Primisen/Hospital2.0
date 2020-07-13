@@ -1,11 +1,8 @@
 package training.nadia.hospital.controller;
 
-import training.nadia.hospital.entity.Doctor;
-import training.nadia.hospital.entity.MedicalStaff;
-import training.nadia.hospital.entity.Nurse;
-import training.nadia.hospital.entity.Role;
-import training.nadia.hospital.entity.User;
-import training.nadia.hospital.service.impl.UserServiceImpl;
+import training.nadia.hospital.entity.*;
+import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,36 +21,45 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+
+        AuthorizationServiceImpl authorizationService = new AuthorizationServiceImpl();
+
         User user = new User();
-        user.setLogin(request.getParameter("login"));
-        user.setPassword(request.getParameter("password"));
 
-        UserServiceImpl userService = new UserServiceImpl();
-        userService.login(user);
-
-        session.setAttribute("user", user);
-
-        if (user.getRoleId() == Role.PATIENT.getId()) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/patient");
-            dispatcher.forward(request, response);
-
-        } else if (user.getRoleId() == Role.MEDICAL_STAFF.getId()) {
-
-            MedicalStaff medicalStaff = userService.getStaff(user);
-
-            if (medicalStaff instanceof Doctor) {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/doctor");
-                dispatcher.forward(request, response);
-
-            } else if (medicalStaff instanceof Nurse) {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/nurse");
-                dispatcher.forward(request, response);
-            }
-
-        } else if (user.getRoleId() == Role.ADMINISTRATOR.getId()) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/administrator");
-            dispatcher.forward(request, response);
+        try {
+            user = authorizationService.getUser(login, password);
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
 
+        if (user instanceof Patient) {
+            Patient patient = (Patient) user;
+            session.setAttribute("user", patient); // user + id
+            response.sendRedirect("/patient");
+
+        } else if (user instanceof Doctor) {
+            Doctor doctor = (Doctor) user;
+            session.setAttribute("user", doctor);
+            response.sendRedirect("/doctor");
+
+        } else if (user instanceof Nurse) {
+            Nurse nurse = (Nurse) user;
+            session.setAttribute("user", nurse);
+            response.sendRedirect("/nurse");
+
+        } else if (user instanceof Administrator) {
+            Administrator administrator = (Administrator) user;
+            session.setAttribute("user", administrator);
+            response.sendRedirect("/administrator");
+        }
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

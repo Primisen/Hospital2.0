@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: primi
@@ -13,14 +14,24 @@
 </head>
 <body>
 
-<div>
-    <form action="registration.jsp">
-        <input type="submit" value="registrations"/>
-    </form>
+<%@ include file="/page/header.jsp"%>
 
-    <form action="login.jsp">
-        <input type="submit" value="login"/>
-    </form>
-</div>
+<%--<c:if test="${sessionScope.user == null}">--%>
+<%--    <form action="registration">--%>
+<%--        <input type="submit" value="Регистрация"/>--%>
+<%--    </form>--%>
+
+<%--    <form action="login">--%>
+<%--        <input type="submit" value="Войти"/>--%>
+<%--    </form>--%>
+<%--</c:if>--%>
+
+<%--<c:if test="${sessionScope.user != null}">--%>
+
+<%--    <form action="/" method="post">--%>
+<%--        <input type="submit" value="Выйти">--%>
+<%--    </form>--%>
+
+<%--</c:if>--%>
 </body>
 </html>

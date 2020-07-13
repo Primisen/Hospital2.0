@@ -1,24 +1,17 @@
 package training.nadia.hospital.dao;
 
-import training.nadia.hospital.entity.MedicalStaff;
+
+import training.nadia.hospital.dao.exception.DaoException;
+import training.nadia.hospital.entity.Doctor;
+import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.User;
 
-import java.sql.SQLException;
-
 public interface UserDao {
 
+    User getUser(String login, String password) throws DaoException;
 
-    User findByLogin(String login) throws SQLException;
-
-    Boolean save(User user);
-
-    boolean userIsExist(String login);
-
-    boolean passwordIsValidate(String login, String password);
-
-    void getAllInfo(User user);
-
-    MedicalStaff identifyTypeOfMedicalStaffByUserId(User user);
-
+    void setAllData(Patient patient) throws DaoException;
+    void setAllData(Doctor doctor) throws DaoException;
+    void setAllData(Nurse nurse) throws DaoException;
 }

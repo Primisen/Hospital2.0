@@ -1,11 +1,11 @@
 package training.nadia.hospital.service.impl;
 
+import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.impl.DoctorDaoImpl;
 import training.nadia.hospital.entity.Doctor;
-import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.DoctorService;
+import training.nadia.hospital.service.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorServiceImpl implements DoctorService {
@@ -13,18 +13,22 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorDaoImpl doctorDao = new DoctorDaoImpl();
 
     @Override
-    public List<Patient> getPatients(Doctor doctor) {
-        return doctorDao.getPatientsWithAppointments(doctor);
-    }
+    public List<Doctor> getAllDoctors() throws ServiceException {//?
 
-    @Override
-    public List<Doctor> getAllDoctors() {//?
+        List<Doctor> doctors;
 
-        List<Doctor> doctors = doctorDao.getAllDoctors();
-
-        if (doctors != null) {
-            return doctors;
+        try {
+            doctors = doctorDao.getAllDoctors();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
         }
-        return doctors = new ArrayList<>();//?
+
+//        if (doctors != null) {
+//            return doctors;
+//        }
+//        return new ArrayList<>();//?
+
+        return doctors;
     }
+
 }

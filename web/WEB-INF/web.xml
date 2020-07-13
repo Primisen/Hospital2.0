@@ -4,10 +4,15 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!--    <servlet>-->
-    <!--        <servlet-name>loginServlet</servlet-name>-->
-    <!--        <servlet-class>training.nadia.hospital.controller.LoginServlet</servlet-class>-->
-    <!--    </servlet>-->
+    <servlet>
+        <servlet-name>PatientAcceptanceServlet</servlet-name>
+        <servlet-class>training.nadia.hospital.controller.doctor.PatientAcceptanceServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PatientAcceptanceServlet</servlet-name>
+        <url-pattern>/patient-acceptance/*</url-pattern>
+    </servlet-mapping>
 
     <!--    <servlet-mapping>-->
     <!--        <servlet-name>mainServlet</servlet-name>-->
@@ -15,18 +20,19 @@
     <!--    </servlet-mapping>-->
 
 
-    <filter>
-        <filter-name>LoginFilter</filter-name>
-        <filter-class>training.nadia.hospital.controller.filter.LoginFilter</filter-class>
-        <init-param>
-            <param-name>active</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
+    <!--    <filter>-->
+    <!--        <filter-name>LoginFilter</filter-name>-->
+    <!--        <filter-class>training.nadia.hospital.controller.filter.LoginFilter</filter-class>-->
+    <!--        <init-param>-->
+    <!--            <param-name>active</param-name>-->
+    <!--            <param-value>true</param-value>-->
+    <!--        </init-param>-->
+    <!--    </filter>-->
 
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/login</url-pattern>
-    </filter-mapping>
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>LoginFilter</filter-name>-->
+    <!--        <url-pattern>/login</url-pattern>-->
+    <!--    </filter-mapping>-->
+
 
 </web-app>

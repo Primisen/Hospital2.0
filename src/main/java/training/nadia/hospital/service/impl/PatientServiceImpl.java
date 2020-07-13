@@ -1,25 +1,20 @@
 package training.nadia.hospital.service.impl;
 
+import training.nadia.hospital.dao.PatientDao;
+import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.impl.PatientDaoImpl;
-import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.PatientService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PatientServiceImpl implements PatientService {
 
-    private PatientDaoImpl patientDao = new PatientDaoImpl();
-
     @Override
-    public List<Patient> getAllPatients() {//?
+    public void goToTheDoctor(long patientId, long doctorId) {
 
-        List<Patient> patients = patientDao.getAllPatients();
-
-        if (patients != null) {
-            return patients;
+        PatientDaoImpl patientDao = new PatientDaoImpl();
+        try {
+            patientDao.setReceivingDoctor(patientId, doctorId);
+        } catch (DaoException e) {
+            e.printStackTrace();
         }
-
-        return patients = new ArrayList<>();//?
     }
 }

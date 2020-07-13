@@ -8,7 +8,7 @@ public enum TreatmentType {
 
     private int id;
 
-    private TreatmentType(int id) {
+    TreatmentType(int id) {
 
         this.id = id;
     }
@@ -16,4 +16,6 @@ public enum TreatmentType {
     public int getId() {
         return id;
     }
+
+
 }

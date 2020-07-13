@@ -18,6 +18,10 @@ public class DataForConnectToDatabase {
         readProperties();
     }
 
+    public String getDriver(){
+        return properties.getProperty("driver");
+    }
+
     public String getUrl() {
         return properties.getProperty("url");
     }

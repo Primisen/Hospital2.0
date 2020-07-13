@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicConnectionPool implements ConnectionPool {
+class BasicConnectionPool implements ConnectionPool { //синглтон, сделать статическим, ограничить видимость(только по пакету)
 
     private String url;
     private String user;
@@ -33,7 +33,7 @@ public class BasicConnectionPool implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() {
+    public Connection getConnection() {//проверка на колво, а то выпаду в -1
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
         return connection;

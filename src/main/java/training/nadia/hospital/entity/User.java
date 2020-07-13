@@ -1,21 +1,23 @@
 package training.nadia.hospital.entity;
 
+import java.util.Objects;
+
 public class User {
 
-    private int id;
+    private long id;
     private String login;
     private String password;
-    private int roleId;
+    private int roleId; //подумать, на сколько это поле необходимо для объекта. возможно, без него можно обойтись
     private String name;
     private String surname;
 
     public User(){}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,6 +59,24 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        User user = (User) object;
+        return id == user.id &&
+                roleId == user.roleId &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, roleId, name, surname);
     }
 
     @Override
