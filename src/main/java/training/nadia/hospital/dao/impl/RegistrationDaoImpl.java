@@ -24,10 +24,14 @@ public class RegistrationDaoImpl implements RegistrationDao {
         addDataToUserTable(user);
 
         try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_PATIENT_TABLE)) {
+             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_PATIENT_TABLE, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setLong(1, user.getId());
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                user.setId(rs.getLong(1));
+            }
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
@@ -41,12 +45,17 @@ public class RegistrationDaoImpl implements RegistrationDao {
         addDataToUserTable(user);
 
         try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_STAFF_TABLE)) {
+             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_STAFF_TABLE, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setLong(1, user.getId());
             ps.setInt(2, medicalStaff.getStaffType().getId());
 
             ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                ((User) medicalStaff).setId(rs.getLong(1));
+            }
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());

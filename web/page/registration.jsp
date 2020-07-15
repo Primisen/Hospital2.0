@@ -16,6 +16,9 @@
 
 <div>
 
+    <c:set scope="request" value="${doctorTypeId}" var="doctorTypeId"></c:set>
+    <c:set scope="request" value="${nurseTypeId}" var="nurseTypeId"></c:set>
+
     <form action="registration" method="post">
 
         <input type="text" required name="name" placeholder="Имя"/>
@@ -24,14 +27,8 @@
         <input type="password" required name="password" placeholder="Пароль"/>
         <input type="password" required name="passwordConfirmation" placeholder="Подтвердите пароль"/>
 
-        <c:set scope="request" value="staffTypeDoctor" var="doctor"></c:set>
-        <c:set scope="request" value="staffTypeNurse" var="nurse"></c:set>
-
-        <input type="checkbox" requred name="typeDoctor" value="${doctor}">I'm a doctor</input>
-
-        <br>
-
-        <input type="checkbox" requred name="typeNurse" value="${nurse}">I'm a nurse</input>
+        <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}">Я являюсь доктором</input>
+        <input type="checkbox" requred name="doctorTypeId" value="${nurseTypeId}">Я являюсь медсестрой </input>
 
         <input type="submit" value="Зарегестрироваться"/>
     </form>

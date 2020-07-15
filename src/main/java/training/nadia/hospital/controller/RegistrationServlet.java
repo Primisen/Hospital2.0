@@ -1,5 +1,6 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.RegistrationServiceImpl;
@@ -10,81 +11,77 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
+    private Logger logger = Logger.getRootLogger();
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        request.setAttribute("staffTypeDoctor", StaffType.DOCTOR.getId());
-        request.setAttribute("staffTypeNurse", StaffType.NURSE.getId());
+        RegistrationServiceImpl registrationService = new RegistrationServiceImpl();
 
-        User user;
-
-//        user.setName(request.getParameter("name"));
-//        user.setSurname(request.getParameter("surname"));
-//        user.setLogin(request.getParameter("login"));
-//        user.setPassword(request.getParameter("password"));
         try {
 
+            if (request.getParameter("doctorTypeId") != null) {
+                Doctor doctor = new Doctor();
+                setUserData(doctor, request);
 
-            if (request.getParameter("typeDoctor") != null &&
-                    !request.getParameter("typeDoctor").equals("") && Integer.parseInt(request.getParameter("typeDoctor")) == StaffType.DOCTOR.getId()) {
+                registrationService.register(doctor);
 
-                user = new Doctor();
+                session.setAttribute("user", doctor);
+                response.sendRedirect("/doctor");
 
-                user.setName(request.getParameter("name"));
-                user.setSurname(request.getParameter("surname"));
-                user.setLogin(request.getParameter("login"));
-                user.setPassword(request.getParameter("password"));
+            } else if (request.getParameter("nurseTypeId") != null) {
+                Nurse nurse = new Nurse();
+                setUserData(nurse, request);
 
-                user.setRoleId(Role.MEDICAL_STAFF.getId());
+                registrationService.register(nurse);
 
-            } else if (request.getParameter("typeNurse") != null &&
-                    !request.getParameter("typeNurse").equals("") && Integer.parseInt(request.getParameter("typeNurse")) == StaffType.NURSE.getId()) {
+                session.setAttribute("user", nurse);
+                response.sendRedirect("/nurse");
 
-                user = new Nurse();
-
-                user.setName(request.getParameter("name"));
-                user.setSurname(request.getParameter("surname"));
-                user.setLogin(request.getParameter("login"));
-                user.setPassword(request.getParameter("password"));
-
-                user.setRoleId(Role.MEDICAL_STAFF.getId());
             } else {
+                Patient patient = new Patient();
+                setUserData(patient, request);
 
-                user = new Patient();
+                registrationService.register(patient);
 
-                user.setName(request.getParameter("name"));
-                user.setSurname(request.getParameter("surname"));
-                user.setLogin(request.getParameter("login"));
-                user.setPassword(request.getParameter("password"));
-
-                user.setRoleId(Role.PATIENT.getId());
-
-                RegistrationServiceImpl registrationService = new RegistrationServiceImpl();
-                registrationService.register(user);
-
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/patient");
-                requestDispatcher.forward(request, response);
-
+                session.setAttribute("user", patient);
+                response.sendRedirect("/patient");
             }
 
 
         } catch (ServiceException e) {
-            e.printStackTrace();//!
+            //надо что-то для пользователя
+            logger.error(e.getMessage());
         }
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setAttribute("doctorTypeId", StaffType.DOCTOR.getId());
+        request.setAttribute("nurseTypeId", StaffType.NURSE.getId());
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/registration.jsp");
         requestDispatcher.forward(request, response);
     }
+
+    private void setUserData(User user, HttpServletRequest request) {
+
+        user.setName(request.getParameter("name"));
+        user.setSurname(request.getParameter("surname"));
+        user.setLogin(request.getParameter("login"));
+        user.setPassword(request.getParameter("password"));
+    }
+
 }
