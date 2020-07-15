@@ -15,13 +15,13 @@ public class NurseServiceImpl implements NurseService {
     public void performTheProcedure(Nurse nurse, long patientId) {
 
         Set<Patient> patients = new HashSet<>();
-        patients = nurse.getPatientProcedure().keySet();
+        patients = nurse.getPatientTherapies().keySet();
 
         Patient patient = findPatientById(patients, patientId);
 
         TreatmentDaoImpl treatmentDao = new TreatmentDaoImpl();
         try {
-            treatmentDao.updateNumberOfCompletedProcedure(patientId, nurse.getPatientProcedure().get(patient));
+            treatmentDao.updateNumberOfCompletedProcedure(patientId, nurse.getPatientTherapies().get(patient));
         } catch (DaoException e) {
             e.printStackTrace();
         }

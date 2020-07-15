@@ -4,16 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <servlet>
-        <servlet-name>PatientAcceptanceServlet</servlet-name>
-        <servlet-class>training.nadia.hospital.controller.doctor.PatientAcceptanceServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>PatientAcceptanceServlet</servlet-name>
-        <url-pattern>/patient-acceptance/*</url-pattern>
-    </servlet-mapping>
-
     <!--    <servlet-mapping>-->
     <!--        <servlet-name>mainServlet</servlet-name>-->
     <!--        <url-pattern>/</url-pattern>-->

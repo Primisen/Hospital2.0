@@ -16,9 +16,28 @@
 
 <c:forEach items="${patients}" var="patient">
 
-<%--    <form action="patient-reception" method="post">--%>
-        <input type="submit" name="rrr" value="${patient.surname} ${patient.name}">
-<%--    </form>--%>
+    <c:out value="${patient.surname} ${patient.name}"></c:out>
+
+    <p>Тип лечения</p>
+    <c:out value="${patient.treatment.type}"></c:out>
+
+    <p>Выполнено</p>
+    <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}" var="numberOfCompletedTherapies"></c:set>
+    <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"></c:set>
+
+    <c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"></c:out>
+
+    <c:set scope="request" value="${patient.treatment.active}" var="active"></c:set>
+
+    </br>
+
+    <c:if test="${numberOfCompletedTherapies == numberOfTherapies && active}">
+
+        <form action="treatment" method="post">
+            <input type="submit" value="Выписать" name="patientDischarge">
+        </form>
+
+    </c:if>
 
 </c:forEach>
 </body>

@@ -2,7 +2,6 @@ package training.nadia.hospital.controller;
 
 import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.exception.ServiceException;
-import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
 import training.nadia.hospital.service.impl.RegistrationServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -16,12 +15,10 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+//        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         request.setAttribute("staffTypeDoctor", StaffType.DOCTOR.getId());
@@ -71,7 +68,7 @@ public class RegistrationServlet extends HttpServlet {
                 user.setRoleId(Role.PATIENT.getId());
 
                 RegistrationServiceImpl registrationService = new RegistrationServiceImpl();
-                registrationService.registration(user);
+                registrationService.register(user);
 
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("/patient");
                 requestDispatcher.forward(request, response);

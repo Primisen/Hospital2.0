@@ -1,6 +1,7 @@
 package training.nadia.hospital.controller.doctor;
 
 import training.nadia.hospital.entity.Doctor;
+import training.nadia.hospital.entity.TreatmentType;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,8 @@ public class ReceptionServlet extends HttpServlet {
 
         Doctor doctor = (Doctor) request.getSession().getAttribute("user");
         request.setAttribute("patients", doctor.getPatientsToReceive());
+
+//        request.setAttribute("treatmentType", );
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/doctor/patientReception.jsp");
         requestDispatcher.forward(request, response);

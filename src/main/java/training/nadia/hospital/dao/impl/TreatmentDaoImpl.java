@@ -17,7 +17,7 @@ public class TreatmentDaoImpl implements TreatmentDao {
             "join treatment on patient.id=treatment.patient_id " +
             "join treatment_type on treatment.treatment_type_id=treatment_type.id " +
             "where patient.user_id=?";
-    private static final String UPDATE_NUMBER_OF_COMPLETED_PROCEDURE = "update treatment set number_of_completed_procedure=? where patient_id=?";
+    private static final String UPDATE_NUMBER_OF_COMPLETED_PROCEDURE = "update treatment set number_of_completed_therapies=? where patient_id=?";
 
     @Override
     public Treatment getPatientTreatment(long patientId) throws DaoException {

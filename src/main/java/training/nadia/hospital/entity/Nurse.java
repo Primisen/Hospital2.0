@@ -9,10 +9,10 @@ public class Nurse extends User implements MedicalStaff {
 
 //    private List<Patient> patients;
 
-    private Map<Patient, Integer> patientProcedure;
+    private Map<Patient, Integer> patientTherapies;
 
     public Nurse() {
-        patientProcedure = new HashMap<>();
+        patientTherapies = new HashMap<>();
     }
 
     @Override
@@ -28,15 +28,15 @@ public class Nurse extends User implements MedicalStaff {
 //        this.patients = patients;
 //    }
 
-    public Map<Patient, Integer> getPatientProcedure() {
-        return patientProcedure;
+    public Map<Patient, Integer> getPatientTherapies() {
+        return patientTherapies;
     }
 
-    public void setPatientProcedure(Map<Patient, Integer> patientProcedure) {
-        this.patientProcedure = patientProcedure;
+    public void setPatientTherapies(Map<Patient, Integer> patientProcedure) {
+        this.patientTherapies = patientProcedure;
     }
 
-    public void setPatientProcedure(Patient patient, Integer numberOfProcedure) {
-        patientProcedure.put(patient, numberOfProcedure);
+    public void setPatientTherapies(Patient patient, Integer numberOfTherapies) {
+        patientTherapies.put(patient, numberOfTherapies);
     }
 }

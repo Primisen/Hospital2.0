@@ -3,27 +3,60 @@ package training.nadia.hospital.dao.impl;
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.RegistrationDao;
 import training.nadia.hospital.entity.MedicalStaff;
+import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Role;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.util.connection_pool.Connector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class RegistrationDaoImpl implements RegistrationDao {
 
-    private static final String INSERT_USER = "insert into user (login, password, role_id, name, surname)" +
+    private static final String INSERT_INTO_USER_TABLE = "insert into user (login, password, role_id, name, surname)" +
             " values (?, ?, ?, ?, ?)";
 
-    private static final String INSERT_STAFF = "insert into staff (user_id, staff_type_id) values (?, ?)";
-    private static final String INSERT_PATIENT = "insert into patient (user_id) value (?)";
+    private static final String INSERT_INTO_STAFF_TABLE = "insert into staff (user_id, staff_type_id) values (?, ?)";
+    private static final String INSERT_INTO_PATIENT_TABLE = "insert into patient (user_id) value (?)";
 
     @Override
-    public void addUser(User user) throws DaoException {
+    public void add(Patient user) throws DaoException {
+
+        addDataToUserTable(user);
 
         try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_USER)) {
+             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_PATIENT_TABLE)) {
+
+            ps.setLong(1, user.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void add(MedicalStaff medicalStaff) throws DaoException {
+
+        User user = (User) medicalStaff;
+        addDataToUserTable(user);
+
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_STAFF_TABLE)) {
+
+            ps.setLong(1, user.getId());
+            ps.setInt(2, medicalStaff.getStaffType().getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
+
+    private void addDataToUserTable(User user) throws DaoException {
+
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(INSERT_INTO_USER_TABLE, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
@@ -33,46 +66,19 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
             ps.executeUpdate();
 
-            if (user.getId() == Role.PATIENT.getId()) {
-                addUserToPatientTable(user.getId());
-
-            } else if (user.getId() == Role.MEDICAL_STAFF.getId()) {
-                addUserToStaffTable(user);
-            }
+            setUserId(user, ps);
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
         }
     }
 
-    private void addUserToPatientTable(long userId) throws DaoException {
+    private void setUserId(User user, PreparedStatement ps) throws SQLException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_PATIENT)) {
-
-            ps.setLong(1, userId);
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            user.setId(rs.getLong(1));
         }
     }
 
-    private void addUserToStaffTable(User user) throws DaoException{
-
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_STAFF)) {
-
-            ps.setLong(1, user.getId());
-
-            MedicalStaff medicalStaff = (MedicalStaff) user; //??
-            ps.setInt(2, medicalStaff.getStaffType().getId());
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
-    }
 }

@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
             "select staff.id, user.name, user.surname from staff join user on user.id = staff.user_id where login=?";
 
     private static final String SELECT_DATA_ABOUT_PATIENTS_TO_CURE =
-            "select user.name, user.surname, treatment.diagnosis, treatment.treatment_type_id, treatment.active, treatment.treatment_is_done " +
+            "select user.name, user.surname, treatment.diagnosis, treatment.treatment_type_id, treatment.number_of_therapies, treatment.number_of_completed_therapies, treatment.active, treatment.treatment_is_done " +
                     "from treatment " +
                     "join patient on patient.id = treatment.patient_id " +
                     "join user on user.id=patient.user_id " +
@@ -62,8 +62,8 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
     private static final String SELECT_ID_OF_PATIENT_BY_LOGIN = "select patient.id from patient join user on user.id=patient.user_id where user.login=?";
     private static final String SELECT_ID_OF_MEDICAL_STAFF_BY_LOGIN = "select staff.id from staff join user on user.id=staff.user_id where user.login=?";
 
-    private static final String SELECT_PROCEDURES_THAT_THE_NURSE_SHOULD_PERFORM =
-            "select user.name, user.surname, treatment.number_of_procedures, treatment.number_of_completed_procedures " +
+    private static final String SELECT_THERAPIES_THAT_THE_NURSE_SHOULD_PERFORM =
+            "select user.name, user.surname, treatment.number_of_therapies, treatment.number_of_completed_therapies " +
                     "from staff " +
                     "join treatment on staff.id=treatment.nurse_id " +
                     "join patient on patient.id=treatment.patient_id " +
@@ -152,25 +152,10 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
     @Override
     public void setAllData(Doctor doctor) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_ID_NAME_SURNAME_OF_DOCTOR)) {
+        setUserData(doctor);
 
-            ps.setString(1, doctor.getLogin());
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                doctor.setId(rs.getLong("id"));
-                doctor.setName(rs.getString("name"));
-                doctor.setSurname(rs.getString("surname"));
-            }
-
-            doctor.setPatientsToReceive(getReceivingPatient(doctor));
-            doctor.setPatientsToCure(getPatientsToCure(doctor));
-
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
+        doctor.setPatientsToReceive(getReceivingPatient(doctor));
+        doctor.setPatientsToCure(getPatientsToCure(doctor));
     }
 
     @Override
@@ -179,7 +164,7 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
         setUserData(nurse);
 
         try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_PROCEDURES_THAT_THE_NURSE_SHOULD_PERFORM)) {
+             PreparedStatement ps = connection.prepareStatement(SELECT_THERAPIES_THAT_THE_NURSE_SHOULD_PERFORM)) {
 
             ps.setLong(1, nurse.getId());
             ResultSet rs = ps.executeQuery();
@@ -190,9 +175,9 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
 
-                int numberOfProcedure = rs.getInt("number_of_procedures") - rs.getInt("number_of_complete_procedures");
+                int numberOfTherapies = rs.getInt("number_of_therapies") - rs.getInt("number_of_completed_therapies");
 
-                nurse.setPatientProcedure(patient, numberOfProcedure);
+                nurse.setPatientTherapies(patient, numberOfTherapies);
             }
 
         } catch (SQLException e) {
@@ -252,6 +237,7 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
                 Patient patient = new Patient();
                 patient.setName(resultSet.getString("name"));
                 patient.setSurname(resultSet.getString("surname"));
+
                 patient.setDiagnosis(resultSet.getString("diagnosis"));
 
                 int treatmentTypeId = resultSet.getInt("treatment_type_id");
@@ -268,6 +254,9 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
 
                 patient.getTreatment().setActive(resultSet.getBoolean("active"));
                 patient.getTreatment().setTreatmentIsDone(resultSet.getBoolean("treatment_is_done"));
+
+                patient.getTreatment().setNumberOfTherapies(resultSet.getInt("number_of_therapies"));
+                patient.getTreatment().setNumberOfCompletedTherapies(resultSet.getInt("number_of_completed_therapies"));
 
                 patients.add(patient);
             }
@@ -344,8 +333,8 @@ public class UserDaoImpl implements UserDao { //БОЛЬШОЙ РЕФАКТОР�
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                user.setLogin(rs.getString("login"));
-                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setSurname(rs.getString("surname"));
             }
 
         } catch (SQLException e) {

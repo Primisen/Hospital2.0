@@ -1,7 +1,6 @@
 package training.nadia.hospital.controller.nurse;
 
 import training.nadia.hospital.entity.Nurse;
-import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.impl.NurseServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -34,9 +33,9 @@ public class NurseServlet extends HttpServlet {
 
         Nurse nurse = (Nurse) request.getSession().getAttribute("user");
 
-        request.setAttribute("patientProcedure", nurse.getPatientProcedure());
+        request.setAttribute("nurse", nurse);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/nurse.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/nurse/nurse.jsp");
         requestDispatcher.forward(request, response);
     }
 }

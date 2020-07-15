@@ -7,6 +7,8 @@ public class Treatment {
     private boolean active;
     private TreatmentType type;
     private boolean treatmentIsDone;
+    private int numberOfTherapies;
+    private int numberOfCompletedTherapies;
 
     public boolean isActive() {
         return active;
@@ -32,6 +34,22 @@ public class Treatment {
         this.treatmentIsDone = treatmentIsDone;
     }
 
+    public int getNumberOfTherapies() {
+        return numberOfTherapies;
+    }
+
+    public void setNumberOfTherapies(int numberOfTherapies) {
+        this.numberOfTherapies = numberOfTherapies;
+    }
+
+    public int getNumberOfCompletedTherapies() {
+        return numberOfCompletedTherapies;
+    }
+
+    public void setNumberOfCompletedTherapies(int numberOfCompletedTherapies) {
+        this.numberOfCompletedTherapies = numberOfCompletedTherapies;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -39,12 +57,14 @@ public class Treatment {
         Treatment treatment = (Treatment) object;
         return active == treatment.active &&
                 treatmentIsDone == treatment.treatmentIsDone &&
+                numberOfTherapies == treatment.numberOfTherapies &&
+                numberOfCompletedTherapies == treatment.numberOfCompletedTherapies &&
                 type == treatment.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(active, type, treatmentIsDone);
+        return Objects.hash(active, type, treatmentIsDone, numberOfTherapies, numberOfCompletedTherapies);
     }
 
     @Override
@@ -53,6 +73,8 @@ public class Treatment {
         sb.append("active=").append(active);
         sb.append(", type=").append(type);
         sb.append(", treatmentIsDone=").append(treatmentIsDone);
+        sb.append(", numberOfTherapies=").append(numberOfTherapies);
+        sb.append(", numberOfCompletedTherapies=").append(numberOfCompletedTherapies);
         sb.append('}');
         return sb.toString();
     }

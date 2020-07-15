@@ -15,17 +15,19 @@
 
 <%@ include file="../header.jsp" %>
 
+<c:set var="nurse" value="${nurse}" scope="request"></c:set>
+<c:out value="${nurse.surname} ${nurse.name}"></c:out>
 
-<c:forEach items="${patientProcedure}" var="patientProcedure">
+<c:forEach items="${nurse.patientTherapies}" var="patientTherapies">
 
     <div>
 
-        <c:out value="${patientProcedure.key.surname} ${patientProcedure.key.name}"></c:out>
-        <c:out value="Количество оставшихся процедур: ${patientProcedure.value}"></c:out>
+        <c:out value="${patientTherapies.key.surname} ${patientTherapies.key.name}"></c:out>
+        <c:out value="Количество оставшихся процедур: ${patientTherapies.value}"></c:out>
 
         <form method="post" action="nurse">
             <input type="submit" required name="patient" value="Выполнить процедуру">
-            <input type="hidden" name="patientProcedureKey" value="${patientProcedure.key.id}">
+            <input type="hidden" name="patientProcedureKey" value="${patientTherapies.key.id}">
                 <%--naming скрытой кнопки. имя должно передавать предназначение кнопки--%>
         </form>
     </div>

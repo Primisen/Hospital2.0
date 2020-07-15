@@ -14,6 +14,12 @@ import java.io.IOException;
 public class TreatmentServlet extends HttpServlet {
 
     @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+
+    }
+
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         Doctor doctor = (Doctor) request.getSession().getAttribute("user");

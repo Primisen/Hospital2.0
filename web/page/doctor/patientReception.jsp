@@ -16,10 +16,32 @@
 
 <c:forEach items="${patients}" var="patient">
 
-    <form action="/patient-acceptance/*" method="post">
-        <input type="submit" name="patient" value="${patient.surname} ${patient.name}">
+    <form action="reception" method="post">
+
+        <c:out value="${patient.surname} ${patient.name}"></c:out>
+
+        <P>диагноз</P>
+        <input type="submit" name="diagnosis" placeholder="введите диагноз">
+
+        <p>Тип лечения</p>
+        <select>
+            <c:forEach var="treatmentType" items="${treatmentType}">
+                <option><c:out value="${treatmentType}"/></option>
+            </c:forEach>
+        </select>
+
+        <p>Количество процедур</p>
+        <c:out value="${patient.surname} ${patient.name}"></c:out>
+
+
     </form>
 
 </c:forEach>
+
+<%--<c:set scope="request" value="${patients}" var="patient"--%>
+
+<c:if test="${patient == null}">
+    <p>У Вас нет пациентов ожидающих прием.</p>
+</c:if>
 </body>
 </html>
