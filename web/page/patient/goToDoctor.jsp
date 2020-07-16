@@ -16,13 +16,13 @@
 
 <h1>Выберите врача, к которому Вы хотите попасть на прием</h1>
 
-<c:forEach items="${doctors}" var="doctor">
+<c:forEach items="${doctors}" var="doctors">
 
     <form action="appointment-with-doctor" method="post">
 
         <div>
-            <input type="submit" required name="buDoctor" value="${doctor.surname} ${doctor.name}">
-            <input type="hidden" name="doctorId" value="${doctor.id}">
+            <input type="submit" required name="buDoctor" value="${doctors.surname} ${doctors.name}">
+            <input type="hidden" name="doctorId" value="${doctors.id}">
         </div>
 
     </form>

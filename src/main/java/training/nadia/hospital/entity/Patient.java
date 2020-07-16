@@ -45,6 +45,11 @@ public class Patient extends User {
     }
 
     @Override
+    public int getRoleId(){
+        return Role.PATIENT.getId();
+    }
+
+    @Override
     public int hashCode() {
 
         int prime = 31;

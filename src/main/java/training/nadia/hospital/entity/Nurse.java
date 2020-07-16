@@ -39,4 +39,9 @@ public class Nurse extends User implements MedicalStaff {
     public void setPatientTherapies(Patient patient, Integer numberOfTherapies) {
         patientTherapies.put(patient, numberOfTherapies);
     }
+
+    @Override
+    public int getRoleId(){
+        return Role.MEDICAL_STAFF.getId();
+    }
 }

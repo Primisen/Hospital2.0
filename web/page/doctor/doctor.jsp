@@ -17,8 +17,8 @@
 
 <c:set scope="request" value="${doctor}" var="doctor"></c:set>
 
-<c:out value="${doctor.surname}"></c:out>
-<c:out value="${doctor.name}"></c:out>
+<h3>Личная информация</h3>
+<c:out value="${doctor.surname} ${doctor.name}"></c:out>
 
 <form action="treatment">
     <input type="submit" value="Ваши лечащиеся пациенты">

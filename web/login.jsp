@@ -23,7 +23,7 @@
             <input type="submit" value="Войти"/>
         </form>
 
-        <a href="http://localhost:8080/registration">У меня нет аккаунта</a>
+        <a href="/registration">У меня нет аккаунта</a>
 
     </body>
 </html>

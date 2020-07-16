@@ -16,6 +16,7 @@
 <%@ include file="../header.jsp" %>
 
 <c:set var="nurse" value="${nurse}" scope="request"></c:set>
+      <h3>Личная информация</h3>
 <c:out value="${nurse.surname} ${nurse.name}"></c:out>
 
 <c:forEach items="${nurse.patientTherapies}" var="patientTherapies">
@@ -33,5 +34,9 @@
     </div>
 
 </c:forEach>
+
+<c:if test="${patientTherapies == null}">
+    <p>Вам не назначены пациенты.</p>
+</c:if>
 </body>
 </html>

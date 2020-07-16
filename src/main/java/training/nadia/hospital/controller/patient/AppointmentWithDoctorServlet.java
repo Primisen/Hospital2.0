@@ -21,21 +21,10 @@ import java.util.List;
 public class AppointmentWithDoctorServlet extends HttpServlet {
 
     private Logger logger = Logger.getRootLogger();
+    private DoctorServiceImpl doctorService = new DoctorServiceImpl();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//        DoctorServiceImpl doctorService = new DoctorServiceImpl();
-//        List<Doctor> doctors = null;
-//
-//        try {
-//            doctors = doctorService.getAllDoctors();
-//
-//        } catch (ServiceException e) {
-//            logger.error(e.getMessage());
-//        }
-//
-//        request.setAttribute("doctors", doctors);
 
         request.setCharacterEncoding("UTF-8");
 
@@ -48,23 +37,29 @@ public class AppointmentWithDoctorServlet extends HttpServlet {
             Patient patient = (Patient) request.getSession().getAttribute("user");
 
             PatientServiceImpl patientService = new PatientServiceImpl();
-            patientService.goToTheDoctor(patient.getId(), doctorId);
+            patientService.goToTheDoctor(patient.getId(), doctorId); //есть возможность передавать объект доктора
+
+            try {
+                patient.setTreatingDoctor(searchDoctorById(doctorId));
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
 
             request.getSession().setAttribute("user", patient);
 
             response.sendRedirect("/patient");
 
-        } else {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patient/goToDoctor.jsp");
-            requestDispatcher.forward(request, response);
         }
+//        else {
+//
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patient/goToDoctor.jsp");
+//            requestDispatcher.forward(request, response);
+//        }
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        DoctorServiceImpl doctorService = new DoctorServiceImpl();
         List<Doctor> doctors = null;
         try {
             doctors = doctorService.getAllDoctors();
@@ -78,5 +73,19 @@ public class AppointmentWithDoctorServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patient/goToDoctor.jsp");
         requestDispatcher.forward(request, response);
+    }
+
+    private Doctor searchDoctorById(long doctorId) throws ServiceException {
+
+        List<Doctor> doctors = doctorService.getAllDoctors();
+
+        for (Doctor doctor : doctors) {
+
+            if (doctor.getId() == doctorId) {
+                return doctor;
+            }
+        }
+
+        return null;
     }
 }

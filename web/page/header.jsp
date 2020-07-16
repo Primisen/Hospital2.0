@@ -1,17 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 03.07.2020
-  Time: 17:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <%--    <title>Title</title>--%>
-<%--    <%@ page %> --%>
-</head>
-<body>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="l10n"/>
+
+<ul>
+    <li><a href="?cookieLocale=ru"><fmt:message key="label.lang.ru"/></a></li>
+    <li><a href="?cookieLocale=en"><fmt:message key="label.lang.en"/></a></li>
+</ul>
 
 <c:if test="${sessionScope.user == null}">
     <form action="registration">
@@ -31,5 +28,3 @@
 
 </c:if>
 
-</body>
-</html>

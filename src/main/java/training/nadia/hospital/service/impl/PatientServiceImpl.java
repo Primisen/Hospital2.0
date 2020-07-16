@@ -13,6 +13,9 @@ public class PatientServiceImpl implements PatientService {
         PatientDaoImpl patientDao = new PatientDaoImpl();
         try {
             patientDao.setReceivingDoctor(patientId, doctorId);
+
+
+
         } catch (DaoException e) {
             e.printStackTrace();
         }

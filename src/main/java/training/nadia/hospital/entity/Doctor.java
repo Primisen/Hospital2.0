@@ -42,6 +42,11 @@ public class Doctor extends User implements MedicalStaff {
     }
 
     @Override
+    public int getRoleId(){ //! такой же есть и у медсетсры
+        return Role.MEDICAL_STAFF.getId();
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(staffType, patientsToCure, patientsToReceive);
     }

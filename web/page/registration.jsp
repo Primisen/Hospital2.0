@@ -28,7 +28,7 @@
         <input type="password" required name="passwordConfirmation" placeholder="Подтвердите пароль"/>
 
         <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}">Я являюсь доктором</input>
-        <input type="checkbox" requred name="doctorTypeId" value="${nurseTypeId}">Я являюсь медсестрой </input>
+        <input type="checkbox" requred name="nurseTypeId" value="${nurseTypeId}">Я являюсь медсестрой </input>
 
         <input type="submit" value="Зарегестрироваться"/>
     </form>

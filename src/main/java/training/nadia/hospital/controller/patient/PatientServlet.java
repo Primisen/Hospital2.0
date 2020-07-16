@@ -15,21 +15,12 @@ import java.io.IOException;
 public class PatientServlet extends HttpServlet {
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/appointment-with-doctor");
-        requestDispatcher.forward(request, response);
-    }
-
-    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Patient patient = (Patient) request.getSession().getAttribute("user");
         request.setAttribute("patient", patient);
 
-        String path = "/page/patient/patient.jsp";
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patient/patient.jsp");
         requestDispatcher.forward(request, response);
     }
 }

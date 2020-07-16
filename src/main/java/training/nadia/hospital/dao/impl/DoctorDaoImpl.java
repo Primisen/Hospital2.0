@@ -15,7 +15,7 @@ import java.util.List;
 //общее
 public class DoctorDaoImpl implements DoctorDao {
 
-    private static final String SELECT_DOCTORS = "select * from staff join user on user.id=staff.user_id where staff_type_id=?";
+    private static final String SELECT_DOCTORS = "select staff.id, user.name, user.surname from staff join user on user.id=staff.user_id where staff.staff_type_id=?";
 
     @Override
     public List<Doctor> getAllDoctors() throws DaoException{
@@ -31,12 +31,9 @@ public class DoctorDaoImpl implements DoctorDao {
             while (rs.next()) { //вынести в метод, передать resultSet, exception
 
                 Doctor doctor = new Doctor();
-                doctor.setId(rs.getInt("user_id"));
+                doctor.setId(rs.getInt("id"));
                 doctor.setName(rs.getString("name"));
                 doctor.setSurname(rs.getString("surname"));
-                doctor.setLogin(rs.getString("login"));
-                doctor.setPassword(rs.getString("password"));
-                doctor.setRoleId(rs.getInt("role_id"));
 
                 doctors.add(doctor);
             }

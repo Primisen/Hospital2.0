@@ -44,7 +44,7 @@
 
     <c:if test="${patient.diagnosis == null && patient.receivingDoctor == null}">
 
-        <form action="patient" method="post">
+        <form action="appointment-with-doctor">
             <div>
                 <input type="submit" value="Записаться на прием к врачу">
             </div>
