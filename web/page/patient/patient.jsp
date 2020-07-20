@@ -1,12 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 30.06.2020
-  Time: 16:02
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Страница пациента</title>
@@ -15,17 +9,17 @@
 
     <%@ include file="../header.jsp"%>
 
-    <c:set scope="request" value="${patient}" var="patient"></c:set>
+    <c:set scope="request" value="${patient}" var="patient"/>
 
         <div>
             <h3>Личная информация</h3>
-            <c:out value="${patient.surname}"></c:out>
-            <c:out value="${patient.name}"></c:out>
+            <c:out value="${patient.surname}"/>
+            <c:out value="${patient.name}"/>
 
             <c:if test="${patient.diagnosis != null}">
                 <h3>Статус лечения</h3>
-                <c:out value="${patient.diagnosis}"></c:out>
-                <c:out value="${patient.treatment.type}"></c:out> <%-- ! --%>
+                <c:out value="${patient.diagnosis}"/>
+                <c:out value="${patient.treatment.type}"/> <%-- ! --%>
 
                 <c:if test="${patient.treatment.active == true}">
                     <p>Пациент проходит лечение</p>
@@ -37,8 +31,8 @@
 <%--                <c:out value="${patient.treatment.treatmentIsDone}"></c:out>--%>
 
                 <h3>Лечащий доктор</h3>
-                <c:out value="${patient.treatingDoctor.name}"></c:out>
-                <c:out value="${patient.treatingDoctor.surname}"></c:out>
+                <c:out value="${patient.treatingDoctor.name}"/>
+                <c:out value="${patient.treatingDoctor.surname}"/>
             </c:if>
         </div>
 

@@ -5,6 +5,7 @@
 <fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="l10n"/>
 
+<body background="">
 <ul>
     <li><a href="?cookieLocale=ru"><fmt:message key="label.lang.ru"/></a></li>
     <li><a href="?cookieLocale=en"><fmt:message key="label.lang.en"/></a></li>
@@ -27,4 +28,5 @@
     </form>
 
 </c:if>
+</body>
 
