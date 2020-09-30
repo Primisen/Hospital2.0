@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         User user = new User();
 
         try {
-            user = authorizationService.getUser(login, password);
+            user = authorizationService.authorize(login, password);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

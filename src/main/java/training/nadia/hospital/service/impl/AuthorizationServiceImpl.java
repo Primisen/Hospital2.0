@@ -12,11 +12,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private UserDaoImpl userDao = new UserDaoImpl();
 
     @Override
-    public User getUser(String login, String password) throws ServiceException {
+    public User getUser(String login, String password) throws ServiceException {//kick
+
+        User user = new User();//возможно можно убрать
+        user.setLogin(login);
+        user.setPassword(password);
 
         try {
 
-            if (userDao.getUser(login, password) != null) {
+            if (userDao.getUser(user) != null) {
 
                 int roleId = authorizationDao.getRoleId(login);
 
@@ -69,5 +73,51 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
 
         return null;
+    }
+
+    @Override
+    public User authorize(String login, String password) throws ServiceException {
+
+        try {
+
+            User user = authorizationDao.getData(login);
+
+            if (!user.getPassword().equals(password)) {
+                throw new ServiceException("Неправильно введен логин или пароль!");//!
+
+            } else if (user.getRole().equals(Role.PATIENT)) {
+                Patient patient = new Patient();
+                copy(user, patient);
+                authorizationDao.getData(patient);
+                return patient;
+
+            } else if (user.getRole().equals(Role.DOCTOR)) {
+                Doctor doctor = new Doctor();
+                copy(user, doctor);
+                authorizationDao.getData(doctor);
+                return doctor;
+
+            } else if (user.getRole().equals(Role.NURSE)) {
+                Nurse nurse = new Nurse();
+                copy(user, nurse);
+                authorizationDao.getData(nurse);
+                return nurse;
+            }
+
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return null;
+    }
+
+    private void copy(User source, User destination) {
+
+        destination.setRole(source.getRole());
+        destination.setId(source.getId());
+        destination.setName(source.getName());
+        destination.setSurname(source.getSurname());
+        destination.setLogin(source.getLogin());
+        destination.setPassword(source.getPassword());
     }
 }
