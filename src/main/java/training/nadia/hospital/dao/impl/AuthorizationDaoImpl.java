@@ -14,8 +14,6 @@ import java.util.List;
 
 public class AuthorizationDaoImpl implements AuthorizationDao {
 
-    private static final String SELECT_ROLE_ID_BY_USER_LOGIN = "select role_id from user where login=?";//kick
-
     private static final String SELECT_USER_DATA = "select id, role_id, password, name, surname from user where login=?";
 
     private static final String SELECT_PATIENT_DATA =
@@ -47,31 +45,6 @@ public class AuthorizationDaoImpl implements AuthorizationDao {
                     "join staff on staff.user_id = treatment.nurse_id " +
                     "where staff.user_id = ?";
 
-    @Override
-    public int getRoleId(String login) throws DaoException {
-
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_ROLE_ID_BY_USER_LOGIN)) {
-
-            ps.setString(1, login);
-
-            ResultSet rs = ps.executeQuery();
-
-            int roleId = 0;
-
-            if (rs.next()) {
-                roleId = rs.getInt("role_id");
-
-            } else {
-                throw new DaoException("User with this login does not exist.");
-            }
-
-            return roleId;
-
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
-    }//kick
 
     @Override
     public User getData(String login) throws DaoException {
