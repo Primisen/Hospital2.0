@@ -10,11 +10,13 @@ import java.sql.SQLException;
 
 public class PatientDaoImpl implements PatientDao {
 
+    private static final String SET_RECEIVING_DOCTOR_TO_PATIENT = "update patient set receiving_doctor_id=? where user_id=?";
+
     @Override
     public void setReceivingDoctor(long patientId, long doctorId) throws DaoException {
 
-        try(Connection connection = Connector.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update patient set receiving_doctor_id=? where id=?")) {
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SET_RECEIVING_DOCTOR_TO_PATIENT)) {
 
             ps.setLong(1, doctorId);
             ps.setLong(2, patientId);
