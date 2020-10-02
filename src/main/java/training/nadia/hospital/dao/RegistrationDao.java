@@ -7,7 +7,5 @@ import training.nadia.hospital.entity.User;
 
 public interface RegistrationDao {
 
-    void add(Patient user) throws DaoException;
-
-    void add(MedicalStaff medicalStaff) throws DaoException;
-}
+    void add(User user) throws DaoException;
+ }

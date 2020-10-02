@@ -34,6 +34,7 @@ public class RegistrationServlet extends HttpServlet {
             if (request.getParameter("doctorTypeId") != null) {
                 Doctor doctor = new Doctor();
                 setUserData(doctor, request);
+                doctor.setRole(Role.DOCTOR);
 
                 registrationService.register(doctor);
 
@@ -43,6 +44,7 @@ public class RegistrationServlet extends HttpServlet {
             } else if (request.getParameter("nurseTypeId") != null) {
                 Nurse nurse = new Nurse();
                 setUserData(nurse, request);
+                nurse.setRole(Role.NURSE);
 
                 registrationService.register(nurse);
 
@@ -52,6 +54,7 @@ public class RegistrationServlet extends HttpServlet {
             } else {
                 Patient patient = new Patient();
                 setUserData(patient, request);
+                patient.setRole(Role.PATIENT);
 
                 registrationService.register(patient);
 
