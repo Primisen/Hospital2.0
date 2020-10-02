@@ -2,8 +2,6 @@ package training.nadia.hospital.dao.impl;
 
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.RegistrationDao;
-import training.nadia.hospital.entity.MedicalStaff;
-import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Role;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.util.connection_pool.Connector;
@@ -43,11 +41,6 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
             ps.executeUpdate();
 
-//            ResultSet rs = ps.getGeneratedKeys();
-//
-//            while (rs.next()) {
-//                user.setId(rs.getLong(1));
-//            }
             setUserId(user, ps);
 
         } catch (SQLException e) {
@@ -55,7 +48,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
         }
     }
 
-    private void setUserId(User user, PreparedStatement preparedStatement) throws SQLException {//разберись что здесь происходит
+    private void setUserId(User user, PreparedStatement preparedStatement) throws SQLException {
 
         ResultSet rs = preparedStatement.getGeneratedKeys();
 
