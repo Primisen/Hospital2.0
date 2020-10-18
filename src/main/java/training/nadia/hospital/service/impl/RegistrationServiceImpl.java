@@ -1,5 +1,7 @@
 package training.nadia.hospital.service.impl;
 
+import training.nadia.hospital.dao.RegistrationDao;
+import training.nadia.hospital.dao.UserDao;
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.impl.RegistrationDaoImpl;
 import training.nadia.hospital.dao.impl.UserDaoImpl;
@@ -15,7 +17,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         try {
             if (userDoesNotExist(user)) {
 
-                RegistrationDaoImpl registrationDao = new RegistrationDaoImpl();
+                RegistrationDao registrationDao = new RegistrationDaoImpl();
                 registrationDao.add(user);
 
             } else {
@@ -29,7 +31,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private boolean userDoesNotExist(User user) throws DaoException {
 
-        UserDaoImpl userDao = new UserDaoImpl();
+        UserDao userDao = new UserDaoImpl();
         return userDao.getUser(user) == null;
     }
 }
