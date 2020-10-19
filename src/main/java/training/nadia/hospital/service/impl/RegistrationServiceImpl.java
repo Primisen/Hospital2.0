@@ -1,13 +1,15 @@
 package training.nadia.hospital.service.impl;
 
 import training.nadia.hospital.dao.RegistrationDao;
-import training.nadia.hospital.dao.UserDao;
+import training.nadia.hospital.dao.UtilDao;
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.impl.RegistrationDaoImpl;
-import training.nadia.hospital.dao.impl.UserDaoImpl;
+import training.nadia.hospital.dao.impl.UtilDaoImpl;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.service.RegistrationService;
 import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.util.password_and_login.LoginChecker;
+import training.nadia.hospital.util.password_and_login.PasswordChecker;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
@@ -15,13 +17,26 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void register(User user) throws ServiceException {
 
         try {
+
             if (userDoesNotExist(user)) {
 
-                RegistrationDao registrationDao = new RegistrationDaoImpl();
-                registrationDao.add(user);
+                if (LoginChecker.loginIsCorrect(user.getLogin())) {
+
+                    if (PasswordChecker.passwordIsSafe(user.getPassword())) {
+
+                        RegistrationDao registrationDao = new RegistrationDaoImpl();
+                        registrationDao.add(user);
+
+                    } else {
+                        throw new ServiceException("Warning! Password is not save.");
+                    }
+
+                } else {
+                    throw new ServiceException("Login is incorrect.");
+                }
 
             } else {
-                throw new ServiceException("This user is exist.");//text?
+                throw new ServiceException("User with this login already exists.");//text?
             }
 
         } catch (DaoException e) {
@@ -31,7 +46,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private boolean userDoesNotExist(User user) throws DaoException {
 
-        UserDao userDao = new UserDaoImpl();
-        return userDao.getUser(user) == null;
+        UtilDao utilDao = new UtilDaoImpl();
+        return utilDao.getUser(user.getLogin(), user.getPassword()) == null;
     }
 }
