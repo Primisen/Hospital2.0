@@ -4,7 +4,8 @@ import training.nadia.hospital.dao.UtilDao;
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Role;
-import training.nadia.hospital.util.connection_pool.Connector;
+import training.nadia.hospital.entity.User;
+import training.nadia.hospital.util.db.Connector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,8 @@ import java.util.List;
 public class UtilDaoImpl implements UtilDao {
 
     private static final String SELECT_ALL_DOCTORS = "select id, name, surname from user where role_id=?";
+
+    private static final String SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD = "select id from user where login=? and password=?";
 
     @Override
     public List<Doctor> getAllDoctors() throws DaoException {
@@ -43,5 +46,32 @@ public class UtilDaoImpl implements UtilDao {
             throw new DaoException(e.getMessage());
         }
         return doctors;
+    }
+
+    @Override
+    public User getUser(String login, String password) throws DaoException {
+
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD)) {
+
+            ps.setString(1, login);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            User user = new User();
+
+            if (rs.next()) {//зачем это здесь происходит)
+
+                user.setId(rs.getLong("id"));
+
+                return user;
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+
+        return null;
     }
 }
