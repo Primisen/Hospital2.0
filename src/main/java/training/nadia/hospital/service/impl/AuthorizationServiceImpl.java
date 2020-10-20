@@ -13,32 +13,48 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private AuthorizationDao authorizationDao = new AuthorizationDaoImpl();
 
     @Override
-    public User authorize(String login, String password) throws ServiceException {
-
+    public User authorize(User user) throws ServiceException {
 
         try {
 
-            if (isUserExist(login, password)) {
+            if (isUserExist(user)) {
 
-                User user = authorizationDao.getUserData(login);
-                return user;
+                authorizationDao.initializeUserData(user);
+
+                if (isUserDataSuccessfullyInitialize(user)){
+
+                    return user;
+
+                } else {
+                    throw new ServiceException("Failed to initialize user data.");
+                }
 
             } else {
-                throw new ServiceException("Неправильно введен логин или пароль");
+                throw new ServiceException("Incorrect login or password!");
             }
 
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
-
     }
 
-    private boolean isUserExist(String login, String password) throws DaoException {
+    private boolean isUserExist(User user) throws DaoException {
+
+        return !isUserNotExist(user);
+    }
+
+    private boolean isUserNotExist(User user) throws DaoException {
 
         UtilDao utilDao = new UtilDaoImpl();
+        return utilDao.findUserByLoginAndPassword(user) == null;
+    }
 
-        boolean userNotExist = utilDao.getUser(login, password) == null;
+    private boolean isUserDataSuccessfullyInitialize(User user) {
 
-        return !userNotExist;
+        return
+                user.getRole() != null &&
+                        user.getSurname() != null &&
+                        user.getName() != null &&
+                        user.getId() != 0L;
     }
 }

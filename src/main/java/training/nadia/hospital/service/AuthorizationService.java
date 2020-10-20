@@ -5,6 +5,5 @@ import training.nadia.hospital.service.exception.ServiceException;
 
 public interface AuthorizationService {
 
-    User authorize(String login, String password) throws ServiceException;
-
+    User authorize(User user) throws ServiceException;
 }
