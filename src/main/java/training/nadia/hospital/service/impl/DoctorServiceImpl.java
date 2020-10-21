@@ -58,7 +58,7 @@ public class DoctorServiceImpl implements DoctorService {
             }
 
         } else {
-            throw new ServiceException("The patient has nao been treated!");
+            throw new ServiceException("The patient has not been treated!");
         }
     }
 
