@@ -1,8 +1,12 @@
 package training.nadia.hospital.service;
 
+import training.nadia.hospital.entity.Doctor;
+import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.exception.ServiceException;
 
 public interface PatientService {
 
-    void goToTheDoctor(long patientId, long doctorId) throws ServiceException;
+    void goToTheDoctor(Patient patient, Doctor doctor) throws ServiceException;
+
+    void getTreatmentData(Patient patient) throws ServiceException;
 }

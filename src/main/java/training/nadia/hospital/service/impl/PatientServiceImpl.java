@@ -1,20 +1,33 @@
 package training.nadia.hospital.service.impl;
 
+import training.nadia.hospital.dao.PatientDao;
 import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.impl.PatientDaoImpl;
+import training.nadia.hospital.entity.Doctor;
+import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.PatientService;
 import training.nadia.hospital.service.exception.ServiceException;
 
 public class PatientServiceImpl implements PatientService {
 
-    @Override
-    public void goToTheDoctor(long patientId, long doctorId) throws ServiceException {
+    private PatientDao patientDao = new PatientDaoImpl();
 
-        PatientDaoImpl patientDao = new PatientDaoImpl();
+    @Override
+    public void goToTheDoctor(Patient patient, Doctor doctor) throws ServiceException {
 
         try {
-            patientDao.setReceivingDoctor(patientId, doctorId);
+            patientDao.setReceivingDoctor(patient, doctor);
 
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void getTreatmentData(Patient patient) throws ServiceException {
+
+        try {
+            patientDao.getTreatmentData(patient);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
