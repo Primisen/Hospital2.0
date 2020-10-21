@@ -20,13 +20,13 @@ public class DoctorDaoImpl implements DoctorDao {
                     "where patient_id=?";
 
     private static final String SELECT_DOCTOR_PATIENTS =
-            "select user.name, user.surname, diagnosis, number_of_therapies, " +
+            "select user.id, user.name, user.surname, diagnosis, number_of_therapies, " +
                     "number_of_completed_therapies, active, treatment_type_id from treatment " +
                     "join user on patient_id=user.id " +
                     "where doctor_id=?";
 
     private static final String SELECT_RECEIVING_PATIENTS =
-            "select name, surname from user " +
+            "select user.id, name, surname from user " +
                     "join patient on patient.user_id = user.id " +
                     "where patient.receiving_doctor_id = ?";
 
@@ -76,6 +76,7 @@ public class DoctorDaoImpl implements DoctorDao {
             while (rs.next()) {
 
                 Patient patient = new Patient();
+                patient.setId(rs.getLong("id"));
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
                 patient.setDiagnosis(rs.getString("diagnosis"));
@@ -109,6 +110,7 @@ public class DoctorDaoImpl implements DoctorDao {
             while (rs.next()) {
 
                 Patient patient = new Patient();
+                patient.setId(rs.getLong("id"));
                 patient.setName("name");
                 patient.setSurname("surname");
 
