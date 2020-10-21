@@ -5,7 +5,7 @@ import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Treatment;
-import training.nadia.hospital.util.connection_pool.Connector;
+import training.nadia.hospital.util.db.Connector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +15,13 @@ import java.sql.SQLException;
 public class NurseDaoImpl implements NurseDao {
 
     private static final String SELECT_NURSE_DATA =
-            "select patient.id, user.name, user.surname, treatment_type_id, number_of_therapies, number_of_completed_therapies, " +
-                    "if (active = 0, 1, 0) " +
+            "select user.id, user.name, user.surname, treatment_type_id, number_of_therapies, number_of_completed_therapies " +
                     "from treatment " +
-                    "join patient on patient.id = treatment.patient_id " +
-                    "join user on patient.user_id = user.id " +
-                    "join staff on staff.user_id = treatment.nurse_id " +
-                    "where staff.user_id = ?";
+                    "join user on treatment.patient_id = user.id " +
+                    "where nurse_id = ?";
 
     private static final String UPDATE_NUMBER_OF_COMPLETED_THERAPIES =
-            "update treatment set number_of_completed_therapies=?" +
+            "update treatment set number_of_completed_therapies=? " +
                     "where patient_id=?;";
 
     @Override
@@ -38,17 +35,19 @@ public class NurseDaoImpl implements NurseDao {
 
             while (rs.next()) {
 
-                Patient patient = new Patient(rs.getString("name"), rs.getString("surname"));
+                Patient patient = new Patient();
                 patient.setId(rs.getLong("id"));
+                patient.setName(rs.getString("name"));
+                patient.setSurname(rs.getString("surname"));
 
                 Treatment treatment = new Treatment();
-                treatment.setNumberOfTherapies(rs.getInt("number_of_therapies"));
                 treatment.setType(rs.getInt("treatment_type_id"));
+                treatment.setNumberOfTherapies(rs.getInt("number_of_therapies"));
                 treatment.setNumberOfCompletedTherapies(rs.getInt("number_of_completed_therapies"));
 
                 patient.setTreatment(treatment);
 
-                nurse.addPatientTherapies(patient, treatment.getNumberOfTherapies());
+                nurse.addPatient(patient);
             }
 
         } catch (SQLException e) {
@@ -57,12 +56,14 @@ public class NurseDaoImpl implements NurseDao {
     }
 
     @Override
-    public void updateNumberOfCompletedTherapies(Patient patient, int numberOfTherapies) throws DaoException {
+    public void updateNumberOfCompletedTherapies(Patient patient) throws DaoException {
 
         try (Connection connection = Connector.getConnection();
              PreparedStatement ps = connection.prepareStatement(UPDATE_NUMBER_OF_COMPLETED_THERAPIES)) {
 
-            ps.setLong(1, patient.getId());
+            ps.setInt(1, patient.getTreatment().getNumberOfCompletedTherapies());
+            ps.setLong(2, patient.getId());
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
