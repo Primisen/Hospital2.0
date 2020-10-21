@@ -4,7 +4,7 @@ import training.nadia.hospital.dao.exception.DaoException;
 import training.nadia.hospital.dao.RegistrationDao;
 import training.nadia.hospital.entity.Role;
 import training.nadia.hospital.entity.User;
-import training.nadia.hospital.util.connection_pool.Connector;
+import training.nadia.hospital.util.db.Connector;
 
 import java.sql.*;
 
@@ -13,8 +13,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
     private static final String INSERT_INTO_USER_TABLE = "insert into user (login, password, role_id, name, surname)" +
             " values (?, ?, ?, ?, ?)";
 
-    private static final String INSERT_INTO_STAFF_TABLE = "insert into staff (user_id) value (?)";
-    private static final String INSERT_INTO_PATIENT_TABLE = "insert into patient (user_id) value (?)";
+    private static final String INSERT_DATA_INTO_PATIENT_TABLE = "insert into patient (user_id) value (?)";
 
     @Override
     public void add(User user) throws DaoException {
@@ -22,7 +21,10 @@ public class RegistrationDaoImpl implements RegistrationDao {
         try (Connection connection = Connector.getConnection()) {
 
             saveGeneralData(user, connection);
-            saveDataDependingOnUserRole(user, connection);
+
+            if (isPatientRole(user)) {
+                savePatientData(user, connection);
+            }
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
@@ -57,13 +59,14 @@ public class RegistrationDaoImpl implements RegistrationDao {
         }
     }
 
-    private void saveDataDependingOnUserRole(User user, Connection connection) throws DaoException {
+    private boolean isPatientRole(User user){
+        return user.getRole().equals(Role.PATIENT);
+    }
+
+    private void savePatientData(User user, Connection connection) throws DaoException {
 
         if (user.getRole() == Role.PATIENT) {
-            insertUserDataIntoRoleTable(user, connection, INSERT_INTO_PATIENT_TABLE);
-
-        } else if (user.getRole() == Role.DOCTOR || user.getRole() == Role.NURSE) {
-            insertUserDataIntoRoleTable(user, connection, INSERT_INTO_STAFF_TABLE);
+            insertUserDataIntoRoleTable(user, connection, INSERT_DATA_INTO_PATIENT_TABLE);
         }
     }
 
