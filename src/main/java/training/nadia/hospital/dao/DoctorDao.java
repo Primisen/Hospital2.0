@@ -5,13 +5,15 @@ import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Treatment;
 
-import java.util.List;
-
 public interface DoctorDao {
 
-    void setDiagnosis(String diagnosis, long patientId) throws DaoException;
+    void setDiagnosis(String diagnosis, Patient patient) throws DaoException;
 
-    void setTreatment(Treatment treatment, long patientId) throws DaoException;
+    void setTreatment(Treatment treatment, Patient patient) throws DaoException;
 
-    void identifyPatients(Doctor doctor) throws DaoException;
+    void getPatients(Doctor doctor) throws DaoException;
+
+    void getReceivingPatients(Doctor doctor) throws DaoException;
+
+    void dischargePatient(Patient patient) throws DaoException;
 }
