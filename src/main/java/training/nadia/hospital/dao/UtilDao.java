@@ -10,5 +10,5 @@ public interface UtilDao {
 
     List<Doctor> getAllDoctors() throws DaoException;
 
-    User getUser (String login, String password) throws DaoException;
+    boolean findUserByLoginAndPassword(User user) throws DaoException;
 }

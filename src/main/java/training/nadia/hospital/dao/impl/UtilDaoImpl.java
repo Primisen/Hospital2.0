@@ -29,7 +29,6 @@ public class UtilDaoImpl implements UtilDao {
              PreparedStatement ps = connection.prepareStatement(SELECT_ALL_DOCTORS)) {
 
             ps.setInt(1, Role.DOCTOR.getId());
-            ps.executeUpdate();
 
             ResultSet rs = ps.executeQuery();
 
@@ -39,7 +38,8 @@ public class UtilDaoImpl implements UtilDao {
                 doctor.setName(rs.getString("name"));
                 doctor.setSurname(rs.getString("surname"));
                 doctor.setId(rs.getLong("id"));
-                doctors.add(new Doctor(rs.getString("name"), rs.getString("surname")));
+
+                doctors.add(doctor);
             }
 
         } catch (SQLException e) {
@@ -49,29 +49,25 @@ public class UtilDaoImpl implements UtilDao {
     }
 
     @Override
-    public User getUser(String login, String password) throws DaoException {
+    public boolean findUserByLoginAndPassword(User user) throws DaoException {
 
         try (Connection connection = Connector.getConnection();
              PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD)) {
 
-            ps.setString(1, login);
-            ps.setString(2, password);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
 
             ResultSet rs = ps.executeQuery();
 
-            User user = new User();
+            if (rs.next()) {
 
-            if (rs.next()) {//зачем это здесь происходит)
-
-                user.setId(rs.getLong("id"));
-
-                return user;
+                return true;
             }
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
         }
 
-        return null;
+        return false;
     }
 }
