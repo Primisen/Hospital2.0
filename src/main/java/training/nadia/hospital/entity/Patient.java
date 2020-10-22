@@ -11,6 +11,13 @@ public class Patient extends User {
 
     public Patient() {
         this.treatment = new Treatment();
+        setRole(Role.PATIENT);
+    }
+
+    public Patient(String name, String surname) {
+        super(name, surname);
+        treatment = new Treatment();
+        setRole(Role.PATIENT);
     }
 
     public String getDiagnosis() {
@@ -26,6 +33,7 @@ public class Patient extends User {
     }
 
     public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
     }
 
     public Doctor getTreatingDoctor() {
@@ -45,11 +53,6 @@ public class Patient extends User {
     }
 
     @Override
-    public int getRoleId(){
-        return Role.PATIENT.getId();
-    }
-
-    @Override
     public int hashCode() {
 
         int prime = 31;
@@ -62,26 +65,6 @@ public class Patient extends User {
 
         return result;
     }
-
-//    @Override
-//    public boolean equals(Object object) {
-//
-//        if (object == this) {
-//            return true;
-//
-//        } else if (object == null || object.getClass() != this.getClass()) {
-//            return false;
-//        }
-//
-//        Patient patient = (Patient) object;
-//
-//        return
-//                diagnosis.equals(patient.diagnosis) &&
-//                        treatment.equals(patient.treatment) &&
-//                        receivingDoctor.equals(patient.receivingDoctor) &&
-//                        treatingDoctor.equals(patient.treatingDoctor);
-//    }
-
 
     @Override
     public boolean equals(Object object) {

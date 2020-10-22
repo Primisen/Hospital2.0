@@ -1,18 +1,23 @@
 package training.nadia.hospital.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Doctor extends User implements MedicalStaff {
-
-    private StaffType staffType = StaffType.DOCTOR;
+public class Doctor extends User {
 
     private List<Patient> patientsToCure;
     private List<Patient> patientsToReceive;
 
-    @Override
-    public StaffType getStaffType() {
-        return staffType;
+    public Doctor() {
+
+        patientsToCure = new ArrayList<>();
+        patientsToReceive = new ArrayList<>();
+        setRole(Role.DOCTOR);
+    }
+
+    public Doctor(String name, String surname) {
+        super(name, surname);
     }
 
     public List<Patient> getPatientsToCure() {
@@ -23,6 +28,10 @@ public class Doctor extends User implements MedicalStaff {
         this.patientsToCure = patientsToCure;
     }
 
+    public void addPatientToCure(Patient patient) {
+        patientsToCure.add(patient);
+    }
+
     public List<Patient> getPatientsToReceive() {
         return patientsToReceive;
     }
@@ -31,24 +40,23 @@ public class Doctor extends User implements MedicalStaff {
         this.patientsToReceive = patientsToReceive;
     }
 
+    public void addPatientToReceive(Patient patient) {
+        patientsToReceive.add(patient);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Doctor doctor = (Doctor) object;
-        return staffType == doctor.staffType &&
-                Objects.equals(patientsToCure, doctor.patientsToCure) &&
+
+        return Objects.equals(patientsToCure, doctor.patientsToCure) &&
                 Objects.equals(patientsToReceive, doctor.patientsToReceive);
     }
 
     @Override
-    public int getRoleId(){ //! такой же есть и у медсетсры
-        return Role.MEDICAL_STAFF.getId();
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(staffType, patientsToCure, patientsToReceive);
+        return Objects.hash(patientsToCure, patientsToReceive);
     }
 
     @Override

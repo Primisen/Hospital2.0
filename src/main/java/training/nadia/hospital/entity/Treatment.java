@@ -6,9 +6,26 @@ public class Treatment {
 
     private boolean active;
     private TreatmentType type;
-    private boolean treatmentIsDone;
     private int numberOfTherapies;
     private int numberOfCompletedTherapies;
+
+    public Treatment() {
+    }
+
+    public Treatment(int typeId, boolean active) {
+
+        if (typeId == TreatmentType.PROCEDURE.getId()) {
+            type = TreatmentType.PROCEDURE;
+
+        } else if (typeId == TreatmentType.DRUG.getId()) {
+            type = TreatmentType.DRUG;
+
+        } else if (typeId == TreatmentType.OPERATION.getId()) {
+            type = TreatmentType.OPERATION;
+        }
+
+        this.active = active;
+    }
 
     public boolean isActive() {
         return active;
@@ -26,12 +43,15 @@ public class Treatment {
         this.type = type;
     }
 
-    public boolean isTreatmentIsDone() {
-        return treatmentIsDone;
-    }
+    public void setType(int id) {
 
-    public void setTreatmentIsDone(boolean treatmentIsDone) {
-        this.treatmentIsDone = treatmentIsDone;
+        if (id == TreatmentType.PROCEDURE.getId()) {
+            type = TreatmentType.PROCEDURE;
+        } else if (id == TreatmentType.DRUG.getId()) {
+            type = TreatmentType.DRUG;
+        } else if (id == TreatmentType.OPERATION.getId()) {
+            type = TreatmentType.OPERATION;
+        }
     }
 
     public int getNumberOfTherapies() {
@@ -56,7 +76,6 @@ public class Treatment {
         if (object == null || getClass() != object.getClass()) return false;
         Treatment treatment = (Treatment) object;
         return active == treatment.active &&
-                treatmentIsDone == treatment.treatmentIsDone &&
                 numberOfTherapies == treatment.numberOfTherapies &&
                 numberOfCompletedTherapies == treatment.numberOfCompletedTherapies &&
                 type == treatment.type;
@@ -64,7 +83,7 @@ public class Treatment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(active, type, treatmentIsDone, numberOfTherapies, numberOfCompletedTherapies);
+        return Objects.hash(active, type, numberOfTherapies, numberOfCompletedTherapies);
     }
 
     @Override
@@ -72,7 +91,6 @@ public class Treatment {
         final StringBuilder sb = new StringBuilder("Treatment{");
         sb.append("active=").append(active);
         sb.append(", type=").append(type);
-        sb.append(", treatmentIsDone=").append(treatmentIsDone);
         sb.append(", numberOfTherapies=").append(numberOfTherapies);
         sb.append(", numberOfCompletedTherapies=").append(numberOfCompletedTherapies);
         sb.append('}');

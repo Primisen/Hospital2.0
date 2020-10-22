@@ -3,8 +3,8 @@ package training.nadia.hospital.entity;
 public enum Role {
 
     PATIENT(1),
-    MEDICAL_STAFF(2),
-    ADMINISTRATOR(3);
+    DOCTOR(4),
+    NURSE(5);
 
     private int id;
 

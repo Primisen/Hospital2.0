@@ -1,47 +1,26 @@
 package training.nadia.hospital.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Nurse extends User implements MedicalStaff {
+public class Nurse extends User {
 
-    private StaffType staffType = StaffType.NURSE;
-
-//    private List<Patient> patients;
-
-    private Map<Patient, Integer> patientTherapies;
+    private Set<Patient> patient;
 
     public Nurse() {
-        patientTherapies = new HashMap<>();
+        patient = new HashSet<>();
+        setRole(Role.NURSE);
     }
 
-    @Override
-    public StaffType getStaffType() {
-        return staffType;
+    public Set<Patient> getPatient() {
+        return patient;
     }
 
-//    public List<Patient> getPatients() {
-//        return patients;
-//    }
-
-//    public void setPatients(List<Patient> patients) {
-//        this.patients = patients;
-//    }
-
-    public Map<Patient, Integer> getPatientTherapies() {
-        return patientTherapies;
+    public void setPatient(Set<Patient> patient) {
+        this.patient = patient;
     }
 
-    public void setPatientTherapies(Map<Patient, Integer> patientProcedure) {
-        this.patientTherapies = patientProcedure;
-    }
-
-    public void setPatientTherapies(Patient patient, Integer numberOfTherapies) {
-        patientTherapies.put(patient, numberOfTherapies);
-    }
-
-    @Override
-    public int getRoleId(){
-        return Role.MEDICAL_STAFF.getId();
+    public void addPatient(Patient patient) {
+        this.patient.add(patient);
     }
 }
