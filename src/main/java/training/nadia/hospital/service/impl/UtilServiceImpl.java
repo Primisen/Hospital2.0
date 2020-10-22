@@ -18,8 +18,11 @@ public class UtilServiceImpl implements UtilService {
 
         try {
             return utilDao.getAllDoctors();
+
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
     }
+
+
 }
