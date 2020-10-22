@@ -15,15 +15,19 @@ public class NurseServiceImpl implements NurseService {
     private NurseDao nurseDao = new NurseDaoImpl();
 
     @Override
-    public void performTheProcedure(Nurse nurse, long patientId) throws ServiceException {
+    public void performTheTherapy(Nurse nurse, long patientId) throws ServiceException {
 
-        Set<Patient> patients = nurse.getPatientTherapies().keySet();
-        Patient patient = findPatientById(patients, patientId);
+        Patient patient = findPatientById(nurse.getPatient(), patientId);
 
-        int numberOfCompletedTherapies = nurse.getPatientTherapies().get(patient);
+        nurse.getPatient().remove(patient);
+
+        patient.getTreatment().setNumberOfCompletedTherapies(
+                patient.getTreatment().getNumberOfCompletedTherapies() + 1);
+
+        nurse.addPatient(patient);
 
         try {
-            nurseDao.updateNumberOfCompletedTherapies(patient, numberOfCompletedTherapies);
+            nurseDao.updateNumberOfCompletedTherapies(patient);
 
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
@@ -43,7 +47,7 @@ public class NurseServiceImpl implements NurseService {
 
     private Patient findPatientById(Set<Patient> patients, long patientId) {
 
-        for (Patient patient : patients) { //поищи решение получше
+        for (Patient patient : patients) {
             if (patient.getId() == patientId) {
                 return patient;
             }
