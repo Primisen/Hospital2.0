@@ -49,7 +49,7 @@ public class UtilDaoImpl implements UtilDao {
     }
 
     @Override
-    public boolean findUserByLoginAndPassword(User user) throws DaoException {
+    public boolean isUserExist(User user) throws DaoException {
 
         try (Connection connection = Connector.getConnection();
              PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD)) {
