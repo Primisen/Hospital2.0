@@ -46,7 +46,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private boolean isUserNotExist(User user) throws DaoException {
 
         UtilDao utilDao = new UtilDaoImpl();
-        return utilDao.findUserByLoginAndPassword(user) == null;
+        
+        return utilDao.findUserByLoginAndPassword(user);
     }
 
     private boolean isUserDataSuccessfullyInitialize(User user) {
