@@ -36,7 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
 
             } else {
-                throw new ServiceException("User with this login already exists.");//text?
+                throw new ServiceException("User with this login already exists.");
             }
 
         } catch (DaoException e) {
@@ -47,6 +47,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     private boolean userDoesNotExist(User user) throws DaoException {
 
         UtilDao utilDao = new UtilDaoImpl();
-        return utilDao.getUser(user.getLogin(), user.getPassword()) == null;
+        return !utilDao.isUserExist(user);
     }
 }
