@@ -13,7 +13,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private AuthorizationDao authorizationDao = new AuthorizationDaoImpl();
 
     @Override
-    public User authorize(User user) throws ServiceException {
+    public void authorize(User user) throws ServiceException {
 
         try {
 
