@@ -18,16 +18,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         try {
 
             if (isUserExist(user)) {
-
                 authorizationDao.initializeUserData(user);
-
-                if (isUserDataSuccessfullyInitialize(user)){
-
-                    return user;
-
-                } else {
-                    throw new ServiceException("Failed to initialize user data.");
-                }
 
             } else {
                 throw new ServiceException("Incorrect login or password!");
@@ -43,14 +34,5 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         UtilDao utilDao = new UtilDaoImpl();
 
         return utilDao.isUserExist(user);
-    }
-
-    private boolean isUserDataSuccessfullyInitialize(User user) {
-
-        return
-                user.getRole() != null &&
-                        user.getSurname() != null &&
-                        user.getName() != null &&
-                        user.getId() != 0L;
     }
 }
