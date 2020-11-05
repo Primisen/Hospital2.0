@@ -17,7 +17,7 @@ public class PatientDaoImpl implements PatientDao {
     private static final String UPDATE_RECEIVING_DOCTOR = "update patient set receiving_doctor_id=? where user_id=?";
 
     private static final String SELECT_TREATMENT_DATA =
-            "select diagnosis, treatment_type_id, active, treatment_is_done, user.name, user.surname from treatment " +
+            "select diagnosis, treatment_type_id, active, user.name, user.surname from treatment " +
                     "join user on treatment.doctor_id=user.id " +
                     "where patient_id=?";
 
