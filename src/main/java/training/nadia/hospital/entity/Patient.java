@@ -7,7 +7,7 @@ public class Patient extends User {
     private String diagnosis;
     private Treatment treatment;
     private Doctor treatingDoctor;
-    private Doctor receivingDoctor;
+    private Doctor receptionDoctor;
 
     public Patient() {
         this.treatment = new Treatment();
@@ -44,12 +44,12 @@ public class Patient extends User {
         this.treatingDoctor = treatingDoctor;
     }
 
-    public Doctor getReceivingDoctor() {
-        return receivingDoctor;
+    public Doctor getReceptionDoctor() {
+        return receptionDoctor;
     }
 
-    public void setReceivingDoctor(Doctor receivingDoctor) {
-        this.receivingDoctor = receivingDoctor;
+    public void setReceptionDoctor(Doctor receptionDoctor) {
+        this.receptionDoctor = receptionDoctor;
     }
 
     @Override
@@ -61,7 +61,8 @@ public class Patient extends User {
         result = prime * result + (diagnosis == null ? 0 : diagnosis.hashCode());
         result = prime * result + (treatment == null ? 0 : treatment.hashCode());
         result = prime * result + (treatingDoctor == null ? 0 : treatingDoctor.hashCode());
-        result = prime * result + (receivingDoctor == null ? 0 : receivingDoctor.hashCode());
+        result = prime * result + (receptionDoctor == null ? 0 : receptionDoctor.hashCode());
+
 
         return result;
     }
@@ -74,7 +75,7 @@ public class Patient extends User {
         Patient patient = (Patient) object;
         return Objects.equals(diagnosis, patient.diagnosis) &&
                 Objects.equals(treatment, patient.treatment) &&
-                Objects.equals(treatingDoctor, patient.treatingDoctor) &&
-                Objects.equals(receivingDoctor, patient.receivingDoctor);
+                Objects.equals(treatingDoctor, patient.treatingDoctor) && //опля! в этих классах также нужно переопределить equals!
+                Objects.equals(receptionDoctor, patient.receptionDoctor);
     }
 }
