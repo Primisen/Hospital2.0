@@ -16,8 +16,7 @@ public class PatientServiceImpl implements PatientService {
     public void goToTheDoctor(Patient patient, Doctor doctor) throws ServiceException {
 
         try {
-            patientDao.setReceivingDoctor(patient, doctor);
-
+            patientDao.setTreatingDoctor(patient, doctor);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
