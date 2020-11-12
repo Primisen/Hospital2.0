@@ -1,4 +1,4 @@
-package training.nadia.hospital.controller.patient;
+package training.nadia.hospital.controller;
 
 import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Doctor;

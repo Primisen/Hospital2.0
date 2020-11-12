@@ -6,10 +6,10 @@
 <fmt:setBundle basename="l10n"/>
 
 <body background="">
-<ul>
-    <li><a href="?cookieLocale=ru"><fmt:message key="label.lang.ru"/></a></li>
-    <li><a href="?cookieLocale=en"><fmt:message key="label.lang.en"/></a></li>
-</ul>
+<%--<ul>--%>
+<%--    <li><a href="?cookieLocale=ru"><fmt:message key="label.lang.ru"/></a></li>--%>
+<%--    <li><a href="?cookieLocale=en"><fmt:message key="label.lang.en"/></a></li>--%>
+<%--</ul>--%>
 
 <c:if test="${sessionScope.user == null}">
     <form action="registration">

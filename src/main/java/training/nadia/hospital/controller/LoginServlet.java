@@ -1,8 +1,14 @@
 package training.nadia.hospital.controller;
 
 import training.nadia.hospital.entity.*;
+import training.nadia.hospital.service.AuthorizationService;
+import training.nadia.hospital.service.DoctorService;
+import training.nadia.hospital.service.PatientService;
 import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
+import training.nadia.hospital.service.impl.DoctorServiceImpl;
+import training.nadia.hospital.service.impl.PatientServiceImpl;
+import training.nadia.hospital.util.CopyData;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,47 +23,44 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
-        AuthorizationServiceImpl authorizationService = new AuthorizationServiceImpl();
-
         User user = new User();
+        user.setLogin(request.getParameter("login"));
+        user.setPassword(request.getParameter("password"));
+
+        AuthorizationService authorizationService = new AuthorizationServiceImpl();
 
         try {
-            user = authorizationService.authorize(login, password);
+            authorizationService.authorize(user);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        if (user instanceof Patient) {
-            Patient patient = (Patient) user;
-            session.setAttribute("user", patient); // user + id
+        if (user.getRole() == Role.PATIENT) {
+            Patient patient = new Patient();
+            CopyData.copy(user, patient);
+            session.setAttribute("user", patient);
             response.sendRedirect("/patient");
 
-        } else if (user instanceof Doctor) {
-            Doctor doctor = (Doctor) user;
+        } else if (user.getRole() == Role.DOCTOR) {
+            Doctor doctor = new Doctor();
+            CopyData.copy(user, doctor);
             session.setAttribute("user", doctor);
             response.sendRedirect("/doctor");
 
-        } else if (user instanceof Nurse) {
-            Nurse nurse = (Nurse) user;
+        } else if (user.getRole() == Role.NURSE) {
+            Nurse nurse = new Nurse();
+            CopyData.copy(user, nurse);
             session.setAttribute("user", nurse);
             response.sendRedirect("/nurse");
-
-        } else if (user instanceof Administrator) {
-            Administrator administrator = (Administrator) user;
-            session.setAttribute("user", administrator);
-            response.sendRedirect("/administrator");
         }
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
         requestDispatcher.forward(request, response);

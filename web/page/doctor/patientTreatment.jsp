@@ -18,11 +18,15 @@
 
     <c:out value="${patient.surname} ${patient.name}"></c:out>
 
-    <p>Тип лечения</p>
-    <c:out value="${patient.treatment.type}"></c:out>
+    <h3>Диагноз:</h3>
+    <c:out value="${patient.diagnosis}"></c:out>
 
-    <p>Выполнено</p>
-    <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}" var="numberOfCompletedTherapies"></c:set>
+    <h3>Тип лечения:</h3>
+    <c:out value="${patient.treatment.type.russianName}"></c:out>
+
+    <h3>Выполнено:</h3>
+    <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}"
+           var="numberOfCompletedTherapies"></c:set>
     <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"></c:set>
 
     <c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"></c:out>
@@ -31,12 +35,10 @@
 
     </br>
 
-    <c:if test="${numberOfCompletedTherapies == numberOfTherapies && active}">
-
+    <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
         <form action="treatment" method="post">
             <input type="submit" value="Выписать" name="patientDischarge">
         </form>
-
     </c:if>
 
 </c:forEach>

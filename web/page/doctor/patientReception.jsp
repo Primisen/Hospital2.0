@@ -15,32 +15,30 @@
 <h1>Ваши пациенты, ожидающие приема</h1>
 
 <c:forEach items="${patients}" var="patient">
-
     <form action="reception" method="post">
-
+        <p>Имя и фамилия пациента:</p>
         <c:out value="${patient.surname} ${patient.name}"></c:out>
 
-        <P>диагноз</P>
-        <input type="submit" name="diagnosis" placeholder="введите диагноз">
+        <p>Диагноз:</p>
+        <input type="text" name="diagnosis" placeholder="Введите диагноз">
 
-        <p>Тип лечения</p>
-        <select>
-            <c:forEach var="treatmentType" items="${treatmentType}">
-                <option><c:out value="${treatmentType}"/></option>
+        <p>Тип лечения:</p>
+        <select name="treatmentTypeValue">
+            <c:forEach items="${treatmentType}" var="treatmentType">
+                <option value="${treatmentType}">${treatmentType.russianName}</option>
             </c:forEach>
         </select>
 
-        <p>Количество процедур</p>
-        <c:out value="${patient.surname} ${patient.name}"></c:out>
+        <p>Количество процедур:</p>
+        <input type="text" name="numberOfProcedures" placeholder="Введите количество процедур">
 
-
+        <br>
+        <input type="hidden" name="patientId" value="${patient.id}">
+        <input type="submit" name="ok" value="Подтвердить">
     </form>
-
 </c:forEach>
 
-<%--<c:set scope="request" value="${patients}" var="patient"--%>
-
-<c:if test="${patient == null}">
+<c:if test="${patients == null}">
     <p>У Вас нет пациентов ожидающих прием.</p>
 </c:if>
 </body>

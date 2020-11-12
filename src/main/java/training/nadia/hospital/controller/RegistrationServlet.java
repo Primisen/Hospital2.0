@@ -72,8 +72,8 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("doctorTypeId", StaffType.DOCTOR.getId());
-        request.setAttribute("nurseTypeId", StaffType.NURSE.getId());
+//        request.setAttribute("doctorTypeId", StaffType.DOCTOR.getId());
+//        request.setAttribute("nurseTypeId", StaffType.NURSE.getId());
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/registration.jsp");
         requestDispatcher.forward(request, response);

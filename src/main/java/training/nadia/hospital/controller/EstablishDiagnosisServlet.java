@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/reception")
-public class ReceptionServlet extends HttpServlet {
+@WebServlet("/reception")//изменить
+public class EstablishDiagnosisServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -16,18 +16,29 @@
 
 <h1>Выберите врача, к которому Вы хотите попасть на прием</h1>
 
-<c:forEach items="${doctors}" var="doctors">
+<c:if test="${patient.receptionDoctor    == null}">
 
-    <form action="appointment-with-doctor" method="post">
+    <c:forEach items="${doctors}" var="doctors">
+        <form action="appointment-with-doctor" method="post">
+            <div>
+                <input type="submit" required name="doctorData" value="${doctors.surname} ${doctors.name}">
+                <input type="hidden" name="doctorName" value="${doctors.name}">
+                <input type="hidden" name="doctorSurname" value="${doctors.surname}">
+                <input type="hidden" name="doctorId" value="${doctors.id}">
+            </div>
+        </form>
+    </c:forEach>
+</c:if>
 
-        <div>
-            <input type="submit" required name="buDoctor" value="${doctors.surname} ${doctors.name}">
-            <input type="hidden" name="doctorId" value="${doctors.id}">
-        </div>
+<c:set scope="request" value="${patient}" var="patient"/>
 
+<c:if test="${patient.receptionDoctor != null}">
+    <h1>Вы успешно записаны к врачу на прием! Ожидайте, пока Вас смогут принять.</h1>
+
+    <form action = "patient" method="get">
+        <input type="submit" value="Вернуться на главную страницу">
     </form>
-
-</c:forEach>
+</c:if>
 
 </body>
 </html>

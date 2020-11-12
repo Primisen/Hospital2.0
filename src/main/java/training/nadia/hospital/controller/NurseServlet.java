@@ -1,4 +1,4 @@
-package training.nadia.hospital.controller.nurse;
+package training.nadia.hospital.controller;
 
 import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.service.exception.ServiceException;

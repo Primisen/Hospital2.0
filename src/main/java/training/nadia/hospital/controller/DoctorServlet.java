@@ -1,4 +1,4 @@
-package training.nadia.hospital.controller.doctor;
+package training.nadia.hospital.controller;
 
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.service.DoctorService;
