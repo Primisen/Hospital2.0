@@ -12,12 +12,10 @@ import java.sql.SQLException;
 
 public class DoctorDaoImpl implements DoctorDao {
 
-    private static final String UPDATE_DIAGNOSIS = "update treatment set diagnosis=? where patient_id=?";
-
-    private static final String UPDATE_TREATMENT =
-            "update treatment set number_of_therapies=?, treatment_type_id=" +
-                    "(select id from treatment_type where name = ?) " +
-                    "where patient_id=?";
+    private static final String INSERT_TREATMENT_DATA =
+            "insert into treatment " +
+                    "(patient_id, doctor_id, diagnosis, treatment_type_id, number_of_therapies, number_of_completed_therapies, active) " +
+                    "values (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_DOCTOR_PATIENTS =
             "select user.id, user.name, user.surname, diagnosis, number_of_therapies, " +
@@ -27,35 +25,25 @@ public class DoctorDaoImpl implements DoctorDao {
 
     private static final String SELECT_RECEIVING_PATIENTS =
             "select user.id, name, surname from user " +
-                    "join patient on patient.user_id = user.id " +
-                    "where patient.receiving_doctor_id = ?";
+                    "join reception on reception.patient_id = user.id " +
+                    "where reception.doctor_id = ?";
 
     private static final String UPDATE_TREATMENT_ACTIVE = "update treatment set active=? where patient_id=?";
 
     @Override
-    public void setDiagnosis(String diagnosis, Patient patient) throws DaoException {
+    public void setDiagnosisAndTreatment(Patient patient) throws DaoException {
 
         try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(UPDATE_DIAGNOSIS)) {
+             PreparedStatement ps = connection.prepareStatement(INSERT_TREATMENT_DATA)) {
 
-            ps.setString(1, diagnosis);
-            ps.setLong(2, patient.getId());
-            ps.executeUpdate();
+            ps.setLong(1, patient.getId());
+            ps.setLong(2, patient.getTreatingDoctor().getId());
+            ps.setString(3, patient.getDiagnosis());
+            ps.setInt(4, patient.getTreatment().getType().getId());
+            ps.setInt(5, patient.getTreatment().getNumberOfTherapies());
+            ps.setInt(6, patient.getTreatment().getNumberOfCompletedTherapies());
+            ps.setBoolean(7, patient.getTreatment().isActive());
 
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void setTreatment(Treatment treatment, Patient patient) throws DaoException {
-
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(UPDATE_TREATMENT)) {
-
-            ps.setInt(1, treatment.getNumberOfTherapies());
-            ps.setString(2, treatment.getType().getRussianName());
-            ps.setLong(3, patient.getId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -111,8 +99,8 @@ public class DoctorDaoImpl implements DoctorDao {
 
                 Patient patient = new Patient();
                 patient.setId(rs.getLong("id"));
-                patient.setName("name");
-                patient.setSurname("surname");
+                patient.setName(rs.getString("name"));
+                patient.setSurname(rs.getString("surname"));
 
                 doctor.addPatientToReceive(patient);
             }

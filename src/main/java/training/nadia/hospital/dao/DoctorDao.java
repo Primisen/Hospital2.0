@@ -7,9 +7,7 @@ import training.nadia.hospital.entity.Treatment;
 
 public interface DoctorDao {
 
-    void setDiagnosis(String diagnosis, Patient patient) throws DaoException;
-
-    void setTreatment(Treatment treatment, Patient patient) throws DaoException;
+    void setDiagnosisAndTreatment(Patient patient) throws DaoException;
 
     void getPatients(Doctor doctor) throws DaoException;
 
