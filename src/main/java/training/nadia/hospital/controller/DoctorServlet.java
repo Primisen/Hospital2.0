@@ -1,6 +1,9 @@
 package training.nadia.hospital.controller.doctor;
 
 import training.nadia.hospital.entity.Doctor;
+import training.nadia.hospital.service.DoctorService;
+import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.service.impl.DoctorServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,14 +19,12 @@ public class DoctorServlet extends HttpServlet {
     //логироать здесь
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Doctor doctor = (Doctor) request.getSession().getAttribute("user");
         request.setAttribute("doctor", doctor);
 
-        RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/page/doctor/doctor.jsp");
-
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/doctor/doctor.jsp");
         dispatcher.forward(request, response);
     }
 }

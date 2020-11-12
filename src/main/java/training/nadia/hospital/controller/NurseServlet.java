@@ -1,6 +1,7 @@
 package training.nadia.hospital.controller.nurse;
 
 import training.nadia.hospital.entity.Nurse;
+import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.NurseServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -24,7 +25,11 @@ public class NurseServlet extends HttpServlet {
             long patientId = Integer.parseInt(request.getParameter("patientProcedureKey"));
 
             NurseServiceImpl nurseService = new NurseServiceImpl();
-            nurseService.performTheProcedure(nurse, patientId);
+            try {
+                nurseService.performTheTherapy(nurse, patientId);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
     }
 
