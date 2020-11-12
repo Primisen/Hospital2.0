@@ -20,8 +20,8 @@ public class Treatment {
         } else if (typeId == TreatmentType.DRUG.getId()) {
             type = TreatmentType.DRUG;
 
-        } else if (typeId == TreatmentType.OPERATION.getId()) {
-            type = TreatmentType.OPERATION;
+//        } else if (typeId == TreatmentType.OPERATION.getId()) {
+//            type = TreatmentType.OPERATION;
         }
 
         this.active = active;
@@ -49,8 +49,8 @@ public class Treatment {
             type = TreatmentType.PROCEDURE;
         } else if (id == TreatmentType.DRUG.getId()) {
             type = TreatmentType.DRUG;
-        } else if (id == TreatmentType.OPERATION.getId()) {
-            type = TreatmentType.OPERATION;
+//        } else if (id == TreatmentType.OPERATION.getId()) {
+//            type = TreatmentType.OPERATION;
         }
     }
 
