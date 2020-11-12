@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <%@ include file="../header.jsp"%>
+    <%@ include file="header.jsp"%>
 
     <c:set scope="request" value="${patient}" var="patient"/>
 

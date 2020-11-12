@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<%@ include file="../header.jsp" %>
+<%@ include file="header.jsp" %>
 
 <c:set var="nurse" value="${nurse}" scope="request"></c:set>
       <h3>Личная информация</h3>

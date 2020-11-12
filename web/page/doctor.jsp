@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<%@ include file="../header.jsp" %>
+<%@ include file="header.jsp" %>
 
 <c:set scope="request" value="${doctor}" var="doctor"></c:set>
 
