@@ -38,7 +38,7 @@ public class TreatmentServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/doctor/patientTreatment.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientTreatment.jsp");
         requestDispatcher.forward(request, response);
     }
 }

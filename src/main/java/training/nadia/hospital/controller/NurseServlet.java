@@ -40,7 +40,7 @@ public class NurseServlet extends HttpServlet {
 
         request.setAttribute("nurse", nurse);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/nurse/nurse.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/nurse.jsp");
         requestDispatcher.forward(request, response);
     }
 }

@@ -24,7 +24,7 @@ public class DoctorServlet extends HttpServlet {
         Doctor doctor = (Doctor) request.getSession().getAttribute("user");
         request.setAttribute("doctor", doctor);
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/doctor/doctor.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/doctor.jsp");
         dispatcher.forward(request, response);
     }
 }

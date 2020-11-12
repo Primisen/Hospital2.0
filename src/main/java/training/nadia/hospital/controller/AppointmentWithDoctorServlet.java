@@ -67,7 +67,7 @@ public class AppointmentWithDoctorServlet extends HttpServlet {
         Patient patient = (Patient) request.getSession().getAttribute("user");
         request.setAttribute("patient", patient);
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/patient/goToDoctor.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/goToDoctor.jsp");
         dispatcher.forward(request, response);
     }
 }

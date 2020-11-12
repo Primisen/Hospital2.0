@@ -61,7 +61,7 @@ public class EstablishDiagnosisServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/doctor/patientReception.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientReception.jsp");
         requestDispatcher.forward(request, response);
     }
 

@@ -30,7 +30,7 @@ public class PatientServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/patient/patient.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/patient.jsp");
         dispatcher.forward(request, response);
     }
 }
