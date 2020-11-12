@@ -14,11 +14,21 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorDao doctorDao = new DoctorDaoImpl();
 
     @Override
-    public void setDiagnosisAndTreatment(String diagnosis, Treatment treatment, Patient patient) throws ServiceException {
+    public void setDiagnosisAndTreatment(String diagnosis, Treatment treatment, Patient patient, Doctor doctor) throws ServiceException {
 
         try {
-            doctorDao.setDiagnosis(diagnosis, patient);
-            doctorDao.setTreatment(treatment, patient);
+            if (diagnosis != null && treatment != null) {
+
+                treatment.setActive(true);
+                patient.setTreatment(treatment);
+                patient.setDiagnosis(diagnosis);
+                patient.setTreatingDoctor(doctor);
+
+                doctorDao.setDiagnosisAndTreatment(patient);
+
+                doctor.getPatientsToReceive().remove(patient);
+                doctor.addPatientToCure(patient);
+            }
 
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
