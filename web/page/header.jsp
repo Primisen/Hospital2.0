@@ -5,7 +5,7 @@
         <h3 class="masthead-brand">Hospital</h3>
 
         <c:set scope="session" value="${sessionScope}" var="sesseionScope"/>
-        
+
         <nav class="nav nav-masthead justify-content-center">
             <c:if test="${sessionScope.user == null}">
                 <a class="nav-link" href="/">Home</a>
