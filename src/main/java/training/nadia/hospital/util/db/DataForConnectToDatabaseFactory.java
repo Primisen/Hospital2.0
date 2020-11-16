@@ -1,4 +1,4 @@
-package training.nadia.hospital.util.data_for_connect_to_db;
+package training.nadia.hospital.util.db.data_for_connect_to_db;
 
 public class DataForConnectToDatabaseFactory {
 

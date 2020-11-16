@@ -1,4 +1,4 @@
-package training.nadia.hospital.util.connection_pool;
+package training.nadia.hospital.util.db.connection_pool;
 
 import java.sql.Connection;
 

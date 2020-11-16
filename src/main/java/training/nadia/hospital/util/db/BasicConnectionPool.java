@@ -1,4 +1,4 @@
-package training.nadia.hospital.util.connection_pool;
+package training.nadia.hospital.util.db.connection_pool;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-class BasicConnectionPool implements ConnectionPool { //синглтон, сделать статическим, ограничить видимость(только по пакету)
+public class BasicConnectionPool implements ConnectionPool { //синглтон, сделать статическим
 
     private String url;
     private String user;
