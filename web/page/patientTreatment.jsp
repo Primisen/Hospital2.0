@@ -10,37 +10,57 @@
 <html>
 <head>
     <title>Доктор</title>
+
+    <style>
+        .patient-form{
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        h4, h3, p{
+            text-shadow: none;
+        }
+    </style>
 </head>
 <body>
-<h1>Ваши пациенты</h1>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-<c:forEach items="${patients}" var="patient">
+    <%@ include file="header.jsp" %>
 
-    <c:out value="${patient.surname} ${patient.name}"></c:out>
+    <h1>Ваши пациенты</h1>
 
-    <h3>Диагноз:</h3>
-    <c:out value="${patient.diagnosis}"></c:out>
+    <c:forEach items="${patients}" var="patient">
 
-    <h3>Тип лечения:</h3>
-    <c:out value="${patient.treatment.type.russianName}"></c:out>
+        <div class="card mb-4 shadow-sm patient-form">
+            <div class="card-header">
+                <h4 ><c:out value="${patient.surname} ${patient.name}"></c:out></h4>
+            </div>
+            <div class="card-body">
+                <h3>Диагноз:</h3>
+                <p><c:out value="${patient.diagnosis}"></c:out></p>
 
-    <h3>Выполнено:</h3>
-    <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}"
-           var="numberOfCompletedTherapies"></c:set>
-    <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"></c:set>
+                <h3>Тип лечения:</h3>
+                <p><c:out value="${patient.treatment.type.russianName}"></c:out></p>
 
-    <c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"></c:out>
+                <h3>Выполнено:</h3>
+                <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}"
+                       var="numberOfCompletedTherapies"></c:set>
+                <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"></c:set>
+                <p><c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"></c:out></p>
 
-    <c:set scope="request" value="${patient.treatment.active}" var="active"></c:set>
 
-    </br>
+                <c:set scope="request" value="${patient.treatment.active}" var="active"></c:set>
+                <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
+                    <form action="treatment" method="post">
+                        <input type="submit" value="Выписать" name="patientDischarge">
+                    </form>
+                </c:if>
+            </div>
+        </div>
 
-    <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
-        <form action="treatment" method="post">
-            <input type="submit" value="Выписать" name="patientDischarge">
-        </form>
-    </c:if>
+    </c:forEach>
 
-</c:forEach>
+    <%@ include file="footer.jsp" %>
+</div>
 </body>
 </html>

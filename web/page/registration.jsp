@@ -1,39 +1,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 05.06.2020
-  Time: 16:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Регистрация</title>
+
+    <style>
+        .registration-form {
+            width: 100%;
+            max-width: 420px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
 </head>
 
-<body>
+<body class="text-center">
 
-<div>
+<c:set scope="request" value="${doctorTypeId}" var="doctorTypeId"></c:set>
+<c:set scope="request" value="${nurseTypeId}" var="nurseTypeId"></c:set>
 
-    <c:set scope="request" value="${doctorTypeId}" var="doctorTypeId"></c:set>
-    <c:set scope="request" value="${nurseTypeId}" var="nurseTypeId"></c:set>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-    <form action="registration" method="post">
+    <%@ include file="/page/header.jsp" %>
 
-        <input type="text" required name="name" placeholder="Имя"/>
-        <input type="text" required name="surname" placeholder="Фамилия"/>
-        <input type="text" required name="login" placeholder="Почта"/>
-        <input type="password" required name="password" placeholder="Пароль"/>
-        <input type="password" required name="passwordConfirmation" placeholder="Подтвердите пароль"/>
+    <div class="registration-form">
+        <form class="form-signin" action="registration" method="post">
 
-        <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}">Я являюсь доктором</input>
-        <input type="checkbox" requred name="nurseTypeId" value="${nurseTypeId}">Я являюсь медсестрой </input>
+            <h1 class="h3 mb-3 font-weight-normal">Please enter your data</h1>
 
-        <input type="submit" value="Зарегестрироваться"/>
-    </form>
+            <input type="text" class="form-control" required name="name" placeholder="Имя"/>
+            <input type="text" class="form-control" required name="surname" placeholder="Фамилия"/>
+            <input type="text" class="form-control" required name="login" placeholder="Почта"/>
 
-    <a href="/login">У меня уже есть аккаунт</a>
+            <br>
+
+            <input type="password" class="form-control" required name="password" placeholder="Пароль"/>
+            <input type="password" class="form-control" required name="passwordConfirmation"
+                   placeholder="Подтвердите пароль"/>
+
+            <br>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}">Я являюсь
+                    доктором</input>
+                </label>
+                <label>
+                    <input type="checkbox" requred name="nurseTypeId" value="${nurseTypeId}">Я являюсь
+                    медсестрой </input>
+                </label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегегистрироваться</button>
+        </form>
+
+        <a href="/login">У меня уже есть аккаунт</a>
+    </div>
+
+    <%@ include file="/page/footer.jsp" %>
+
 </div>
 </body>
 </html>

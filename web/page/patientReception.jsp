@@ -1,45 +1,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 05.07.2020
-  Time: 1:19
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .patient-form {
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        h4, h3, p {
+            text-shadow: none;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Ваши пациенты, ожидающие приема</h1>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-<c:forEach items="${patients}" var="patient">
-    <form action="reception" method="post">
-        <p>Имя и фамилия пациента:</p>
-        <c:out value="${patient.surname} ${patient.name}"></c:out>
+    <%@ include file="header.jsp" %>
 
-        <p>Диагноз:</p>
-        <input type="text" name="diagnosis" placeholder="Введите диагноз">
+    <h1>Ваши пациенты, ожидающие приема</h1>
 
-        <p>Тип лечения:</p>
-        <select name="treatmentTypeValue">
-            <c:forEach items="${treatmentType}" var="treatmentType">
-                <option value="${treatmentType}">${treatmentType.russianName}</option>
-            </c:forEach>
-        </select>
+    <c:forEach items="${patients}" var="patient">
 
-        <p>Количество процедур:</p>
-        <input type="text" name="numberOfProcedures" placeholder="Введите количество процедур">
+        <form class="patient-form" action="reception" method="post">
+            <div class="card mb-4 shadow-sm patient-form">
 
-        <br>
-        <input type="hidden" name="patientId" value="${patient.id}">
-        <input type="submit" name="ok" value="Подтвердить">
-    </form>
-</c:forEach>
+                <div class="card-header">
+                    <h4><c:out value="${patient.surname} ${patient.name}"></c:out></h4>
+                </div>
 
-<c:if test="${patients == null}">
-    <p>У Вас нет пациентов ожидающих прием.</p>
-</c:if>
+                <div class="card-body">
+                    <p>Диагноз:</p>
+                    <input type="text" name="diagnosis" placeholder="Введите диагноз">
+
+                    <p>Тип лечения:</p>
+                    <select name="treatmentTypeValue">
+                        <c:forEach items="${treatmentType}" var="treatmentType">
+                            <option value="${treatmentType}">${treatmentType.russianName}</option>
+                        </c:forEach>
+                    </select>
+
+                    <p>Количество процедур:</p>
+                    <input type="text" name="numberOfProcedures" placeholder="Введите количество процедур">
+
+                    <br>
+                    <input type="hidden" name="patientId" value="${patient.id}">
+                    <input type="submit" name="ok" value="Подтвердить">
+                </div>
+            </div>
+        </form>
+    </c:forEach>
+
+    <c:if test="${patients == null}">
+        <p>У Вас нет пациентов ожидающих прием.</p>
+    </c:if>
+
+    <%@ include file="footer.jsp" %>
+</div>
 </body>
 </html>

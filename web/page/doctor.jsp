@@ -1,32 +1,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 16.06.2020
-  Time: 13:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Страница доктора</title>
+
+    <style>
+        button {
+            background-color: #e7e7e7;
+            color: black;
+            border-radius: 8px;
+        }
+    </style>
 </head>
+
 <body>
-
-<%@ include file="header.jsp" %>
-
 <c:set scope="request" value="${doctor}" var="doctor"></c:set>
 
-<h3>Личная информация</h3>
-<c:out value="${doctor.surname} ${doctor.name}"></c:out>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-<form action="treatment">
-    <input type="submit" value="Ваши лечащиеся пациенты">
-</form>
+    <%@ include file="header.jsp" %>
 
-<form action="reception">
-    <input type="submit" value="Ваши пациенты, ожидающие приема">
-</form>
+    <h3>Личная информация</h3>
+    <c:out value="${doctor.surname} ${doctor.name}"></c:out>
 
+    <br>
+
+    <form action="treatment">
+        <button type="submit">Ваши лечащиеся пациенты</button>
+    </form>
+
+    <form action="reception">
+        <button type="submit">Ваши пациенты, ожидающие приема</button>
+    </form>
+
+    <%@ include file="footer.jsp" %>
+
+</div>
 </body>
 </html>
