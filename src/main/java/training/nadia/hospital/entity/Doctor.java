@@ -1,18 +1,16 @@
 package training.nadia.hospital.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Doctor extends User {
 
-    private List<Patient> patientsToCure;
-    private List<Patient> patientsToReceive;
+    private Set<Patient> patientsToCure;
+    private Set<Patient> patientsToReceive;
 
     public Doctor() {
 
-        patientsToCure = new ArrayList<>();
-        patientsToReceive = new ArrayList<>();
+        patientsToCure = new HashSet<>();
+        patientsToReceive = new HashSet<>();
         setRole(Role.DOCTOR);
     }
 
@@ -20,11 +18,11 @@ public class Doctor extends User {
         super(name, surname);
     }
 
-    public List<Patient> getPatientsToCure() {
+    public Set<Patient> getPatientsToCure() {
         return patientsToCure;
     }
 
-    public void setPatientsToCure(List<Patient> patientsToCure) {
+    public void setPatientsToCure(Set<Patient> patientsToCure) {
         this.patientsToCure = patientsToCure;
     }
 
@@ -32,11 +30,11 @@ public class Doctor extends User {
         patientsToCure.add(patient);
     }
 
-    public List<Patient> getPatientsToReceive() {
+    public Set<Patient> getPatientsToReceive() {
         return patientsToReceive;
     }
 
-    public void setPatientsToReceive(List<Patient> patientsToReceive) {
+    public void setPatientsToReceive(Set<Patient> patientsToReceive) {
         this.patientsToReceive = patientsToReceive;
     }
 

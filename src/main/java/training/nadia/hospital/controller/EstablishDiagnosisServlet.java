@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/reception")//изменить
 public class EstablishDiagnosisServlet extends HttpServlet {
@@ -65,7 +66,7 @@ public class EstablishDiagnosisServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private Patient findPatientById(List<Patient> patients, long id) {
+    private Patient findPatientById(Set<Patient> patients, long id) {
 
         for (Patient patient : patients) {
             if (patient.getId() == id) {
