@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataForConnectToDatabase {
@@ -18,10 +20,6 @@ public class DataForConnectToDatabase {
         readProperties();
     }
 
-    public String getDriver() {
-        return properties.getProperty("driver");
-    }
-
     public String getUrl() {
         return properties.getProperty("url");
     }
@@ -32,6 +30,12 @@ public class DataForConnectToDatabase {
 
     public String getPassword() {
         return properties.getProperty("password");
+    }
+
+    public Driver getDriver() throws SQLException {
+
+        Driver driver = new com.mysql.cj.jdbc.Driver();
+        return driver;
     }
 
     private void readProperties() {
