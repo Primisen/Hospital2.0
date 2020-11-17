@@ -16,6 +16,9 @@ public class Doctor extends User {
 
     public Doctor(String name, String surname) {
         super(name, surname);
+        patientsToCure = new HashSet<>();
+        patientsToReceive = new HashSet<>();
+        setRole(Role.DOCTOR);
     }
 
     public Set<Patient> getPatientsToCure() {
