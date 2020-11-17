@@ -1,4 +1,4 @@
-package training.nadia.hospital.util.db.data_for_connect_to_db;
+package training.nadia.hospital.util.db;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,7 +18,7 @@ public class DataForConnectToDatabase {
         readProperties();
     }
 
-    public String getDriver(){
+    public String getDriver() {
         return properties.getProperty("driver");
     }
 
@@ -37,7 +37,6 @@ public class DataForConnectToDatabase {
     private void readProperties() {
 
         try (InputStream input = getClass().getResourceAsStream("/jdbc.properties")) {
-
             properties.load(input);
 
         } catch (IOException e) {

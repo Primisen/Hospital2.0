@@ -1,4 +1,6 @@
-package training.nadia.hospital.util.db.data_for_connect_to_db;
+package training.nadia.hospital.util.db;
+
+import training.nadia.hospital.util.db.DataForConnectToDatabase;
 
 public class DataForConnectToDatabaseFactory {
 
