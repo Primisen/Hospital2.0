@@ -1,7 +1,6 @@
 package training.nadia.hospital.util.db;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -14,8 +13,7 @@ public class Connector {
 
         DataForConnectToDatabase data = new DataForConnectToDatabase();
 
-        Driver driver = new com.mysql.cj.jdbc.Driver();
-        DriverManager.registerDriver(driver);
+        DriverManager.registerDriver(data.getDriver());
 
         Connection connection = BasicConnectionPool.create(
                 data.getUrl(),
