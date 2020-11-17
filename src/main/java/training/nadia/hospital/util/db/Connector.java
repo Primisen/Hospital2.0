@@ -7,11 +7,12 @@ import java.sql.SQLException;
 
 public class Connector {
 
-    private Connector() { }
+    private Connector() {
+    }
 
     public static Connection getConnection() throws SQLException {
 
-        DataForConnectToDatabase data = DataForConnectToDatabaseFactory.getInstance();
+        DataForConnectToDatabase data = new DataForConnectToDatabase();
 
         Driver driver = new com.mysql.cj.jdbc.Driver();
         DriverManager.registerDriver(driver);
