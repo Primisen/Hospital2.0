@@ -1,9 +1,5 @@
 package training.nadia.hospital.util.db;
 
-import training.nadia.hospital.util.db.connection_pool.BasicConnectionPool;
-import training.nadia.hospital.util.db.data_for_connect_to_db.DataForConnectToDatabase;
-import training.nadia.hospital.util.db.data_for_connect_to_db.DataForConnectToDatabaseFactory;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
