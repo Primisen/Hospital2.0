@@ -8,8 +8,6 @@ import training.nadia.hospital.dao.impl.UtilDaoImpl;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.service.RegistrationService;
 import training.nadia.hospital.service.exception.ServiceException;
-import training.nadia.hospital.util.password_and_login.LoginChecker;
-import training.nadia.hospital.util.password_and_login.PasswordChecker;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
@@ -19,21 +17,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         try {
 
             if (userDoesNotExist(user)) {
-
-                if (LoginChecker.loginIsCorrect(user.getLogin())) {
-
-                    if (PasswordChecker.passwordIsSafe(user.getPassword())) {
-
-                        RegistrationDao registrationDao = new RegistrationDaoImpl();
-                        registrationDao.add(user);
-
-                    } else {
-                        throw new ServiceException("Warning! Password is not save.");
-                    }
-
-                } else {
-                    throw new ServiceException("Login is incorrect.");
-                }
+                RegistrationDao registrationDao = new RegistrationDaoImpl();
+                registrationDao.add(user);
 
             } else {
                 throw new ServiceException("User with this login already exists.");
