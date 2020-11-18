@@ -20,6 +20,8 @@ public class UtilDaoImpl implements UtilDao {
 
     private static final String SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD = "select id from user where login=? and password=?";
 
+    private static final String SELECT_USER_ID_BY_USER_LOGIN = "select id from user where login=?";
+
     @Override
     public List<Doctor> getAllDoctors() throws DaoException {
 
@@ -56,6 +58,28 @@ public class UtilDaoImpl implements UtilDao {
 
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                return true;
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isUserExist(String login) throws DaoException {
+
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN)) {
+
+            ps.setString(1, login);
 
             ResultSet rs = ps.executeQuery();
 

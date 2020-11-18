@@ -11,4 +11,6 @@ public interface UtilDao {
     List<Doctor> getAllDoctors() throws DaoException;
 
     boolean isUserExist(User user) throws DaoException;
+
+    boolean isUserExist(String login) throws DaoException;
 }
