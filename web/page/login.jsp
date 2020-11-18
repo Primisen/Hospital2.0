@@ -13,6 +13,9 @@
             padding: 15px;
             margin: auto;
         }
+        .exception {
+            color: red;
+        }
     </style>
 </head>
 
@@ -22,6 +25,12 @@
     <%@ include file="/page/header.jsp" %>
 
     <div class="login-form">
+
+        <div class="exception">
+            <c:set scope="request" value="${exceptionMessage}" var="exceptionMessage"/>
+            <c:out value="${exceptionMessage}"/>
+        </div>
+
         <form class="form-signin" action="login" method="post">
 
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -33,11 +42,11 @@
             <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Пароль"
                    required>
 
-<%--            <div class="checkbox mb-3">--%>
-<%--                <label>--%>
-<%--                    <input type="checkbox" value="remember-me">Remember me--%>
-<%--                </label>--%>
-<%--            </div>--%>
+            <%--            <div class="checkbox mb-3">--%>
+            <%--                <label>--%>
+            <%--                    <input type="checkbox" value="remember-me">Remember me--%>
+            <%--                </label>--%>
+            <%--            </div>--%>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>

@@ -35,6 +35,9 @@ public class LoginServlet extends HttpServlet {
         } catch (ServiceException e) {
             Logger logger = Logger.getRootLogger();
             logger.error(e.getMessage());
+
+            request.setAttribute("exceptionMessage", e.getMessage());
+            doGet(request, response);
         }
 
         if (user.getRole() == Role.PATIENT) {
