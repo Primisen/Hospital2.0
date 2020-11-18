@@ -32,6 +32,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     private boolean userDoesNotExist(User user) throws DaoException {
 
         UtilDao utilDao = new UtilDaoImpl();
-        return !utilDao.isUserExist(user);
+        return !utilDao.isUserExist(user.getLogin());
     }
 }
