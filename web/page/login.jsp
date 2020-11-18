@@ -33,11 +33,11 @@
             <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Пароль"
                    required>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me">Remember me
-                </label>
-            </div>
+<%--            <div class="checkbox mb-3">--%>
+<%--                <label>--%>
+<%--                    <input type="checkbox" value="remember-me">Remember me--%>
+<%--                </label>--%>
+<%--            </div>--%>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
