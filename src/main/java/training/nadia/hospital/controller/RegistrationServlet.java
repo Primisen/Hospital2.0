@@ -2,6 +2,7 @@ package training.nadia.hospital.controller;
 
 import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.*;
+import training.nadia.hospital.service.RegistrationService;
 import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.RegistrationServiceImpl;
 
@@ -20,21 +21,17 @@ public class RegistrationServlet extends HttpServlet {
     private Logger logger = Logger.getRootLogger();
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        RegistrationServiceImpl registrationService = new RegistrationServiceImpl();
+        RegistrationService registrationService = new RegistrationServiceImpl();
 
         try {
 
             if (request.getParameter("doctorTypeId") != null) {
                 Doctor doctor = new Doctor();
                 setUserData(doctor, request);
-                doctor.setRole(Role.DOCTOR);
 
                 registrationService.register(doctor);
 
@@ -44,7 +41,6 @@ public class RegistrationServlet extends HttpServlet {
             } else if (request.getParameter("nurseTypeId") != null) {
                 Nurse nurse = new Nurse();
                 setUserData(nurse, request);
-                nurse.setRole(Role.NURSE);
 
                 registrationService.register(nurse);
 
@@ -54,7 +50,6 @@ public class RegistrationServlet extends HttpServlet {
             } else {
                 Patient patient = new Patient();
                 setUserData(patient, request);
-                patient.setRole(Role.PATIENT);
 
                 registrationService.register(patient);
 
@@ -62,18 +57,15 @@ public class RegistrationServlet extends HttpServlet {
                 response.sendRedirect("/patient");
             }
 
-
         } catch (ServiceException e) {
-            //надо что-то для пользователя
+            request.setAttribute("errorMessage", e.getMessage());
             logger.error(e.getMessage());
+            doGet(request, response);
         }
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-//        request.setAttribute("doctorTypeId", StaffType.DOCTOR.getId());
-//        request.setAttribute("nurseTypeId", StaffType.NURSE.getId());
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/registration.jsp");
         requestDispatcher.forward(request, response);

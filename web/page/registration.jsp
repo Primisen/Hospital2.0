@@ -12,13 +12,16 @@
             padding: 15px;
             margin: auto;
         }
+        .exception {
+            color: red;
+        }
     </style>
 </head>
 
 <body class="text-center">
 
-<c:set scope="request" value="${doctorTypeId}" var="doctorTypeId"></c:set>
-<c:set scope="request" value="${nurseTypeId}" var="nurseTypeId"></c:set>
+<c:set scope="request" value="${doctorTypeId}" var="doctorTypeId"/>
+<c:set scope="request" value="${nurseTypeId}" var="nurseTypeId"/>
 
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
@@ -27,17 +30,21 @@
     <div class="registration-form">
         <form class="form-signin" action="registration" method="post">
 
+            <div class="exception">
+                <c:set scope="request" value="${errorMessage}" var="error"/>
+                <c:out value="${error}"/>
+            </div>
+
             <h1 class="h3 mb-3 font-weight-normal">Please enter your data</h1>
 
             <input type="text" class="form-control" required name="name" placeholder="Имя"/>
             <input type="text" class="form-control" required name="surname" placeholder="Фамилия"/>
-            <input type="text" class="form-control" required name="login" placeholder="Почта"/>
+            <input type="email" class="form-control"  name="login" placeholder="Email address" required autofocus>
 
             <br>
 
-            <input type="password" class="form-control" required name="password" placeholder="Пароль"/>
-            <input type="password" class="form-control" required name="passwordConfirmation"
-                   placeholder="Подтвердите пароль"/>
+            <p>Пароль должен состоять из не менее чем 8 символов</p>
+            <input type="password" class="form-control" minlength="8" required name="password" placeholder="Пароль"/>
 
             <br>
             <div class="checkbox mb-3">
@@ -51,7 +58,7 @@
                 </label>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегегистрироваться</button>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегестрироваться"/>
         </form>
 
         <a href="/login">У меня уже есть аккаунт</a>
