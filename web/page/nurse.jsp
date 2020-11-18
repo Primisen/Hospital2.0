@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 16.06.2020
-  Time: 13:57
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,27 +9,27 @@
 
     <%@ include file="header.jsp" %>
 
-    <c:set var="nurse" value="${nurse}" scope="request"></c:set>
+    <c:set var="nurse" value="${nurse}" scope="request"/>
     <h3>Личная информация</h3>
-    <c:out value="${nurse.surname} ${nurse.name}"></c:out>
+    <c:out value="${nurse.surname} ${nurse.name}"/>
 
-    <c:forEach items="${nurse.patientTherapies}" var="patientTherapies">
+    <c:forEach items="${nurse.patient}" var="patient">
 
         <div>
 
-            <c:out value="${patientTherapies.key.surname} ${patientTherapies.key.name}"></c:out>
-            <c:out value="Количество оставшихся процедур: ${patientTherapies.value}"></c:out>
+            <c:out value="${patient.surname} ${patient.name}"/>
+            <c:out value="Количество оставшихся процедур: ${patient.treatment.numberOfTherapies - patient.treatment.numberOfCompletedTherapies}"/>
 
             <form method="post" action="nurse">
                 <input type="submit" required name="patient" value="Выполнить процедуру">
-                <input type="hidden" name="patientProcedureKey" value="${patientTherapies.key.id}">
+                <input type="hidden" name="patientProcedureKey" value="${patient.id}">
                     <%--naming скрытой кнопки. имя должно передавать предназначение кнопки--%>
             </form>
         </div>
 
     </c:forEach>
 
-    <c:if test="${patientTherapies == null}">
+    <c:if test="${patient == null}">
         <p>Вам не назначены пациенты.</p>
     </c:if>
 
