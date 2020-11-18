@@ -1,5 +1,6 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.PatientService;
 import training.nadia.hospital.service.exception.ServiceException;
@@ -27,7 +28,8 @@ public class PatientServlet extends HttpServlet {
             request.setAttribute("patient", patient);
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getRootLogger();
+            logger.error(e.getMessage());
         }
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/page/patient.jsp");

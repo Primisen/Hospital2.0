@@ -1,5 +1,6 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Treatment;
@@ -21,6 +22,8 @@ import java.util.Set;
 @WebServlet("/reception")//изменить
 public class EstablishDiagnosisServlet extends HttpServlet {
 
+    private Logger logger = Logger.getRootLogger();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -39,7 +42,7 @@ public class EstablishDiagnosisServlet extends HttpServlet {
             try {
                 doctorService.setDiagnosisAndTreatment(diagnosis, treatment, patient, doctor);
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
 
@@ -59,7 +62,7 @@ public class EstablishDiagnosisServlet extends HttpServlet {
             request.setAttribute("treatmentType", TreatmentType.values());
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientReception.jsp");

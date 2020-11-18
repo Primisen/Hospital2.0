@@ -1,13 +1,10 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.AuthorizationService;
-import training.nadia.hospital.service.DoctorService;
-import training.nadia.hospital.service.PatientService;
 import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
-import training.nadia.hospital.service.impl.DoctorServiceImpl;
-import training.nadia.hospital.service.impl.PatientServiceImpl;
 import training.nadia.hospital.util.CopyData;
 
 import javax.servlet.RequestDispatcher;
@@ -36,7 +33,8 @@ public class LoginServlet extends HttpServlet {
         try {
             authorizationService.authorize(user);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getRootLogger();
+            logger.error(e.getMessage());
         }
 
         if (user.getRole() == Role.PATIENT) {

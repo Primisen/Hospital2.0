@@ -1,5 +1,6 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.service.DoctorService;
 import training.nadia.hospital.service.exception.ServiceException;
@@ -16,14 +17,16 @@ import java.io.IOException;
 @WebServlet("/treatment")
 public class TreatmentServlet extends HttpServlet {
 
+    private Logger logger = Logger.getRootLogger();
+
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             Doctor doctor = (Doctor) request.getSession().getAttribute("user");
@@ -35,7 +38,7 @@ public class TreatmentServlet extends HttpServlet {
 
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientTreatment.jsp");

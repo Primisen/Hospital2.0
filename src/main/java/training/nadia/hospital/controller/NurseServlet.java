@@ -1,5 +1,6 @@
 package training.nadia.hospital.controller;
 
+import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.service.exception.ServiceException;
 import training.nadia.hospital.service.impl.NurseServiceImpl;
@@ -28,7 +29,8 @@ public class NurseServlet extends HttpServlet {
             try {
                 nurseService.performTheTherapy(nurse, patientId);
             } catch (ServiceException e) {
-                e.printStackTrace();
+                Logger logger = Logger.getRootLogger();
+                logger.error(e.getMessage());
             }
         }
     }

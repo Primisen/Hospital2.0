@@ -45,7 +45,7 @@ public class AppointmentWithDoctorServlet extends HttpServlet {
                 patientService.goToTheDoctor(patient, doctor);
 
             } catch (ServiceException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
 
@@ -61,7 +61,7 @@ public class AppointmentWithDoctorServlet extends HttpServlet {
             request.setAttribute("doctors", doctors);
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         Patient patient = (Patient) request.getSession().getAttribute("user");
