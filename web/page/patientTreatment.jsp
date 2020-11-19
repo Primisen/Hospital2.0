@@ -29,27 +29,32 @@
 
     <h1>Ваши пациенты</h1>
 
+    <c:set scope="request" value="${patientList}" var="patients"/>
+    <c:if test="${patients == null}">
+        <p>Список пациентов пуст.</p>
+    </c:if>
+
     <c:forEach items="${patients}" var="patient">
 
         <div class="card mb-4 shadow-sm patient-form">
             <div class="card-header">
-                <h4 ><c:out value="${patient.surname} ${patient.name}"></c:out></h4>
+                <h4 ><c:out value="${patient.surname} ${patient.name}"/></h4>
             </div>
             <div class="card-body">
                 <h3>Диагноз:</h3>
-                <p><c:out value="${patient.diagnosis}"></c:out></p>
+                <p><c:out value="${patient.diagnosis}"/></p>
 
                 <h3>Тип лечения:</h3>
-                <p><c:out value="${patient.treatment.type.russianName}"></c:out></p>
+                <p><c:out value="${patient.treatment.type.russianName}"/></p>
 
                 <h3>Выполнено:</h3>
                 <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}"
-                       var="numberOfCompletedTherapies"></c:set>
-                <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"></c:set>
-                <p><c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"></c:out></p>
+                       var="numberOfCompletedTherapies"/>
+                <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"/>
+                <p><c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"/></p>
 
 
-                <c:set scope="request" value="${patient.treatment.active}" var="active"></c:set>
+                <c:set scope="request" value="${patient.treatment.active}" var="active"/>
                 <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
                     <form action="treatment" method="post">
                         <input type="submit" value="Выписать" name="patientDischarge">

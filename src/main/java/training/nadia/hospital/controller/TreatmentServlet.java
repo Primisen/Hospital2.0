@@ -35,6 +35,7 @@ public class TreatmentServlet extends HttpServlet {
             doctorService.getPatients(doctor);
 
             request.setAttribute("patients", doctor.getPatientsToCure());
+            request.setAttribute("patientsList", doctor.getPatientsToCure());
 
 
         } catch (ServiceException e) {
