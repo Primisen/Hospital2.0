@@ -57,7 +57,8 @@ public class Doctor extends User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(patientsToCure, patientsToReceive);
+
+        return super.hashCode();
     }
 
     @Override

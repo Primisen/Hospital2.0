@@ -83,7 +83,13 @@ public class Treatment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(active, type, numberOfTherapies, numberOfCompletedTherapies);
+
+        int result = 17;
+        result = 37 * result + (active ? 1 : 0);
+        result = 37 * result + numberOfTherapies;
+        result = 37 * result + numberOfCompletedTherapies;
+
+        return result;
     }
 
     @Override

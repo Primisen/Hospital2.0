@@ -55,14 +55,11 @@ public class Patient extends User {
     @Override
     public int hashCode() {
 
-        int prime = 31;
-        int result = 1;
+        int result = 17;
 
-        result = prime * result + (diagnosis == null ? 0 : diagnosis.hashCode());
-        result = prime * result + (treatment == null ? 0 : treatment.hashCode());
-        result = prime * result + (treatingDoctor == null ? 0 : treatingDoctor.hashCode());
-        result = prime * result + (receptionDoctor == null ? 0 : receptionDoctor.hashCode());
-
+        result = 37 * result + super.hashCode();
+        result = 37 * result + (diagnosis == null ? 0 : diagnosis.hashCode());
+        result = 37 * result + (treatment == null ? 0 : treatment.hashCode());
 
         return result;
     }
@@ -75,7 +72,7 @@ public class Patient extends User {
         Patient patient = (Patient) object;
         return Objects.equals(diagnosis, patient.diagnosis) &&
                 Objects.equals(treatment, patient.treatment) &&
-                Objects.equals(treatingDoctor, patient.treatingDoctor) && //опля! в этих классах также нужно переопределить equals!
+                Objects.equals(treatingDoctor, patient.treatingDoctor) &&
                 Objects.equals(receptionDoctor, patient.receptionDoctor);
     }
 }

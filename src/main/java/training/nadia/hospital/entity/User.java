@@ -61,7 +61,7 @@ public class User {
         } else if (id == Role.DOCTOR.getId()) {
             role = Role.DOCTOR;
 
-        } else if (id == Role.NURSE.getId()){
+        } else if (id == Role.NURSE.getId()) {
             role = Role.NURSE;
         }
     }
@@ -96,7 +96,15 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, name, surname);
+
+        int result = 17;
+        result = 37 * result + (int) id;
+        result = 37 * result + login.hashCode();
+        result = 37 * result + password.hashCode();
+        result = 37 * result + name.hashCode();
+        result = 37 * result + surname.hashCode();
+
+        return result;
     }
 
     @Override
