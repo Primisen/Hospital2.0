@@ -99,10 +99,10 @@ public class User {
 
         int result = 17;
         result = 37 * result + (int) id;
-        result = 37 * result + login.hashCode();
-        result = 37 * result + password.hashCode();
-        result = 37 * result + name.hashCode();
-        result = 37 * result + surname.hashCode();
+        result = 37 * result + (login == null ? 0 : login.hashCode());
+        result = 37 * result + (password == null ? 0 : password.hashCode());
+        result = 37 * result + (name == null ? 0 : name.hashCode());
+        result = 37 * result + (surname == null ? 0 : surname.hashCode());
 
         return result;
     }
