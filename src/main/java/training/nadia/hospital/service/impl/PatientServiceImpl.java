@@ -1,12 +1,12 @@
 package training.nadia.hospital.service.impl;
 
 import training.nadia.hospital.dao.PatientDao;
-import training.nadia.hospital.dao.exception.DaoException;
+import training.nadia.hospital.exception.DaoException;
 import training.nadia.hospital.dao.impl.PatientDaoImpl;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.PatientService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 
 public class PatientServiceImpl implements PatientService {
 

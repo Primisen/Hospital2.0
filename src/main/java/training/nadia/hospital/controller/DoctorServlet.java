@@ -1,9 +1,6 @@
 package training.nadia.hospital.controller;
 
 import training.nadia.hospital.entity.Doctor;
-import training.nadia.hospital.service.DoctorService;
-import training.nadia.hospital.service.exception.ServiceException;
-import training.nadia.hospital.service.impl.DoctorServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -3,7 +3,7 @@ package training.nadia.hospital.controller;
 import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.service.DoctorService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.DoctorServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -34,7 +34,7 @@ public class TreatmentServlet extends HttpServlet {
             DoctorService doctorService = new DoctorServiceImpl();
             doctorService.getPatients(doctor);
 
-            request.setAttribute("patients", doctor.getPatientsToCure());
+            request.setAttribute("patients", doctor.getPatientsToCure());//???они же одинаковые
             request.setAttribute("patientsList", doctor.getPatientsToCure());
 
 

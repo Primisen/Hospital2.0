@@ -1,4 +1,4 @@
-package training.nadia.hospital.service.exception;
+package training.nadia.hospital.exception;
 
 public class ServiceException extends Exception {
 

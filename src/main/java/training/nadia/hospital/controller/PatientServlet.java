@@ -3,7 +3,7 @@ package training.nadia.hospital.controller;
 import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.PatientService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.PatientServiceImpl;
 
 import javax.servlet.RequestDispatcher;

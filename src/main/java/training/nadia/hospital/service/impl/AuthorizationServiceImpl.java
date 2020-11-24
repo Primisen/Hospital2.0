@@ -2,11 +2,11 @@ package training.nadia.hospital.service.impl;
 
 import training.nadia.hospital.dao.AuthorizationDao;
 import training.nadia.hospital.dao.UtilDao;
-import training.nadia.hospital.dao.exception.DaoException;
+import training.nadia.hospital.exception.DaoException;
 import training.nadia.hospital.dao.impl.*;
 import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.AuthorizationService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 
 public class AuthorizationServiceImpl implements AuthorizationService {
 

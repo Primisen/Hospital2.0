@@ -6,7 +6,7 @@ import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Treatment;
 import training.nadia.hospital.entity.TreatmentType;
 import training.nadia.hospital.service.DoctorService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.DoctorServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 @WebServlet("/reception")//изменить

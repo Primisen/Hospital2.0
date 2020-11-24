@@ -2,12 +2,12 @@ package training.nadia.hospital.service.impl;
 
 import training.nadia.hospital.dao.RegistrationDao;
 import training.nadia.hospital.dao.UtilDao;
-import training.nadia.hospital.dao.exception.DaoException;
+import training.nadia.hospital.exception.DaoException;
 import training.nadia.hospital.dao.impl.RegistrationDaoImpl;
 import training.nadia.hospital.dao.impl.UtilDaoImpl;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.service.RegistrationService;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 
 public class RegistrationServiceImpl implements RegistrationService {
 

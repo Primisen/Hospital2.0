@@ -1,7 +1,7 @@
 package training.nadia.hospital.dao.impl;
 
 import training.nadia.hospital.dao.UtilDao;
-import training.nadia.hospital.dao.exception.DaoException;
+import training.nadia.hospital.exception.DaoException;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Role;
 import training.nadia.hospital.entity.User;

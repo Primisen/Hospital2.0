@@ -3,7 +3,7 @@ package training.nadia.hospital.service;
 import training.nadia.hospital.entity.Doctor;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.entity.Treatment;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 
 public interface DoctorService {
 

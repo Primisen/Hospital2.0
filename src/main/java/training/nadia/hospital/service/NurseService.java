@@ -1,7 +1,7 @@
 package training.nadia.hospital.service;
 
 import training.nadia.hospital.entity.Nurse;
-import training.nadia.hospital.service.exception.ServiceException;
+import training.nadia.hospital.exception.ServiceException;
 
 public interface NurseService {
 

@@ -1,4 +1,4 @@
-package training.nadia.hospital.dao.exception;
+package training.nadia.hospital.exception;
 
 public class DaoException extends Exception {
 
