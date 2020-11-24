@@ -42,9 +42,13 @@ public class BasicConnectionPool implements ConnectionPool {
     @Override
     public Connection getConnection() {
 
-        Connection connection = connectionPool.remove(connectionPool.size() - 1);
-        usedConnections.add(connection);
-        return connection;
+        if (connectionPool.size() > 0) {
+            Connection connection = connectionPool.remove(connectionPool.size() - 1);
+            usedConnections.add(connection);
+            return connection;
+        }
+
+        return usedConnections.get(usedConnections.size() - 1);
     }
 
     @Override
