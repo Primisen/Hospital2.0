@@ -7,6 +7,8 @@
     <groupId>groupId</groupId>
     <artifactId>Hospital6</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
 <!--    <packaging>war</packaging>-->
 
 
