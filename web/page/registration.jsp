@@ -39,14 +39,14 @@
 
             <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.title"/></h1>
 
-            <input type="text" class="form-control" required name="name" placeholder="Имя"/>
-            <input type="text" class="form-control" required name="surname" placeholder="Фамилия"/>
+            <input type="text" class="form-control" required name="name" placeholder="Name"/>
+            <input type="text" class="form-control" required name="surname" placeholder="Surname"/>
             <input type="email" class="form-control"  name="login" placeholder="Email address" required autofocus>
 
             <br>
 
             <p><fmt:message key="registration.password_requirements"/> </p>
-            <input type="password" class="form-control" minlength="8" required name="password" placeholder="Пароль"/>
+            <input type="password" class="form-control" minlength="8" required name="password" placeholder="Password"/>
 
             <br>
             <div class="checkbox mb-3">
@@ -58,7 +58,7 @@
                 </label>
             </div>
 
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегестрироваться"/>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value=<fmt:message key="registration.register"/> />
         </form>
 
         <a href="/login"><fmt:message key="registration.login"/></a>

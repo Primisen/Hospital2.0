@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title>Title</title>
+    <title><fmt:message key="page.PatientReception.title"/> </title>
     <style>
         .patient-form {
             color: #000000;
@@ -22,7 +22,7 @@
 
     <%@ include file="header.jsp" %>
 
-    <h1>Ваши пациенты, ожидающие приема</h1>
+    <h1><fmt:message key="page.PatientReception.message"/> </h1>
 
     <c:forEach items="${patients}" var="patient">
 
@@ -34,29 +34,29 @@
                 </div>
 
                 <div class="card-body">
-                    <p>Диагноз:</p>
+                    <p><fmt:message key="page.PatientReception.diagnosis"/> : </p>
                     <input type="text" name="diagnosis" placeholder="Введите диагноз">
 
-                    <p>Тип лечения:</p>
+                    <p><fmt:message key="page.PatientReception.TreatmentType"/> :</p>
                     <select name="treatmentTypeValue">
                         <c:forEach items="${treatmentType}" var="treatmentType">
                             <option value="${treatmentType}">${treatmentType.russianName}</option>
                         </c:forEach>
                     </select>
 
-                    <p>Количество процедур:</p>
+                    <p><fmt:message key="page.PatientReception.procedure.number"/> :</p>
                     <input type="text" name="numberOfProcedures" placeholder="Введите количество процедур">
 
                     <br>
                     <input type="hidden" name="patientId" value="${patient.id}">
-                    <input type="submit" name="ok" value="Подтвердить">
+                    <input type="submit" name="ok" value=<fmt:message key="page.PatientReception.button"/> >
                 </div>
             </div>
         </form>
     </c:forEach>
 
     <c:if test="${patients == null}">
-        <p>У Вас нет пациентов ожидающих прием.</p>
+        <p><fmt:message key="page.PatientReception.patient.message" /></p>
     </c:if>
 
     <%@ include file="footer.jsp" %>

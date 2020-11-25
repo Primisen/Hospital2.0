@@ -13,6 +13,7 @@
             padding: 15px;
             margin: auto;
         }
+
         .exception {
             color: red;
         }
@@ -26,6 +27,7 @@
 
     <div class="login-form">
 
+        <%--        !!!!!--%>
         <div class="exception">
             <c:set scope="request" value="${exceptionMessage}" var="exceptionMessage"/>
             <c:out value="${exceptionMessage}"/>
@@ -35,13 +37,9 @@
 
             <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="login.title"/></h1>
 
-            <%--label нужен?    --%>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <%--        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>--%>
             <input type="text" id="inputEmail" class="form-control" name="login" placeholder="Email address" required
                    autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Пароль"
+            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password"
                    required>
 
             <%--            <div class="checkbox mb-3">--%>
@@ -50,7 +48,7 @@
             <%--                </label>--%>
             <%--            </div>--%>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.sign_in_button"/> </button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.sign_in_button"/></button>
         </form>
 
         <a href="/registration"><fmt:message key="login.registration_button"/> </a>
