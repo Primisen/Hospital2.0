@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <head>
+    <%@ include file="/page/i18n.jsp" %>
     <title><fmt:message key="page.index.title"/></title>
 </head>
 

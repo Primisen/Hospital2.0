@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%@ include file="i18n.jsp" %>
     <title>Страница медсестры</title>
 </head>
 <body>

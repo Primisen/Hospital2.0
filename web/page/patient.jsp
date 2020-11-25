@@ -3,6 +3,7 @@
 
 <html>
 <head>
+    <%@ include file="i18n.jsp" %>
     <title>Страница пациента</title>
     <%--    <link rel="stylesheet" href="../styles/bootstrap-4.5.3-examples/carousel/carousel.css">--%>
 </head>

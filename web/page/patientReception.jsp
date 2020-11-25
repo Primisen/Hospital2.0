@@ -3,6 +3,7 @@
 
 <html>
 <head>
+    <%@ include file="i18n.jsp" %>
     <title>Title</title>
     <style>
         .patient-form {

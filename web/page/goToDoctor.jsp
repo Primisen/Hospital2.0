@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <meta charset="UTF-8"/>
+    <%@ include file="i18n.jsp" %>
     <title>Страница пациента</title>
 </head>
 

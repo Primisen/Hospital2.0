@@ -3,8 +3,8 @@
 
 <html>
 <head>
-    <%--    <meta charset="UTF-8"/>--%>
-    <title>Войти</title>
+    <%@ include file="i18n.jsp" %>
+    <title><fmt:message key="page.login.title"/></title>
 
     <style>
         .login-form {
@@ -33,7 +33,9 @@
 
         <form class="form-signin" action="login" method="post">
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="login.title"/></h1>
+
+            <%--label нужен?    --%>
             <label for="inputEmail" class="sr-only">Email address</label>
             <%--        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>--%>
             <input type="text" id="inputEmail" class="form-control" name="login" placeholder="Email address" required
@@ -48,10 +50,10 @@
             <%--                </label>--%>
             <%--            </div>--%>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.sign_in_button"/> </button>
         </form>
 
-        <a href="/registration">У меня нет аккаунта</a>
+        <a href="/registration"><fmt:message key="login.registration_button"/> </a>
     </div>
 
     <%@ include file="/page/footer.jsp" %>
