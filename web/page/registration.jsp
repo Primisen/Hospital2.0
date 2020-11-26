@@ -3,7 +3,8 @@
 
 <html>
 <head>
-    <title>Регистрация</title>
+    <%@ include file="i18n.jsp" %>
+    <title><fmt:message key="page.registration.title"/></title>
 
     <style>
         .registration-form {
@@ -30,38 +31,37 @@
     <div class="registration-form">
         <form class="form-signin" action="registration" method="post">
 
+            <%--    !!!!!!!!!!!--%>
             <div class="exception">
                 <c:set scope="request" value="${errorMessage}" var="error"/>
                 <c:out value="${error}"/>
             </div>
 
-            <h1 class="h3 mb-3 font-weight-normal">Please enter your data</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.title"/></h1>
 
-            <input type="text" class="form-control" required name="name" placeholder="Имя"/>
-            <input type="text" class="form-control" required name="surname" placeholder="Фамилия"/>
+            <input type="text" class="form-control" required name="name" placeholder="Name"/>
+            <input type="text" class="form-control" required name="surname" placeholder="Surname"/>
             <input type="email" class="form-control"  name="login" placeholder="Email address" required autofocus>
 
             <br>
 
-            <p>Пароль должен состоять из не менее чем 8 символов</p>
-            <input type="password" class="form-control" minlength="8" required name="password" placeholder="Пароль"/>
+            <p><fmt:message key="registration.password_requirements"/> </p>
+            <input type="password" class="form-control" minlength="8" required name="password" placeholder="Password"/>
 
             <br>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}">Я являюсь
-                    доктором</input>
+                    <input type="checkbox" requred name="doctorTypeId" value="${doctorTypeId}"><fmt:message key="registration.doctor"/></input>
                 </label>
                 <label>
-                    <input type="checkbox" requred name="nurseTypeId" value="${nurseTypeId}">Я являюсь
-                    медсестрой </input>
+                    <input type="checkbox" requred name="nurseTypeId" value="${nurseTypeId}"><fmt:message key="registration.nurse"/> </input>
                 </label>
             </div>
 
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегестрироваться"/>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value=<fmt:message key="registration.register"/> />
         </form>
 
-        <a href="/login">У меня уже есть аккаунт</a>
+        <a href="/login"><fmt:message key="registration.login"/></a>
     </div>
 
     <%@ include file="/page/footer.jsp" %>

@@ -3,8 +3,8 @@
 
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>Страница пациента</title>
+    <%@ include file="i18n.jsp" %>
+    <title><fmt:message key="page.GoToDoctor.title"/> </title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
     <c:if test="${patient.receptionDoctor == null}">
 
-        <h1>Выберите врача, к которому Вы хотите попасть на прием</h1>
+        <h1><fmt:message key="page.GoToDoctor.begin.message"/> </h1>
 
         <c:forEach items="${doctors}" var="doctors">
             <form action="appointment-with-doctor" method="post">
@@ -31,10 +31,10 @@
     <c:set scope="request" value="${patient}" var="patient"/>
 
     <c:if test="${patient.receptionDoctor != null}">
-        <h1>Вы успешно записаны к врачу на прием! Ожидайте, пока Вас смогут принять.</h1>
+        <h1><fmt:message key="page.GoToDoctor.message"/> </h1>
 
         <form action="patient" method="get">
-            <input type="submit" value="Вернуться на главную страницу">
+            <input type="submit" value=<fmt:message key="page.GoToDoctor.button.back"/> >
         </form>
     </c:if>
 

@@ -3,6 +3,6 @@
 
 <footer class="mastfoot mt-auto">
     <div class="inner">
-        <p>Hospital, &copy; 2020</p>
+        <p><fmt:message key="footer.title"/> , &copy; 2020</p>
     </div>
 </footer>

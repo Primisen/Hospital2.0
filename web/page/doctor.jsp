@@ -3,7 +3,8 @@
 
 <html>
 <head>
-    <title>Страница доктора</title>
+    <%@ include file="i18n.jsp" %>
+    <title><fmt:message key="page.doctor.title"/> </title>
 
     <style>
         button {
@@ -21,17 +22,17 @@
 
     <%@ include file="header.jsp" %>
 
-    <h3>Личная информация</h3>
+    <h3><fmt:message key="page.common.info"/> </h3>
     <c:out value="${doctor.surname} ${doctor.name}"></c:out>
 
     <br>
 
     <form action="treatment">
-        <button type="submit">Ваши лечащиеся пациенты</button>
+        <button type="submit"><fmt:message key="page.doctor.button.patient.treatment"/> </button>
     </form>
 
     <form action="reception">
-        <button type="submit">Ваши пациенты, ожидающие приема</button>
+        <button type="submit"><fmt:message key="page.doctor.button.patient.reception"/> </button>
     </form>
 
     <%@ include file="footer.jsp" %>

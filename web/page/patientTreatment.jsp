@@ -1,15 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: primi
-  Date: 08.07.2020
-  Time: 12:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Доктор</title>
+    <%@ include file="i18n.jsp" %>
+    <title><fmt:message key="page.PatientTreatment.title"/></title>
 
     <style>
         .patient-form{
@@ -27,11 +21,11 @@
 
     <%@ include file="header.jsp" %>
 
-    <h1>Ваши пациенты</h1>
+    <h1><fmt:message key="page.PatientTreatment.message"/> </h1>
 
     <c:set scope="request" value="${patientList}" var="patients"/>
     <c:if test="${patients == null}">
-        <p>Список пациентов пуст.</p>
+        <p><fmt:message key="page.PatientTreatment.message.patient"/> </p>
     </c:if>
 
     <c:forEach items="${patients}" var="patient">
@@ -41,23 +35,25 @@
                 <h4 ><c:out value="${patient.surname} ${patient.name}"/></h4>
             </div>
             <div class="card-body">
-                <h3>Диагноз:</h3>
+                <h3><fmt:message key="page.PatientTreatment.diagnosis"/> :</h3>
                 <p><c:out value="${patient.diagnosis}"/></p>
 
-                <h3>Тип лечения:</h3>
+                <h3><fmt:message key="page.PatientTreatment.TreatmentType"/> :</h3>
                 <p><c:out value="${patient.treatment.type.russianName}"/></p>
 
-                <h3>Выполнено:</h3>
+                <h3><fmt:message key="page.PatientTreatment.done"/> :</h3>
                 <c:set scope="request" value="${patient.treatment.numberOfCompletedTherapies}"
                        var="numberOfCompletedTherapies"/>
                 <c:set scope="request" value="${patient.treatment.numberOfTherapies}" var="numberOfTherapies"/>
+
+                <%--!!--%>
                 <p><c:out value="${numberOfCompletedTherapies} из ${numberOfTherapies} терапий"/></p>
 
 
                 <c:set scope="request" value="${patient.treatment.active}" var="active"/>
                 <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
                     <form action="treatment" method="post">
-                        <input type="submit" value="Выписать" name="patientDischarge">
+                        <input type="submit" value=<fmt:message key="page.PatientTreatment.discharge"/> name="patientDischarge">
                     </form>
                 </c:if>
             </div>
