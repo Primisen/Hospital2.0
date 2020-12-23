@@ -24,7 +24,7 @@ public class DoctorServiceImpl implements DoctorService {
                 patient.setDiagnosis(diagnosis);
                 patient.setTreatingDoctor(doctor);
 
-                doctorDao.setDiagnosisAndTreatment(patient);
+                doctorDao.setDiagnosisAndTreatment(patient);//вынести в приватный метод
 
                 doctor.getPatientsToReceive().remove(patient);
                 doctor.addPatientToCure(patient);
