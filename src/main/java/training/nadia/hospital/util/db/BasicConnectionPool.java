@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicConnectionPool implements ConnectionPool {
-
-    private static BasicConnectionPool instance;
+class BasicConnectionPool implements ConnectionPool {
 
     private String url;
     private String user;
@@ -26,29 +24,20 @@ public class BasicConnectionPool implements ConnectionPool {
 
     public static BasicConnectionPool create(String url, String user, String password) throws SQLException {
 
-        if (instance == null) {
-
-            List<Connection> pool = new ArrayList<>(INITIAL_POLL_SIZE);
-            for (int i = 0; i < INITIAL_POLL_SIZE; i++) {
-                pool.add(createConnection(url, user, password));
-            }
-
-            instance = new BasicConnectionPool(url, user, password, pool);
+        List<Connection> pool = new ArrayList<>(INITIAL_POLL_SIZE);
+        for (int i = 0; i < INITIAL_POLL_SIZE; i++) {
+            pool.add(createConnection(url, user, password));
         }
 
-        return instance;
+        return new BasicConnectionPool(url, user, password, pool);
     }
 
     @Override
     public Connection getConnection() {
 
-        if (connectionPool.size() > 0) {
-            Connection connection = connectionPool.remove(connectionPool.size() - 1);
-            usedConnections.add(connection);
-            return connection;
-        }
-
-        return usedConnections.get(usedConnections.size() - 1);
+        Connection connection = connectionPool.remove(connectionPool.size() - 1);
+        usedConnections.add(connection);
+        return connection;
     }
 
     @Override
