@@ -23,7 +23,7 @@
 <body class="text-center">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-    <%@ include file="/page/header.jsp" %>
+    <%@ include file="header.jsp" %>
 
     <div class="login-form">
 
