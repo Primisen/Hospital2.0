@@ -35,6 +35,7 @@ class BasicConnectionPool implements ConnectionPool {
     @Override
     public Connection getConnection() {
 
+        //что делать, если connectionPool.size() - 1 < 0
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
         return connection;

@@ -29,8 +29,9 @@ public class PatientDaoImpl implements PatientDao {
     @Override
     public void setTreatingDoctor(Patient patient, Doctor doctor) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(INSERT_TREATING_DOCTOR)) {
+        Connection connection = Connector.getConnection();
+
+        try (PreparedStatement ps = connection.prepareStatement(INSERT_TREATING_DOCTOR)) {
 
             ps.setLong(1, patient.getId());
             ps.setLong(2, doctor.getId());
@@ -39,18 +40,23 @@ public class PatientDaoImpl implements PatientDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+            Connector.releaseConnection(connection);
         }
     }
 
     @Override
     public void getTreatmentData(Patient patient) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_TREATMENT_DATA)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_TREATMENT_DATA)) {
 
             ps.setLong(1, patient.getId());
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             while (rs.next()) {
 
@@ -71,17 +77,31 @@ public class PatientDaoImpl implements PatientDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
     }
 
     private void getReceptionDoctor(Patient patient) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_RECEPTION_DOCTOR)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_RECEPTION_DOCTOR)) {
 
             ps.setLong(1, patient.getId());
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
 
@@ -93,6 +113,18 @@ public class PatientDaoImpl implements PatientDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
     }
 }

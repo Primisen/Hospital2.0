@@ -17,12 +17,14 @@ public class AuthorizationDaoImpl implements AuthorizationDao {
     @Override
     public void initializeUserData(User user) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_USER_DATA)) {
+        Connection connection = Connector.getConnection();
+        ResultSet resultSet = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_USER_DATA)) {
 
             ps.setString(1, user.getLogin());
 
-            ResultSet resultSet = ps.executeQuery();
+            resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
 
@@ -34,6 +36,18 @@ public class AuthorizationDaoImpl implements AuthorizationDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
     }
 }

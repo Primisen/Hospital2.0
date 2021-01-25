@@ -27,11 +27,13 @@ public class NurseDaoImpl implements NurseDao {
     @Override
     public void identifyNursePatients(Nurse nurse) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_NURSE_DATA)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_NURSE_DATA)) {
 
             ps.setLong(1, nurse.getId());
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             while (rs.next()) {
 
@@ -52,14 +54,27 @@ public class NurseDaoImpl implements NurseDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if( rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e){
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
     }
 
     @Override
     public void updateNumberOfCompletedTherapies(Patient patient) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(UPDATE_NUMBER_OF_COMPLETED_THERAPIES)) {
+        Connection connection = Connector.getConnection();
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_NUMBER_OF_COMPLETED_THERAPIES)) {
 
             ps.setInt(1, patient.getTreatment().getNumberOfCompletedTherapies());
             ps.setLong(2, patient.getId());
@@ -67,6 +82,9 @@ public class NurseDaoImpl implements NurseDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+            Connector.releaseConnection(connection);
         }
     }
 

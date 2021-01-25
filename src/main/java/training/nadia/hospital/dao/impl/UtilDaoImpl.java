@@ -27,12 +27,14 @@ public class UtilDaoImpl implements UtilDao {
 
         List<Doctor> doctors = new ArrayList<>();
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_ALL_DOCTORS)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_ALL_DOCTORS)) {
 
             ps.setInt(1, Role.DOCTOR.getId());
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             while (rs.next()) {
 
@@ -46,20 +48,35 @@ public class UtilDaoImpl implements UtilDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
+
         return doctors;
     }
 
     @Override
     public boolean isUserExist(User user) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN_AND_PASSWORD)) {
 
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
 
@@ -68,6 +85,18 @@ public class UtilDaoImpl implements UtilDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
 
         return false;
@@ -76,12 +105,14 @@ public class UtilDaoImpl implements UtilDao {
     @Override
     public boolean isUserExist(String login) throws DaoException {
 
-        try (Connection connection = Connector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN)) {
+        Connection connection = Connector.getConnection();
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_USER_ID_BY_USER_LOGIN)) {
 
             ps.setString(1, login);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
 
@@ -90,6 +121,18 @@ public class UtilDaoImpl implements UtilDao {
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
         }
 
         return false;

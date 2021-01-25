@@ -15,12 +15,16 @@ public class RegistrationDaoImpl implements RegistrationDao {
     @Override
     public void add(User user) throws DaoException {
 
-        try (Connection connection = Connector.getConnection()) {
-            saveGeneralData(user, connection);
+        Connection connection = Connector.getConnection();
 
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
+//        try {
+        saveGeneralData(user, connection);
+//
+//        } catch (SQLException e) {
+//            throw new DaoException(e.getMessage());
+//        }
+
+        Connector.releaseConnection(connection);
     }
 
     private void saveGeneralData(User user, Connection connection) throws DaoException {
@@ -49,5 +53,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
         while (rs.next()) {
             user.setId(rs.getLong(1));
         }
+
+        rs.close();
     }
 }

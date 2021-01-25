@@ -6,22 +6,42 @@ import java.sql.SQLException;
 
 public class Connector {
 
+    private static BasicConnectionPool instance;
+
     private Connector() {
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
 
         DataForConnectToDatabase data = new DataForConnectToDatabase();
 
+        try {
+            DriverManager.registerDriver(data.getDriver());
+
+            if (instance == null) {
+                instance = createBasicConnectionPool();
+            }
+
+        } catch (SQLException e){
+            //логировать
+        }
+
+
+        return instance.getConnection();
+    }
+
+    public static void releaseConnection(Connection connection){
+        instance.releaseConnection(connection);
+    }
+
+    private static BasicConnectionPool createBasicConnectionPool() throws SQLException {
+
+        DataForConnectToDatabase data = new DataForConnectToDatabase();
         DriverManager.registerDriver(data.getDriver());
 
-        Connection connection = BasicConnectionPool.create(
+        return BasicConnectionPool.create(
                 data.getUrl(),
                 data.getUser(),
-                data.getPassword())
-
-                .getConnection();
-
-        return connection;
+                data.getPassword());
     }
 }
