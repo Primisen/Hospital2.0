@@ -21,7 +21,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             if (isUserExist(login, password)) {
 
                 User user = UserFactory.createUser(authorizationDao.defineRoleId(login));
+
+                user.setLogin(login);
+                user.setPassword(password);
                 authorizationDao.initializeUserData(user);
+
                 return user;
 
             } else {
