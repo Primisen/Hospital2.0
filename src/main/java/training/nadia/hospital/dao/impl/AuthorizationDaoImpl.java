@@ -14,6 +14,43 @@ public class AuthorizationDaoImpl implements AuthorizationDao {
 
     private static final String SELECT_USER_DATA = "select id, role_id, name, surname from user where login=?";
 
+    private static final String SELECT_USER_ROLE_ID = "select role_id from user where login=?";
+
+    @Override
+    public int defineRoleId(String login) throws DaoException{
+
+        Connection connection = Connector.getConnection();
+        ResultSet resultSet = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_USER_ROLE_ID)) {
+
+            ps.setString(1, login);
+
+            resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("role_id");
+            }
+
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+
+        } finally {
+
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    throw new DaoException(e.getMessage());
+                }
+            }
+
+            Connector.releaseConnection(connection);
+        }
+
+        return 0;
+    }
+
     @Override
     public void initializeUserData(User user) throws DaoException {
 

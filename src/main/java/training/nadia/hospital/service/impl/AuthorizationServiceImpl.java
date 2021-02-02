@@ -7,18 +7,22 @@ import training.nadia.hospital.dao.impl.*;
 import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.AuthorizationService;
 import training.nadia.hospital.exception.ServiceException;
+import training.nadia.hospital.service.user_factory.UserFactory;
 
 public class AuthorizationServiceImpl implements AuthorizationService {
 
-    private AuthorizationDao authorizationDao = new AuthorizationDaoImpl();
+    private final AuthorizationDao authorizationDao = new AuthorizationDaoImpl();
 
     @Override
-    public void authorize(User user) throws ServiceException {
+    public User authorize(String login, String password) throws ServiceException {
 
         try {
 
-            if (isUserExist(user)) {
+            if (isUserExist(login, password)) {
+
+                User user = UserFactory.createUser(authorizationDao.defineRoleId(login));
                 authorizationDao.initializeUserData(user);
+                return user;
 
             } else {
                 throw new ServiceException("Incorrect login or password!");
@@ -29,9 +33,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
     }
 
-    private boolean isUserExist(User user) throws DaoException {
+    private boolean isUserExist(String login, String password) throws DaoException {
 
         UtilDao utilDao = new UtilDaoImpl();
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
 
         return utilDao.isUserExist(user);
     }

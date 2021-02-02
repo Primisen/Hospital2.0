@@ -5,7 +5,6 @@ import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.AuthorizationService;
 import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
-import training.nadia.hospital.util.CopyData;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,14 +23,25 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        User user = new User();
-        user.setLogin(request.getParameter("login"));
-        user.setPassword(request.getParameter("password"));
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
 
         AuthorizationService authorizationService = new AuthorizationServiceImpl();
 
         try {
-            authorizationService.authorize(user);
+            User user = authorizationService.authorize(login, password);
+            session.setAttribute("user", user);
+
+            if (user.getRole() == Role.PATIENT) {
+                response.sendRedirect("/patient");
+
+            } else if (user.getRole() == Role.DOCTOR) {
+                response.sendRedirect("/doctor");
+
+            } else if (user.getRole() == Role.NURSE) {
+                response.sendRedirect("/nurse");
+            }
+
         } catch (ServiceException e) {
             Logger logger = Logger.getRootLogger();
             logger.error(e.getMessage());
@@ -40,24 +50,6 @@ public class LoginServlet extends HttpServlet {
             doGet(request, response);
         }
 
-        if (user.getRole() == Role.PATIENT) {
-            Patient patient = new Patient();
-            CopyData.copy(user, patient);
-            session.setAttribute("user", patient);
-            response.sendRedirect("/patient");
-
-        } else if (user.getRole() == Role.DOCTOR) {
-            Doctor doctor = new Doctor();
-            CopyData.copy(user, doctor);
-            session.setAttribute("user", doctor);
-            response.sendRedirect("/doctor");
-
-        } else if (user.getRole() == Role.NURSE) {
-            Nurse nurse = new Nurse();
-            CopyData.copy(user, nurse);
-            session.setAttribute("user", nurse);
-            response.sendRedirect("/nurse");
-        }
     }
 
     @Override
