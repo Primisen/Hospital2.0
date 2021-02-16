@@ -4,45 +4,45 @@ import java.util.*;
 
 public class Doctor extends User {
 
-    private Set<Patient> patientsToCure;
-    private Set<Patient> patientsToReceive;
+    private Set<Patient> patientsUndergoingTreatment;
+    private Set<Patient> patientsWhoNeedToBeCheckup;
 
     public Doctor() {
 
-        patientsToCure = new HashSet<>();
-        patientsToReceive = new HashSet<>();
+        patientsUndergoingTreatment = new HashSet<>();
+        patientsWhoNeedToBeCheckup = new HashSet<>();
         setRole(Role.DOCTOR);
     }
 
     public Doctor(String name, String surname) {
         super(name, surname);
-        patientsToCure = new HashSet<>();
-        patientsToReceive = new HashSet<>();
+        patientsUndergoingTreatment = new HashSet<>();
+        patientsWhoNeedToBeCheckup = new HashSet<>();
         setRole(Role.DOCTOR);
     }
 
-    public Set<Patient> getPatientsToCure() {
-        return patientsToCure;
+    public Set<Patient> getPatientsUndergoingTreatment() {
+        return patientsUndergoingTreatment;
     }
 
-    public void setPatientsToCure(Set<Patient> patientsToCure) {
-        this.patientsToCure = patientsToCure;
+    public void setPatientsUndergoingTreatment(Set<Patient> patientsUndergoingTreatment) {
+        this.patientsUndergoingTreatment = patientsUndergoingTreatment;
     }
 
-    public void addPatientToCure(Patient patient) {
-        patientsToCure.add(patient);
+    public void addPatientsUndergoingTreatment(Patient patient) {
+        patientsUndergoingTreatment.add(patient);
     }
 
-    public Set<Patient> getPatientsToReceive() {
-        return patientsToReceive;
+    public Set<Patient> getPatientsWhoNeedToBeCheckup() {
+        return patientsWhoNeedToBeCheckup;
     }
 
-    public void setPatientsToReceive(Set<Patient> patientsToReceive) {
-        this.patientsToReceive = patientsToReceive;
+    public void setPatientsWhoNeedToBeCheckup(Set<Patient> patientsWhoNeedToBeCheckup) {
+        this.patientsWhoNeedToBeCheckup = patientsWhoNeedToBeCheckup;
     }
 
-    public void addPatientToReceive(Patient patient) {
-        patientsToReceive.add(patient);
+    public void addPatientWhoNeedToBeCheckup(Patient patient) {
+        patientsWhoNeedToBeCheckup.add(patient);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class Doctor extends User {
         if (object == null || getClass() != object.getClass()) return false;
         Doctor doctor = (Doctor) object;
 
-        return Objects.equals(patientsToCure, doctor.patientsToCure) &&
-                Objects.equals(patientsToReceive, doctor.patientsToReceive);
+        return Objects.equals(patientsUndergoingTreatment, doctor.patientsUndergoingTreatment) &&
+                Objects.equals(patientsWhoNeedToBeCheckup, doctor.patientsWhoNeedToBeCheckup);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class Doctor extends User {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Doctor{");
-        sb.append("patientsToCure=").append(patientsToCure);
-        sb.append(", patientsToReceive=").append(patientsToReceive);
+        sb.append("patientsToCure=").append(patientsUndergoingTreatment);
+        sb.append(", patientsToReceive=").append(patientsWhoNeedToBeCheckup);
         sb.append('}');
         return sb.toString();
     }
