@@ -30,12 +30,15 @@ public class DoctorDaoImpl implements DoctorDao {
 
     private static final String UPDATE_TREATMENT_ACTIVE = "update treatment set active=? where patient_id=?";
 
+    private static final String DELETE_PATIENT_DATA_FROM_RECEPTION_TABLE = "delete from reception where patient_id=?";
+
     @Override
     public void setDiagnosisAndTreatment(Patient patient) throws DaoException {
 
         Connection connection = Connector.getConnection();
 
-        try (PreparedStatement ps = connection.prepareStatement(INSERT_TREATMENT_DATA)) {
+        try (PreparedStatement ps = connection.prepareStatement(INSERT_TREATMENT_DATA);
+            PreparedStatement deletePS = connection.prepareStatement(DELETE_PATIENT_DATA_FROM_RECEPTION_TABLE)) {
 
             ps.setLong(1, patient.getId());
             ps.setLong(2, patient.getTreatingDoctor().getId());
@@ -46,6 +49,9 @@ public class DoctorDaoImpl implements DoctorDao {
             ps.setBoolean(7, patient.getTreatment().isActive());
 
             ps.executeUpdate();
+
+            deletePS.setLong(1, patient.getId());
+            deletePS.executeUpdate();
 
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
@@ -83,7 +89,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
                 patient.setTreatment(treatment);
 
-                doctor.addPatientToCure(patient);
+                doctor.addPatientsUndergoingTreatment(patient);
             }
 
         } catch (SQLException e) {
@@ -122,7 +128,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
 
-                doctor.addPatientToReceive(patient);
+                doctor.addPatientWhoNeedToBeCheckup(patient);
             }
 
         } catch (SQLException e) {

@@ -9,9 +9,9 @@ public interface DoctorService {
 
     void setDiagnosisAndTreatment(String diagnosis, Treatment treatment, Patient patient, Doctor doctor) throws ServiceException;
 
-    void getPatients(Doctor doctor) throws ServiceException;
+    void identifyPatients(Doctor doctor) throws ServiceException;
 
-    void getReceivingPatients(Doctor doctor) throws ServiceException;
+    void identifyPatientsWhoNeedToBeCheckup(Doctor doctor) throws ServiceException;
 
     void dischargePatient(Patient patient) throws ServiceException;
 }

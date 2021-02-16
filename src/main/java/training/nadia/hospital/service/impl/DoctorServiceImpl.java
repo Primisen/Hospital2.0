@@ -19,15 +19,16 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             if (diagnosis != null && treatment != null) {
 
+                doctor.getPatientsWhoNeedToBeCheckup().remove(patient);
+
                 treatment.setActive(true);
                 patient.setTreatment(treatment);
                 patient.setDiagnosis(diagnosis);
+
+                patient.setReceptionDoctor(null);
                 patient.setTreatingDoctor(doctor);
 
                 doctorDao.setDiagnosisAndTreatment(patient);
-
-                doctor.getPatientsToReceive().remove(patient);
-                doctor.addPatientToCure(patient);
             }
 
         } catch (DaoException e) {
@@ -36,7 +37,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void getPatients(Doctor doctor) throws ServiceException {
+    public void identifyPatients(Doctor doctor) throws ServiceException {
 
         try {
             doctorDao.getPatients(doctor);
@@ -46,7 +47,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void getReceivingPatients(Doctor doctor) throws ServiceException {
+    public void identifyPatientsWhoNeedToBeCheckup(Doctor doctor) throws ServiceException {
 
         try {
             doctorDao.getReceivingPatients(doctor);

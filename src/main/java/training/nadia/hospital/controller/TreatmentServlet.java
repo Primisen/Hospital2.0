@@ -20,23 +20,15 @@ public class TreatmentServlet extends HttpServlet {
     private Logger logger = Logger.getRootLogger();
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-    }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             Doctor doctor = (Doctor) request.getSession().getAttribute("user");
 
             DoctorService doctorService = new DoctorServiceImpl();
-            doctorService.getPatients(doctor);
+            doctorService.identifyPatients(doctor);
 
-            request.setAttribute("patients", doctor.getPatientsToCure());//???они же одинаковые
-            request.setAttribute("patientsList", doctor.getPatientsToCure());
-
+            request.setAttribute("patientsUndergoingTreatment", doctor.getPatientsUndergoingTreatment());
 
         } catch (ServiceException e) {
             logger.error(e.getMessage());
