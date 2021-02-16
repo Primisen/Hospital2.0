@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <head>
     <%@ include file="/page/i18n.jsp" %>
-    <title><fmt:message key="page.index.title"/></title>
+    <title><fmt:message key="home.page.title"/></title>
 </head>
 
 <body class="text-center">
@@ -14,7 +14,7 @@
 
     <main role="main" class="inner cover">
         <h2>
-            <h1 class="cover-heading"><fmt:message key="home.title"/> </h1>
+            <h1 class="cover-heading"><fmt:message key="home.text.title"/> </h1>
             <p class="lead"><fmt:message key="home.text"/> </p>
         </h2>
     </main>

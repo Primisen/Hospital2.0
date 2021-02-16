@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.GoToDoctor.title"/> </title>
+    <title><fmt:message key="patient.GoToDoctor.title"/> </title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
     <c:if test="${patient.receptionDoctor == null}">
 
-        <h1><fmt:message key="page.GoToDoctor.begin.message"/> </h1>
+        <h1><fmt:message key="patient.GoToDoctor.begin.message"/> </h1>
 
         <c:forEach items="${doctors}" var="doctors">
             <form action="appointment-with-doctor" method="post">
@@ -31,10 +31,10 @@
     <c:set scope="request" value="${patient}" var="patient"/>
 
     <c:if test="${patient.receptionDoctor != null}">
-        <h1><fmt:message key="page.GoToDoctor.message"/> </h1>
+        <h1><fmt:message key="patient.GoToDoctor.message"/> </h1>
 
         <form action="patient" method="get">
-            <input type="submit" value=<fmt:message key="page.GoToDoctor.button.back"/> >
+            <input type="submit" value=<fmt:message key="patient.GoToDoctor.button.back"/> >
         </form>
     </c:if>
 

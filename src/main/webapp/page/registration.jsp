@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.registration.title"/></title>
+    <title><fmt:message key="registration.page.title"/></title>
 
     <style>
         .registration-form {
@@ -37,7 +37,7 @@
                 <c:out value="${error}"/>
             </div>
 
-            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.title"/></h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.form.title"/></h1>
 
             <input type="text" class="form-control" required name="name" placeholder="Name"/>
             <input type="text" class="form-control" required name="surname" placeholder="Surname"/>
@@ -45,7 +45,7 @@
 
             <br>
 
-            <p><fmt:message key="registration.password_requirements"/> </p>
+            <p><fmt:message key="registration.message.requirements.password"/> </p>
             <input type="password" class="form-control" minlength="8" required name="password" placeholder="Password"/>
 
             <br>
@@ -58,10 +58,10 @@
                 </label>
             </div>
 
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value=<fmt:message key="registration.register"/> />
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value=<fmt:message key="registration.button.register"/> />
         </form>
 
-        <a href="/login"><fmt:message key="registration.login"/></a>
+        <a href="/login"><fmt:message key="registration.link.login"/></a>
     </div>
 
     <%@ include file="/page/footer.jsp" %>

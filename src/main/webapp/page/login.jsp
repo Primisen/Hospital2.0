@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.login.title"/></title>
+    <title><fmt:message key="login.page.title"/></title>
 
     <style>
         .login-form {
@@ -35,7 +35,7 @@
 
         <form class="form-signin" action="login" method="post">
 
-            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="login.title"/></h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="login.form.title"/></h1>
 
             <input type="text" id="inputEmail" class="form-control" name="login" placeholder="Email address" required
                    autofocus>
@@ -48,10 +48,10 @@
             <%--                </label>--%>
             <%--            </div>--%>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.sign_in_button"/></button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.button.sign.in"/></button>
         </form>
 
-        <a href="/registration"><fmt:message key="login.registration_button"/> </a>
+        <a href="/registration"><fmt:message key="login.button.registration"/> </a>
     </div>
 
     <%@ include file="/page/footer.jsp" %>

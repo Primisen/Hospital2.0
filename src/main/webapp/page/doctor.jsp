@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.doctor.title"/> </title>
+    <title><fmt:message key="doctor.page.title"/> </title>
 
     <style>
         button {
@@ -28,11 +28,11 @@
     <br>
 
     <form action="treatment">
-        <button type="submit"><fmt:message key="page.doctor.button.patient.treatment"/> </button>
+        <button type="submit"><fmt:message key="doctor.button.patient.treatment"/> </button>
     </form>
 
-    <form action="reception">
-        <button type="submit"><fmt:message key="page.doctor.button.patient.reception"/> </button>
+    <form action="checkup">
+        <button type="submit"><fmt:message key="doctor.button.patient.reception"/> </button>
     </form>
 
     <%@ include file="footer.jsp" %>

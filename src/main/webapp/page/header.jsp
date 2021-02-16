@@ -1,18 +1,18 @@
 <header class="masthead mb-auto">
     <div class="inner">
-        <h3 class="masthead-brand"><fmt:message key="header.title"/></h3>
+        <h3 class="masthead-brand"><fmt:message key="header.text"/></h3>
 
         <%--???????--%>
         <c:set scope="session" value="${sessionScope}" var="sesseionScope"/>
 
         <nav class="nav nav-masthead justify-content-center">
             <c:if test="${sessionScope.user == null}">
-                <a class="nav-link" href="/"><fmt:message key="header.home"/></a>
-                <a class="nav-link" href="/login"><fmt:message key="header.login"/></a>
-                <a class="nav-link" href="/registration"><fmt:message key="header.registration"/> </a>
+                <a class="nav-link" href="/"><fmt:message key="header.button.home"/></a>
+                <a class="nav-link" href="/login"><fmt:message key="header.button.login"/></a>
+                <a class="nav-link" href="/registration"><fmt:message key="header.button.registration"/> </a>
             </c:if>
             <c:if test="${sessionScope.user != null}">
-                <a class="nav-link" href="/logout"><fmt:message key="header.logout"/></a>
+                <a class="nav-link" href="/logout"><fmt:message key="header.button.logout"/></a>
             </c:if>
         </nav>
 

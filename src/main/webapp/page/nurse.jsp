@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.nurse.title"/> </title>
+    <title><fmt:message key="nurse.page.title"/> </title>
 </head>
 <body>
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -19,11 +19,11 @@
         <div>
 
             <c:out value="${patient.surname} ${patient.name}"/>
-            <p><fmt:message key="page.nurse.procedures.number"/> : </p>
+            <p><fmt:message key="nurse.procedures.number"/> : </p>
             <c:out value="${patient.treatment.numberOfTherapies - patient.treatment.numberOfCompletedTherapies}"/>
 
             <form method="post" action="nurse">
-                <input type="submit" required name="patient" value=<fmt:message key="page.nurse.button"/> >
+                <input type="submit" required name="patient" value=<fmt:message key="nurse.button"/> >
                 <input type="hidden" name="patientProcedureKey" value="${patient.id}">
                     <%--naming скрытой кнопки. имя должно передавать предназначение кнопки--%>
             </form>
@@ -32,7 +32,7 @@
     </c:forEach>
 
     <c:if test="${patient == null}">
-        <p><fmt:message key="page.nurse.message"/> </p>
+        <p><fmt:message key="nurse.message"/> </p>
     </c:if>
 
     <%@ include file="footer.jsp" %>

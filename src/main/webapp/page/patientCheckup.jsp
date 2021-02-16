@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="i18n.jsp" %>
-    <title><fmt:message key="page.PatientReception.title"/> </title>
+    <title><fmt:message key="doctor.reception.title"/></title>
     <style>
         .patient-form {
             color: #000000;
@@ -22,42 +22,49 @@
 
     <%@ include file="header.jsp" %>
 
-    <h1><fmt:message key="page.PatientReception.message"/> </h1>
+    <h1><fmt:message key="doctor.reception.message"/></h1>
+
+    <c:if test="${empty patients}">
+
+        <p><fmt:message key="doctor.reception.patient.message"/></p>
+
+        <form action="doctor">
+            <button type="submit"><fmt:message key="doctor.button.return"/></button>
+        </form>
+
+    </c:if>
 
     <c:forEach items="${patients}" var="patient">
 
-        <form class="patient-form" action="reception" method="post">
+        <form class="patient-form" action="checkup" method="post">
             <div class="card mb-4 shadow-sm patient-form">
 
                 <div class="card-header">
-                    <h4><c:out value="${patient.surname} ${patient.name}"></c:out></h4>
+                    <h4><c:out value="${patient.surname} ${patient.name}"/></h4>
                 </div>
 
                 <div class="card-body">
-                    <p><fmt:message key="page.PatientReception.diagnosis"/> : </p>
+                    <p><fmt:message key="doctor.reception.diagnosis"/> : </p>
                     <input type="text" name="diagnosis" placeholder="Введите диагноз">
 
-                    <p><fmt:message key="page.PatientReception.TreatmentType"/> :</p>
+                    <p><fmt:message key="doctor.reception.treatment.type"/> :</p>
                     <select name="treatmentTypeValue">
                         <c:forEach items="${treatmentType}" var="treatmentType">
                             <option value="${treatmentType}">${treatmentType.russianName}</option>
                         </c:forEach>
                     </select>
 
-                    <p><fmt:message key="page.PatientReception.procedure.number"/> :</p>
+                    <p><fmt:message key="doctor.reception.procedure.number"/> :</p>
                     <input type="text" name="numberOfProcedures" placeholder="Введите количество процедур">
 
                     <br>
                     <input type="hidden" name="patientId" value="${patient.id}">
-                    <input type="submit" name="ok" value=<fmt:message key="page.PatientReception.button"/> >
+                    <input type="submit" name="submit_button" value=
+                        <fmt:message key="doctor.reception.button"/>>
                 </div>
             </div>
         </form>
     </c:forEach>
-
-    <c:if test="${patients == null}">
-        <p><fmt:message key="page.PatientReception.patient.message" /></p>
-    </c:if>
 
     <%@ include file="footer.jsp" %>
 </div>
