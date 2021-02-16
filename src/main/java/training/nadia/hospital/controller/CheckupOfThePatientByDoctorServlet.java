@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
-@WebServlet("/reception")//изменить
-public class EstablishDiagnosisServlet extends HttpServlet {
+@WebServlet("/checkup")
+public class CheckupOfThePatientByServlet extends HttpServlet {
 
     private Logger logger = Logger.getRootLogger();
 
