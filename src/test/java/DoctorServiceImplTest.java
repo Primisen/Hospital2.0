@@ -43,7 +43,7 @@ class DoctorServiceImplTest {
 
         patient.setTreatment(treatment);
 
-        doctorService.dischargePatient(patient);
+        doctorService.dischargePatient(patient, null);
 
         assertEquals(false, patient.getTreatment().isActive());
     }
@@ -60,7 +60,7 @@ class DoctorServiceImplTest {
         treatment.setNumberOfCompletedTherapies(34);
         treatment.setNumberOfTherapies(50);
 
-        doctorService.dischargePatient(patient);
+        doctorService.dischargePatient(patient, null);
 
         patient.setTreatment(treatment);
 
