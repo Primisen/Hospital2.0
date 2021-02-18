@@ -13,8 +13,6 @@ import java.io.IOException;
 @WebServlet("/doctor")
 public class DoctorServlet extends HttpServlet {
 
-    //логироать здесь
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

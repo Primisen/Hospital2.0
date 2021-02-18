@@ -42,15 +42,11 @@ public class CheckupOfThePatientByDoctorServlet extends HttpServlet {
             try {
                 doctorService.setDiagnosisAndTreatment(diagnosis, treatment, patient, doctor);
 
-//                HttpSession session = request.getSession();//?
-//                session.setAttribute("user", doctor);
-
             } catch (ServiceException e) {
                 logger.error(e.getMessage());
             }
         }
 
-//        request.getSession().removeAttribute("user");
         doGet(request, response);
     }
 
@@ -70,7 +66,7 @@ public class CheckupOfThePatientByDoctorServlet extends HttpServlet {
             logger.error(e.getMessage());
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientCheckup.jsp");//!разобраться
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientCheckup.jsp");
         requestDispatcher.forward(request, response);
     }
 }
