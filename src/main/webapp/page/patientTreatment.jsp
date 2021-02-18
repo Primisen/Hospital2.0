@@ -57,7 +57,10 @@
 
                 <c:set scope="request" value="${patient.treatment.active}" var="active"/>
                 <c:if test="${numberOfCompletedTherapies == numberOfTherapies}">
+
                     <form action="treatment" method="post">
+
+                        <input type="hidden" name="patientId" value="${patient.id}">
                         <input type="submit" value=
                             <fmt:message key="doctor.treatment.button.discharge"/> name="patientDischarge">
                     </form>
