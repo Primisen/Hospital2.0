@@ -7,18 +7,17 @@ public class Doctor extends User {
     private Set<Patient> patientsUndergoingTreatment;
     private Set<Patient> patientsWhoNeedToBeCheckup;
 
-    public Doctor() {
-
+    {
         patientsUndergoingTreatment = new HashSet<>();
         patientsWhoNeedToBeCheckup = new HashSet<>();
         setRole(Role.DOCTOR);
     }
 
+    public Doctor() {
+    }
+
     public Doctor(String name, String surname) {
         super(name, surname);
-        patientsUndergoingTreatment = new HashSet<>();
-        patientsWhoNeedToBeCheckup = new HashSet<>();
-        setRole(Role.DOCTOR);
     }
 
     public Set<Patient> getPatientsUndergoingTreatment() {
@@ -51,22 +50,15 @@ public class Doctor extends User {
         if (object == null || getClass() != object.getClass()) return false;
         Doctor doctor = (Doctor) object;
 
-        return Objects.equals(patientsUndergoingTreatment, doctor.patientsUndergoingTreatment) &&
-                Objects.equals(patientsWhoNeedToBeCheckup, doctor.patientsWhoNeedToBeCheckup);
+        return super.equals(doctor);
     }
 
     @Override
     public int hashCode() {
 
-        return super.hashCode();
-    }
+//        int result = 17;
+//        result = 37 * super.hashCode();
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Doctor{");
-        sb.append("patientsToCure=").append(patientsUndergoingTreatment);
-        sb.append(", patientsToReceive=").append(patientsWhoNeedToBeCheckup);
-        sb.append('}');
-        return sb.toString();
+        return super.hashCode();
     }
 }

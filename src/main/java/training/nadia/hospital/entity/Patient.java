@@ -1,7 +1,5 @@
 package training.nadia.hospital.entity;
 
-import java.util.Objects;
-
 public class Patient extends User {
 
     private String diagnosis;
@@ -9,15 +7,16 @@ public class Patient extends User {
     private Doctor treatingDoctor;
     private Doctor receptionDoctor;
 
-    public Patient() {
+    {
         this.treatment = new Treatment();
         setRole(Role.PATIENT);
     }
 
+    public Patient() {
+    }
+
     public Patient(String name, String surname) {
         super(name, surname);
-        treatment = new Treatment();
-        setRole(Role.PATIENT);
     }
 
     public String getDiagnosis() {
@@ -59,7 +58,6 @@ public class Patient extends User {
 
         result = 37 * result + super.hashCode();
         result = 37 * result + (diagnosis == null ? 0 : diagnosis.hashCode());
-        result = 37 * result + (treatment == null ? 0 : treatment.hashCode());
 
         return result;
     }
@@ -68,11 +66,9 @@ public class Patient extends User {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
         Patient patient = (Patient) object;
-        return Objects.equals(diagnosis, patient.diagnosis) &&
-                Objects.equals(treatment, patient.treatment) &&
-                Objects.equals(treatingDoctor, patient.treatingDoctor) &&
-                Objects.equals(receptionDoctor, patient.receptionDoctor);
+
+        return super.equals(object) &&
+                diagnosis.equals(patient.diagnosis);
     }
 }

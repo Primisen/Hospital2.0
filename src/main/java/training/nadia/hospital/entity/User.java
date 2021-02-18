@@ -1,7 +1,5 @@
 package training.nadia.hospital.entity;
 
-import java.util.Objects;
-
 public class User {
 
     private long id;
@@ -88,10 +86,9 @@ public class User {
         if (object == null || getClass() != object.getClass()) return false;
         User user = (User) object;
         return id == user.id &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(surname, user.surname);
+                login.equals(user.login) &&
+                name.equals(user.name) &&
+                surname.equals(user.surname);
     }
 
     @Override
@@ -100,22 +97,9 @@ public class User {
         int result = 17;
         result = 37 * result + (int) id;
         result = 37 * result + (login == null ? 0 : login.hashCode());
-        result = 37 * result + (password == null ? 0 : password.hashCode());
         result = 37 * result + (name == null ? 0 : name.hashCode());
         result = 37 * result + (surname == null ? 0 : surname.hashCode());
 
         return result;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", login='").append(login).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", surname='").append(surname).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

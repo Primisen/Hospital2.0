@@ -1,7 +1,5 @@
 package training.nadia.hospital.entity;
 
-import java.util.Objects;
-
 public class Treatment {
 
     private boolean active;
@@ -19,9 +17,6 @@ public class Treatment {
 
         } else if (typeId == TreatmentType.DRUG.getId()) {
             type = TreatmentType.DRUG;
-
-//        } else if (typeId == TreatmentType.OPERATION.getId()) {
-//            type = TreatmentType.OPERATION;
         }
 
         this.active = active;
@@ -47,10 +42,9 @@ public class Treatment {
 
         if (id == TreatmentType.PROCEDURE.getId()) {
             type = TreatmentType.PROCEDURE;
+
         } else if (id == TreatmentType.DRUG.getId()) {
             type = TreatmentType.DRUG;
-//        } else if (id == TreatmentType.OPERATION.getId()) {
-//            type = TreatmentType.OPERATION;
         }
     }
 
@@ -90,16 +84,5 @@ public class Treatment {
         result = 37 * result + numberOfCompletedTherapies;
 
         return result;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Treatment{");
-        sb.append("active=").append(active);
-        sb.append(", type=").append(type);
-        sb.append(", numberOfTherapies=").append(numberOfTherapies);
-        sb.append(", numberOfCompletedTherapies=").append(numberOfCompletedTherapies);
-        sb.append('}');
-        return sb.toString();
     }
 }
