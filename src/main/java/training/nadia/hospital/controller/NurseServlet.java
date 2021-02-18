@@ -3,6 +3,7 @@ package training.nadia.hospital.controller;
 import org.apache.log4j.Logger;
 import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.exception.ServiceException;
+import training.nadia.hospital.service.NurseService;
 import training.nadia.hospital.service.impl.NurseServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -33,12 +34,21 @@ public class NurseServlet extends HttpServlet {
                 logger.error(e.getMessage());
             }
         }
+
+        doGet(request, response);
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Nurse nurse = (Nurse) request.getSession().getAttribute("user");
+
+        NurseService nurseService = new NurseServiceImpl();
+        try {
+            nurseService.identifyNursePatients(nurse);
+        } catch (ServiceException e) {
+            e.printStackTrace();//
+        }
 
         request.setAttribute("nurse", nurse);
 
