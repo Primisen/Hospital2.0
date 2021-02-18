@@ -7,8 +7,7 @@ import training.nadia.hospital.entity.Nurse;
 import training.nadia.hospital.entity.Patient;
 import training.nadia.hospital.service.NurseService;
 import training.nadia.hospital.exception.ServiceException;
-
-import java.util.Set;
+import training.nadia.hospital.util.Utility;
 
 public class NurseServiceImpl implements NurseService {
 
@@ -17,7 +16,7 @@ public class NurseServiceImpl implements NurseService {
     @Override
     public void performTheTherapy(Nurse nurse, long patientId) throws ServiceException {
 
-        Patient patient = findPatientById(nurse.getPatient(), patientId);
+        Patient patient = Utility.findPatientById(nurse.getPatient(), patientId);
 
         nurse.getPatient().remove(patient);
 
@@ -44,17 +43,6 @@ public class NurseServiceImpl implements NurseService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
-    }
-
-    private Patient findPatientById(Set<Patient> patients, long patientId) {
-
-        for (Patient patient : patients) {
-            if (patient.getId() == patientId) {
-                return patient;
-            }
-        }
-
-        return null;
     }
     
     private boolean isNotAllTherapiesBeenCompleted(Patient patient){

@@ -8,6 +8,7 @@ import training.nadia.hospital.entity.TreatmentType;
 import training.nadia.hospital.service.DoctorService;
 import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.DoctorServiceImpl;
+import training.nadia.hospital.util.Utility;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Set;
 
 @WebServlet("/checkup")
 public class CheckupOfThePatientByDoctorServlet extends HttpServlet {
@@ -30,7 +30,7 @@ public class CheckupOfThePatientByDoctorServlet extends HttpServlet {
         if (request.getParameter("submit_button") != null) {
 
             Doctor doctor = (Doctor) request.getSession().getAttribute("user");
-            Patient patient = findPatientById(doctor.getPatientsWhoNeedToBeCheckup(), Long.parseLong(request.getParameter("patientId")));
+            Patient patient = Utility.findPatientById(doctor.getPatientsWhoNeedToBeCheckup(), Long.parseLong(request.getParameter("patientId")));
 
             String diagnosis = request.getParameter("diagnosis");
 
@@ -72,16 +72,5 @@ public class CheckupOfThePatientByDoctorServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/page/patientCheckup.jsp");//!разобраться
         requestDispatcher.forward(request, response);
-    }
-
-    private Patient findPatientById(Set<Patient> patients, long id) {
-
-        for (Patient patient : patients) {
-            if (patient.getId() == id) {
-                return patient;
-            }
-        }
-
-        return null;
     }
 }
