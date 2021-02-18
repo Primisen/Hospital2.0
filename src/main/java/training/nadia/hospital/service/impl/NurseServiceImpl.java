@@ -19,12 +19,10 @@ public class NurseServiceImpl implements NurseService {
 
         Patient patient = findPatientById(nurse.getPatient(), patientId);
 
-        nurse.getPatient().remove(patient);//?
+        nurse.getPatient().remove(patient);
 
-        if (patient.getTreatment().getNumberOfCompletedTherapies() < patient.getTreatment().getNumberOfTherapies()) {
-
-            patient.getTreatment().setNumberOfCompletedTherapies(
-                    patient.getTreatment().getNumberOfCompletedTherapies() + 1);
+        if (isNotAllTherapiesBeenCompleted(patient)) {
+           performOneTherapy(patient);
         }
 
         nurse.addPatient(patient);
@@ -48,7 +46,7 @@ public class NurseServiceImpl implements NurseService {
         }
     }
 
-    private Patient findPatientById(Set<Patient> patients, long patientId) {//думаю есть способ поиска получше
+    private Patient findPatientById(Set<Patient> patients, long patientId) {
 
         for (Patient patient : patients) {
             if (patient.getId() == patientId) {
@@ -57,5 +55,14 @@ public class NurseServiceImpl implements NurseService {
         }
 
         return null;
+    }
+    
+    private boolean isNotAllTherapiesBeenCompleted(Patient patient){
+        return patient.getTreatment().getNumberOfCompletedTherapies() < patient.getTreatment().getNumberOfTherapies();
+    }
+    
+    private void performOneTherapy(Patient patient){
+        patient.getTreatment().setNumberOfCompletedTherapies(
+                patient.getTreatment().getNumberOfCompletedTherapies() + 1);
     }
 }
