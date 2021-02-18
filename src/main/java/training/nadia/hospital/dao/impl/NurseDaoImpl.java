@@ -14,43 +14,43 @@ import java.sql.SQLException;
 
 public class NurseDaoImpl implements NurseDao {
 
-    private static final String SELECT_NURSE_DATA =
-            "select user.id, user.name, user.surname, treatment_type_id, number_of_therapies, number_of_completed_therapies " +
+    private static final String SELECT_PATIENTS_DATA =
+            "select user.id, user.name, user.surname, user.login, diagnosis, treatment_type_id, number_of_therapies, number_of_completed_therapies " +
                     "from treatment " +
-                    "join user on treatment.patient_id = user.id";
+                    "join user on treatment.patient_id = user.id where number_of_completed_therapies!=number_of_therapies";
 
     private static final String UPDATE_NUMBER_OF_COMPLETED_THERAPIES =
             "update treatment set number_of_completed_therapies=? " +
                     "where patient_id=?;";
 
     @Override
-    public void identifyNursePatients(Nurse nurse) throws DaoException {
+    public void identifyPatients(Nurse nurse) throws DaoException {
 
         Connection connection = Connector.getConnection();
         ResultSet rs = null;
 
-        try (PreparedStatement ps = connection.prepareStatement(SELECT_NURSE_DATA)) {
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_PATIENTS_DATA)) {
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                if (rs.getInt("number_of_therapies") != rs.getInt("number_of_completed_therapies")) {//!
+                Patient patient = new Patient();
+                patient.setId(rs.getLong("id"));
+                patient.setName(rs.getString("name"));
+                patient.setSurname(rs.getString("surname"));
+                patient.setLogin(rs.getString("login"));
 
-                    Patient patient = new Patient();
-                    patient.setId(rs.getLong("id"));
-                    patient.setName(rs.getString("name"));
-                    patient.setSurname(rs.getString("surname"));
+                patient.setDiagnosis(rs.getString("diagnosis"));
 
-                    Treatment treatment = new Treatment();
-                    treatment.setType(rs.getInt("treatment_type_id"));
-                    treatment.setNumberOfTherapies(rs.getInt("number_of_therapies"));
-                    treatment.setNumberOfCompletedTherapies(rs.getInt("number_of_completed_therapies"));
+                Treatment treatment = new Treatment();
+                treatment.setType(rs.getInt("treatment_type_id"));
+                treatment.setNumberOfTherapies(rs.getInt("number_of_therapies"));
+                treatment.setNumberOfCompletedTherapies(rs.getInt("number_of_completed_therapies"));
 
-                    patient.setTreatment(treatment);
+                patient.setTreatment(treatment);
 
-                    nurse.addPatient(patient);
-                }
+                nurse.addPatient(patient);
             }
 
         } catch (SQLException e) {

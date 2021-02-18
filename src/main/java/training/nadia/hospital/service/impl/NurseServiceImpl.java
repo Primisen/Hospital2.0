@@ -41,7 +41,7 @@ public class NurseServiceImpl implements NurseService {
     public void identifyNursePatients(Nurse nurse) throws ServiceException {
 
         try {
-            nurseDao.identifyNursePatients(nurse);
+            nurseDao.identifyPatients(nurse);
 
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
