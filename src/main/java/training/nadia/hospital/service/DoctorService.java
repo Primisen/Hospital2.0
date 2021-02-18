@@ -13,5 +13,5 @@ public interface DoctorService {
 
     void identifyPatientsWhoNeedToBeCheckup(Doctor doctor) throws ServiceException;
 
-    void dischargePatient(Patient patient) throws ServiceException;
+    void dischargePatient(Patient patient, Doctor doctor) throws ServiceException;
 }

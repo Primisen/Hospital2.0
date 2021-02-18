@@ -21,7 +21,7 @@ public class DoctorDaoImpl implements DoctorDao {
             "select user.id, user.name, user.surname, diagnosis, number_of_therapies, " +
                     "number_of_completed_therapies, active, treatment_type_id from treatment " +
                     "join user on patient_id=user.id " +
-                    "where doctor_id=?";
+                    "where doctor_id=? and active=?";
 
     private static final String SELECT_RECEIVING_PATIENTS =
             "select user.id, name, surname from user " +
@@ -70,6 +70,7 @@ public class DoctorDaoImpl implements DoctorDao {
         try (PreparedStatement ps = connection.prepareStatement(SELECT_DOCTOR_PATIENTS)) {
 
             ps.setLong(1, doctor.getId());
+            ps.setBoolean(2, true);
 
             rs = ps.executeQuery();
 

@@ -31,7 +31,7 @@ public class TreatmentServlet extends HttpServlet {
                 Integer.parseInt(request.getParameter("patientId")));
 
         try {
-            doctorService.dischargePatient(patient);
+            doctorService.dischargePatient(patient, doctor);
         } catch (ServiceException e) {
             logger.error(e.getMessage());
         }

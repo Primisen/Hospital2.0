@@ -57,9 +57,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public void dischargePatient(Patient patient) throws ServiceException {
+    public void dischargePatient(Patient patient, Doctor doctor) throws ServiceException {
 
         if (isNumberOfTherapiesEqualsNumberOfCompletedTherapies(patient)) {
+
+            doctor.getPatientsUndergoingTreatment().remove(patient);
 
             patient.getTreatment().setActive(false);
 
