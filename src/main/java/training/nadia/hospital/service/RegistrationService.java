@@ -5,5 +5,5 @@ import training.nadia.hospital.exception.ServiceException;
 
 public interface RegistrationService {
 
-    void register(User user) throws ServiceException;
+    User register(User user) throws ServiceException;
 }

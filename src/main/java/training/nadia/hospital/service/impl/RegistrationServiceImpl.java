@@ -8,11 +8,12 @@ import training.nadia.hospital.dao.impl.UtilDaoImpl;
 import training.nadia.hospital.entity.User;
 import training.nadia.hospital.service.RegistrationService;
 import training.nadia.hospital.exception.ServiceException;
+import training.nadia.hospital.service.user_factory.UserFactory;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
-    public void register(User user) throws ServiceException {
+    public User register(User user) throws ServiceException {
 
         try {
 
@@ -27,6 +28,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
+
+        return UserFactory.createUser(user.getRole().getId());
     }
 
     private boolean userDoesNotExist(User user) throws DaoException {

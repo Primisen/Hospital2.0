@@ -27,34 +27,24 @@ public class RegistrationServlet extends HttpServlet {
 
         RegistrationService registrationService = new RegistrationServiceImpl();
 
+        User user = new User();
+        setUserData(user, request);
         try {
 
-            if (request.getParameter("doctorTypeId") != null) {
-                Doctor doctor = new Doctor();
-                setUserData(doctor, request);
+            User registeredUser = registrationService.register(user);
 
-                registrationService.register(doctor);
+            setUserData(registeredUser, request);
 
-                session.setAttribute("user", doctor);
+            session.setAttribute("user", registeredUser);
+
+            if (registeredUser.getRole() == Role.PATIENT) {
+                response.sendRedirect("/patient");
+
+            } else if (registeredUser.getRole() == Role.DOCTOR) {
                 response.sendRedirect("/doctor");
 
-            } else if (request.getParameter("nurseTypeId") != null) {
-                Nurse nurse = new Nurse();
-                setUserData(nurse, request);
-
-                registrationService.register(nurse);
-
-                session.setAttribute("user", nurse);
+            } else if (registeredUser.getRole() == Role.NURSE) {
                 response.sendRedirect("/nurse");
-
-            } else {
-                Patient patient = new Patient();
-                setUserData(patient, request);
-
-                registrationService.register(patient);
-
-                session.setAttribute("user", patient);
-                response.sendRedirect("/patient");
             }
 
         } catch (ServiceException e) {
@@ -77,6 +67,21 @@ public class RegistrationServlet extends HttpServlet {
         user.setSurname(request.getParameter("surname"));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
+
+        setRole(user, request);
+    }
+
+    private void setRole(User user, HttpServletRequest request) {
+
+        if (request.getParameter("nurseTypeId") != null) {
+            user.setRole(Role.NURSE);
+
+        } else if (request.getParameter("doctorTypeId") != null) {
+            user.setRole(Role.DOCTOR);
+
+        } else {
+            user.setRole(Role.PATIENT);
+        }
     }
 
 }
