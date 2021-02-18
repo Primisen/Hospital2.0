@@ -1,3 +1,6 @@
+<link href="../styles/css/bootstrap.min.css" rel="stylesheet">
+<link href="styles/cover.css" rel="stylesheet">
+
 <header class="masthead mb-auto">
     <div class="inner">
         <h3 class="masthead-brand"><fmt:message key="header.text"/></h3>

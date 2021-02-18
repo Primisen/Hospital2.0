@@ -68,7 +68,6 @@ public class Patient extends User {
         if (object == null || getClass() != object.getClass()) return false;
         Patient patient = (Patient) object;
 
-        return super.equals(object) &&
-                diagnosis.equals(patient.diagnosis);
+        return super.equals(object);
     }
 }

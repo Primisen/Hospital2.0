@@ -18,13 +18,13 @@ public class DoctorDaoImpl implements DoctorDao {
                     "values (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_DOCTOR_PATIENTS =
-            "select user.id, user.name, user.surname, diagnosis, number_of_therapies, " +
+            "select user.id, user.name, user.surname, user.login, diagnosis, number_of_therapies, " +
                     "number_of_completed_therapies, active, treatment_type_id from treatment " +
                     "join user on patient_id=user.id " +
                     "where doctor_id=? and active=?";
 
     private static final String SELECT_RECEIVING_PATIENTS =
-            "select user.id, name, surname from user " +
+            "select user.id, name, surname, login from user " +
                     "join reception on reception.patient_id = user.id " +
                     "where reception.doctor_id = ?";
 
@@ -80,6 +80,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 patient.setId(rs.getLong("id"));
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
+                patient.setLogin(rs.getString("login"));
                 patient.setDiagnosis(rs.getString("diagnosis"));
 
                 Treatment treatment = new Treatment();
@@ -128,6 +129,7 @@ public class DoctorDaoImpl implements DoctorDao {
                 patient.setId(rs.getLong("id"));
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
+                patient.setLogin(rs.getString("login"));
 
                 doctor.addPatientWhoNeedToBeCheckup(patient);
             }
