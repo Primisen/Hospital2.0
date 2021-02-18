@@ -17,12 +17,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
         Connection connection = Connector.getConnection();
 
-//        try {
         saveGeneralData(user, connection);
-//
-//        } catch (SQLException e) {
-//            throw new DaoException(e.getMessage());
-//        }
 
         Connector.releaseConnection(connection);
     }
