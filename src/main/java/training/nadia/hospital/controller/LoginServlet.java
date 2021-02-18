@@ -5,6 +5,7 @@ import training.nadia.hospital.entity.*;
 import training.nadia.hospital.service.AuthorizationService;
 import training.nadia.hospital.exception.ServiceException;
 import training.nadia.hospital.service.impl.AuthorizationServiceImpl;
+import training.nadia.hospital.util.Utility;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,15 +33,7 @@ public class LoginServlet extends HttpServlet {
             User user = authorizationService.authorize(login, password);
             session.setAttribute("user", user);
 
-            if (user.getRole() == Role.PATIENT) {
-                response.sendRedirect("/patient");
-
-            } else if (user.getRole() == Role.DOCTOR) {
-                response.sendRedirect("/doctor");
-
-            } else if (user.getRole() == Role.NURSE) {
-                response.sendRedirect("/nurse");
-            }
+            Utility.redirect(user, response);
 
         } catch (ServiceException e) {
             Logger logger = Logger.getRootLogger();
