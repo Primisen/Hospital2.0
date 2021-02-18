@@ -17,6 +17,8 @@ import java.io.IOException;
 @WebServlet("/nurse")
 public class NurseServlet extends HttpServlet {
 
+    private Logger logger = Logger.getRootLogger();
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,7 +32,6 @@ public class NurseServlet extends HttpServlet {
             try {
                 nurseService.performTheTherapy(nurse, patientId);
             } catch (ServiceException e) {
-                Logger logger = Logger.getRootLogger();
                 logger.error(e.getMessage());
             }
         }
@@ -47,7 +48,7 @@ public class NurseServlet extends HttpServlet {
         try {
             nurseService.identifyNursePatients(nurse);
         } catch (ServiceException e) {
-            e.printStackTrace();//
+            logger.error(e.getMessage());
         }
 
         request.setAttribute("nurse", nurse);
